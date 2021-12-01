@@ -15,20 +15,14 @@ class OngoingGame:
         self.last_wop = None # or 'w' or 'p'
 
 
-#def compute_join(game, argument, sender_firstname, sender_username):
-#    joined_users = chat_round['joined_users']
-#    if update.effective_user.username in joined_users.keys():
-#        update.effective_message.reply_text(
-#            message('already_in').format(update.effective_user.first_name)
-#        )
-#    else:
-#        joined_users[update.effective_user.username] = update.effective_user
-#        update.effective_message.reply_text(
-#            # TODO: More creative responses
-#            message('welcome').format(update.effective_user.first_name)
-#        )
-#
-#
+def compute_join(game, argument, sender_firstname, sender_username):
+    if sender_username in game.joined_users.keys():
+        return ('already_in', sender_firstname)
+    else:
+        game.joined_users[sender_username] = sender_firstname
+        return ('welcome', sender_firstname)
+
+
 #def compute_leave(game, argument, sender_firstname, sender_username):
 #    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
 #    joined_users = chat_round['joined_users']
@@ -164,7 +158,7 @@ class OngoingGame:
 
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
-        pass # return compute_join(game, argument, sender_firstname, sender_username)
+        return compute_join(game, argument, sender_firstname, sender_username)
     # elif command == 'leave':
     #     return compute_leave(game, argument, sender_firstname, sender_username)
     #elif command == 'random':

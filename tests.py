@@ -18,12 +18,13 @@ class TestStringMethods(unittest.TestCase):
 
     def test_start(self):
         self.check_sequence([
-            (['start', '', 'fina', 'usna'], ['unknown_command', 'fina']),
+            (('start', '', 'fina', 'usna'), ('unknown_command', 'fina')),
         ])
 
     def test_join(self):
         self.check_sequence([
-            (['join', '', 'fina', 'usna'], ['welcome', 'fina']),
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'fina', 'usna'), ('already_in', 'fina')),
         ])
 
 if __name__ == '__main__':
