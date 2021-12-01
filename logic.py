@@ -23,23 +23,17 @@ def compute_join(game, argument, sender_firstname, sender_username):
         return ('welcome', sender_firstname)
 
 
-#def compute_leave(game, argument, sender_firstname, sender_username):
-#    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-#    joined_users = chat_round['joined_users']
-#    last_chooser = chat_round['last_chooser']
-#    last_chosen = chat_round['last_chosen']
-#
-#    if update.effective_user.username in joined_users:
-#        update.effective_message.reply_text(
-#            message('leave').format(update.effective_user.first_name)
-#        )
-#        del joined_users[update.effective_user.username]
-#        if last_chosen is not None and last_chosen.username == update.effective_user.username:
-#            last_chosen = None
-#    else:
-#        update.effective_message.reply_text(
-#            message('already_left').format(update.effective_user.first_name)
-#        )
+def compute_leave(game, argument, sender_firstname, sender_username):
+    if sender_username not in game.joined_users:
+        return ('already_left', sender_firstname)
+
+    del game.joined_users[sender_username]
+    if game.last_chooser is not None and game.last_chooser[0] == update.effective_user.username:
+        game.last_chooser = None
+    if game.last_chosen is not None and game.last_chosen[0] == update.effective_user.username:
+        game.last_chosen = None
+
+    return ('leave', sender_firstname)
 
 
 #def compute_random(update: Update, context: CallbackContext) -> None:
@@ -159,8 +153,8 @@ def compute_join(game, argument, sender_firstname, sender_username):
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
         return compute_join(game, argument, sender_firstname, sender_username)
-    # elif command == 'leave':
-    #     return compute_leave(game, argument, sender_firstname, sender_username)
+    elif command == 'leave':
+        return compute_leave(game, argument, sender_firstname, sender_username)
     #elif command == 'random':
     #    return compute_random(game, argument, sender_firstname, sender_username)
     #elif command == 'wop':

@@ -27,5 +27,21 @@ class TestStringMethods(unittest.TestCase):
             (('join', '', 'fina', 'usna'), ('already_in', 'fina')),
         ])
 
+    def test_leave(self):
+        self.check_sequence([
+            (('leave', '', 'fina', 'usna'), ('already_left', 'fina')),
+        ])
+
+    def test_join_leave(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('leave', '', 'fina', 'usna'), ('leave', 'fina')),
+            (('leave', '', 'fina', 'usna'), ('already_left', 'fina')),
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('leave', '', 'fina', 'usna'), ('leave', 'fina')),
+            (('leave', '', 'fina', 'usna'), ('already_left', 'fina')),
+        ])
+
+
 if __name__ == '__main__':
     unittest.main()
