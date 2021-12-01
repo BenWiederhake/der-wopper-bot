@@ -7,6 +7,8 @@ import secrets
 from telegram import Chat, ChatMember, ChatMemberUpdated, ParseMode, Update
 from telegram.ext import CallbackContext, ChatMemberHandler, CommandHandler, Updater
 import logic
+from logic import WOP_TO_WOP
+
 
 logger = logging.getLogger(__name__)
 
@@ -73,53 +75,23 @@ MESSAGES = {
     ],
 }
 
-WOP_TO_WOP = {
-    'w': 'Wahrheit',
-    'p': 'Pflicht',
-}
-
 
 def message(msg_id):
     return secrets.choice(MESSAGES[msg_id])
 
 
 # bot_data is a dict of:
-# * 'chat_rounds', which is a dict of:
+# * 'ongoing_games', which is a dict of:
 #   * keys: chat ID
-#   * values: dict of:
-#     * 'joined_users', value is a dict of:
-#       * username to telegram.User's (yes, can be changed, therefore it's insecure, meh)
-#     * 'last_chooser', value is either None or the telegram.User of the last choosing person
-#     * 'last_chosen', value is either None or the telegram.User of the last chosen person
-#     * 'last_wop', value is either None or 'w' or 'p'
+#   * values: logic.OngoingGame
 
 def get_chat_round(bot_data, chatID):
-    chats = bot_data.setdefault('chat_rounds', dict())
-    return chats.setdefault(chatID, {'joined_users': dict(), 'last_chosen': None, 'last_chooser': None, 'last_wop': None})
-
-
-def cmd_show_chats(update: Update, context: CallbackContext) -> None:
-    keys = ', '.join(str(e) for e in context.bot_data.keys())
-    chat_ids = ', '.join(str(e) for e in context.bot_data.setdefault('chat_rounds', dict()).keys())
-    text = (
-        f"@{context.bot.username} ist in den Chats {chat_ids}."
-        f"\nWeiterhin kenne ich Kontext zu den keys {keys}."
-    )
-    update.effective_message.reply_text(text)
+    chats = bot_data.setdefault('ongoing_games', dict())
+    return chats.setdefault(chatID, logic.OngoingGame)
 
 
 def cmd_show_state(update: Update, context: CallbackContext) -> None:
-    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-    last_chooser = chat_round['last_chooser']
-    last_chosen = chat_round['last_chosen']
-    last_wop = chat_round['last_wop']
-    text = (
-        f"Im Moment sind die Spieler {['@' + u for u in chat_round['joined_users'].keys()]} in der Runde."
-        f"\nZuletzt hat {'@' + last_chooser.username if last_chooser else 'keiner'} gewählt."
-        f"\nZuletzt wurde {'@' + last_chosen.username if last_chosen else 'keiner'} gewählt."
-        f"\nDie Wahl ist {WOP_TO_WOP[last_wop] if last_wop else 'noch ausstehend'}."
-    )
-    update.effective_message.reply_text(text)
+    update.effective_message.reply_text(str(context.bot_data))
 
 
 def cmd_start(update: Update, context: CallbackContext) -> None:
@@ -144,159 +116,16 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
     )
 
 
-def cmd_join(update: Update, context: CallbackContext) -> None:
-    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-    joined_users = chat_round['joined_users']
-    if update.effective_user.username in joined_users.keys():
+def cmd_for(command):
+    def cmd_handler(update: Update, context: CallbackContext):
+        ongoing_game = get_chat_round(context.bot_data, update.effective_chat.id)
+        maybe_response = logic.handle(ongoing_game, command, '', update.effective_user.first_name. update.effective_user.username)
+        if maybe_response is None:
+            return  # Don't respond at all
         update.effective_message.reply_text(
-            message('already_in').format(update.effective_user.first_name)
+            message(maybe_response[0]).format(*maybe_response[1:])
         )
-    else:
-        joined_users[update.effective_user.username] = update.effective_user
-        update.effective_message.reply_text(
-            # TODO: More creative responses
-            message('welcome').format(update.effective_user.first_name)
-        )
-
-
-def cmd_leave(update: Update, context: CallbackContext) -> None:
-    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-    joined_users = chat_round['joined_users']
-    last_chooser = chat_round['last_chooser']
-    last_chosen = chat_round['last_chosen']
-
-    if update.effective_user.username in joined_users:
-        update.effective_message.reply_text(
-            message('leave').format(update.effective_user.first_name)
-        )
-        del joined_users[update.effective_user.username]
-        if last_chosen is not None and last_chosen.username == update.effective_user.username:
-            last_chosen = None
-    else:
-        update.effective_message.reply_text(
-            message('already_left').format(update.effective_user.first_name)
-        )
-
-
-def cmd_random(update: Update, context: CallbackContext) -> None:
-    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-    last_chooser = chat_round['last_chooser']
-    last_chosen = chat_round['last_chosen']
-
-    # FIXME: Complain if not your turn!
-
-    joined_users = chat_round['joined_users']
-    if update.effective_user.username not in joined_users:
-        update.effective_message.reply_text(
-            message('nonplayer').format(update.effective_user.first_name)
-        )
-        return
-
-    if last_chooser is not None and last_chosen is not None:
-        if update.effective_user.username == last_chooser.username and last_chosen.username in joined_users:
-            update.effective_message.reply_text(
-                message('random_already_chosen').format(update.effective_user.first_name, last_chosen.username)
-            )
-            return
-        if update.effective_user.username != last_chooser.username and update.effective_user.username != last_chosen.username:
-            update.effective_message.reply_text(
-                message('random_already_chosen').format(update.effective_user.first_name, last_chosen.username)
-            )
-            return
-
-    available_players = joined_users.copy()
-    del available_players[update.effective_user.username]
-
-    if len(available_players) == 0:
-        update.effective_message.reply_text(
-            message('random_singleplayer').format(update.effective_user.first_name)
-        )
-        return
-
-    chosen_username = secrets.choice(list(available_players.keys()))
-    chosen_player = available_players[chosen_username]
-    chat_round['last_chooser'] = update.effective_user
-    chat_round['last_chosen'] = chosen_player
-    chat_round['last_wop'] = None
-    update.effective_message.reply_text(
-        message('random_chosen').format(update.effective_user.username)
-    )
-
-
-def cmd_wop(update: Update, context: CallbackContext) -> None:
-    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-    last_chooser = chat_round['last_chooser']
-    last_chosen = chat_round['last_chosen']
-    last_wop = chat_round['last_wop']
-
-    joined_users = chat_round['joined_users']
-    if update.effective_user.username not in joined_users:
-        update.effective_message.reply_text(
-            message('nonplayer').format(update.effective_user.first_name)
-        )
-        return
-
-    if last_chosen is None:
-        update.effective_message.reply_text(
-            message('wop_nobodychosen').format(update.effective_user.first_name, secrets.choice(WOP_TO_WOP.values()))
-        )
-        return
-    if last_chosen.username != update.effective_user.username:
-        update.effective_message.reply_text(
-            message('wop_nonchosen').format(update.effective_user.first_name, last_chosen.username)
-        )
-        return
-
-    if last_wop is not None:
-        update.effective_message.reply_text(
-            message('wop_again').format(update.effective_user.first_name, WOP_TO_WOP[last_wop])
-        )
-        return
-
-    if last_chooser is None:
-        last_chooser_username = '???'
-    else:
-        last_chooser_username = last_chooser.username
-
-    chat_round['last_wop'] = secrets.choice('wp')
-    update.effective_message.reply_text(
-        message('wop_result_' + chat_round['last_wop']).format(update.effective_user.first_name, last_chooser_username)
-    )
-
-
-def cmd_who(update: Update, context: CallbackContext) -> None:
-    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-    last_chooser = chat_round['last_chooser']
-    last_chosen = chat_round['last_chosen']
-    last_wop = chat_round['last_wop']
-
-    if last_chooser is None:
-        update.effective_message.reply_text(
-            message('who_nobody').format(update.effective_user.first_name)
-        )
-        return
-
-    if last_chosen is None:
-        update.effective_message.reply_text(
-            message('who_kicked_or_removed').format(last_chooser.username)
-        )
-        return
-
-    if last_wop is None:
-        update.effective_message.reply_text(
-            message('who_no_wop').format(last_chooser.username, last_chosen.username)
-        )
-    else:
-        update.effective_message.reply_text(
-            message('who_wop_' + last_wop).format(last_chooser.first_name, last_chosen.username)
-        )
-
-
-def cmd_missing(update: Update, context: CallbackContext) -> None:
-    update.effective_message.reply_text(
-        message('unknown_command').format(update.effective_user.first_name)
-    )
-
+    return cmd_handler
 
 def run():
     logging.basicConfig(level=logging.DEBUG,
@@ -311,16 +140,15 @@ def run():
 
     # FIXME: In chats schreiben, wenn neu gestartet
 
-    dispatcher.add_handler(CommandHandler("show_chats", cmd_show_chats))
     dispatcher.add_handler(CommandHandler("show_state", cmd_show_state))
     dispatcher.add_handler(CommandHandler("start", cmd_start))
-    dispatcher.add_handler(CommandHandler("join", cmd_join))
-    dispatcher.add_handler(CommandHandler("leave", cmd_leave))
-    dispatcher.add_handler(CommandHandler("random", cmd_random))
-    dispatcher.add_handler(CommandHandler("wop", cmd_wop))
-    dispatcher.add_handler(CommandHandler("who", cmd_who))
-    dispatcher.add_handler(CommandHandler("kick", cmd_missing))
-    dispatcher.add_handler(CommandHandler("players", cmd_missing))
+    dispatcher.add_handler(CommandHandler("join", cmd_for('join'))
+    dispatcher.add_handler(CommandHandler("leave", cmd_for('leave'))
+    dispatcher.add_handler(CommandHandler("random", cmd_for('random'))
+    dispatcher.add_handler(CommandHandler("wop", cmd_for('wop'))
+    dispatcher.add_handler(CommandHandler("who", cmd_for('who'))
+    dispatcher.add_handler(CommandHandler("kick", cmd_for('kick'))
+    dispatcher.add_handler(CommandHandler("players", cmd_for('players'))
 
     # Start the Bot
     # We pass 'allowed_updates' handle *all* updates including `chat_member` updates
