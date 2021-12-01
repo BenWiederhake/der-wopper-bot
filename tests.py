@@ -7,7 +7,7 @@ import unittest
 
 class TestStringMethods(unittest.TestCase):
     def check_sequence(self, sequence):
-        game = logic.OngoingGame()
+        game = logic.OngoingGame('Static seed for reproducible randomness, do not change')
         for i, (query, expected_response) in enumerate(sequence):
             with self.subTest(step=i):
                 actual_response = logic.handle(game, *query)

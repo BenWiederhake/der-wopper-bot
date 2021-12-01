@@ -1,6 +1,9 @@
 #!/bin/false
 # Not for execution
 
+import random
+import secrets
+
 WOP_TO_WOP = {
     'w': 'Wahrheit',
     'p': 'Pflicht',
@@ -8,11 +11,15 @@ WOP_TO_WOP = {
 
 
 class OngoingGame:
-    def __init__(self):
+    def __init__(self, seed=None):
         self.joined_users = dict() # username to firstname
         self.last_chooser = None # or (username, firstname) tuple
         self.last_chosen = None # or (username, firstname) tuple
         self.last_wop = None # or 'w' or 'p'
+        if seed is None:
+            self.rng = random.Random(seed)  # Necessary for testing
+        else:
+            self.rng = secrets.SystemRandom()
 
 
 def compute_join(game, argument, sender_firstname, sender_username):
@@ -24,7 +31,7 @@ def compute_join(game, argument, sender_firstname, sender_username):
 
 
 def compute_leave(game, argument, sender_firstname, sender_username):
-    if sender_username not in game.joined_users:
+    if sender_username not in game.joined_users.keys():
         return ('already_left', sender_firstname)
 
     del game.joined_users[sender_username]
