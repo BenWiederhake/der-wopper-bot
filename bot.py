@@ -14,49 +14,62 @@ logger = logging.getLogger(__name__)
 
 MESSAGES = {
     'welcome': [
-        'Alles klar, {}!',
-        'Na dann viel Spaß, {}!',
+        'Alles klar, {0}!',
+        'Na dann viel Spaß, {0}!',
+        'Au weia, {0} ist mit von der Partie, das kann ja heiter werden!',
+        'Schön, dass du dabei bist, {0}!',
+        '{0}! Es ist eine Falle!',
     ],
     'already_in': [
-        'Du bist doch schon drin, {}! :D',
-        'Geht nicht, du bist schon drin, {}.',
-        'Alzheimer, {}? Du bist schon drin ;)',
+        'Du bist doch schon drin, {0}! :D',
+        'Geht nicht, du bist schon drin, {0}.',
+        'Alzheimer, {0}? Du bist schon drin ;)',
     ],
     'leave': [
-        'Och, schade. Na bis dann, {}!',
+        'Och, schade. Na bis dann, {0}!',
+        'Na toll, Ihr habt {0} erfolgreich vergrault!',
+        '{0} möchte uns verlassen! Schade, dann bis zum nächsten Mal.',
     ],
     'already_left': [
-        'Pöh! Du warst sowieso nicht in der Runde, {}!',
+        'Pöh! Du warst sowieso nicht in der Runde, {0}!',
+        'Wenn der Kuchen redet, schweigen die Krümel, {0}!',
+        'Mehr als "nicht dabei" geht nicht {0}.',
     ],
     'nonplayer': [
-        'Du bist der Runde noch nicht beigetreten, {}. Probier doch mal /join!',
+        'Du bist der Runde noch nicht beigetreten, {0}. Probier doch mal /join!',
+        'I\'m sorry, {0}, I\'m afraid I can\'t let you do that. Du bist noch nicht der Runde beigetreten. Kleiner Tipp: Benutze /join! ;)',
     ],
     'random_singleplayer': [
         'Du spielst gerade alleine, {0}. Hmm, wen wähle ich da bloß? Oh, ich hab\'s! Ich wähle *dich*, {0}!',
+        'Du spielst gerade mit dir selbst, {0}. Ist das jetzt eine win-win Situation?',
+        'Alleine spielen ist doof! Frag doch ein paar Leute, ob sie mitmachen wollen. Vielleicht findet sich ja wer :)',
     ],
     'random_chosen': [
-        'I choose you, @{}!',
+        'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen. Du kannst auch zufällig wählen, mit /wop.',
+        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? Oder /wop?',
     ],
     'random_not_involved': [
         'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
     ],
     'random_already_chosen': [
         'Du hast doch schon jemanden gewählt, {0}? Und zwar @{1}!',
+        'Das hättest du dir vorher überlegen müssen {0}. Jetzt ist @{1} schon dran.',
     ],
-    'wop_nobodychosen': [
-        'Ich bin verwirrt {0}, aber eigentlich ist zur Zeit niemand dran. Ich sag jetzt mal {1}, hilft das?'
+    'wop_nobodychosen': [ # {1} ist 'Wahrheit' oder 'Pflicht'
+        'Ich bin verwirrt {0}, eigentlich ist zur Zeit niemand dran. Ich sag jetzt mal {1}, hilft das?',
+        '{0}, du hast das goldene Ahnungslos gezogen. Magst du vielleicht {1} machen?',
     ],
     'wop_nonchosen': [
-        'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.'
+        'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.',
     ],
     'wop_again': [
-        'Du hast doch schon gefragt, {0}? Ich bleibe bei {1}. Jetzt ist @{2} dran!',
+        'Das steht doch schon fest, {0}? Es bleibt bei {1}.',
     ],
     'wop_result_w': [
-        'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}.'
+        'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}.',
     ],
     'wop_result_p': [
-        'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}.'
+        'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}.',
     ],
     'who_nobody': [
         'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.',
@@ -71,10 +84,10 @@ MESSAGES = {
         'Im Moment ist entweder @{1} dran, Wahrheit oder Pflicht zu wählen; oder @{0} muss sich eine Frage/Aufgabe ausdenken; oder @{1} muss darauf reagieren.',
     ],
     'who_wop_w': [
-        'Im Moment ist @{1} dran, denn {0} hat Wahrheit gewählt. Wenn du fertig bist, wähle mit /random den nächsten Spieler!',
+        'Im Moment ist @{1} dran, denn es hat Wahrheit gewählt, und muss jetzt {0} eine Frage beantworten. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
     ],
     'who_wop_p': [
-        'Im Moment ist @{1} dran, denn {0} hat Pflicht gewählt. Wenn du fertig bist, wähle mit /random den nächsten Spieler!',
+        'Im Moment ist @{1} dran, denn es hat Pflicht gewählt, und muss jetzt eine Aufgabe für {0} erledigen. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
     ],
     'players_nobody': [
         'Sorry {0}, im Moment spielt keiner. PLICHT: Alle müssen /join schreiben, und irgendjemand schreibt /random! :D',
