@@ -134,5 +134,9 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_wop(game, argument, sender_firstname, sender_username)
     #elif command == 'who':
     #    return compute_who(game, argument, sender_firstname, sender_username)
+    #elif command == 'kick':
+    #    return compute_kick(game, argument, sender_firstname, sender_username)
+    #elif command == 'players':
+    #    return compute_players(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)
