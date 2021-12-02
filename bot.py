@@ -147,6 +147,14 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
     )
 
 
+def cmd_reset(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    context.bot_data.clear()
+    update.effective_message.reply_text('… I have no memory of this place.')
+
+
 def cmd_for(command):
     def cmd_handler(update: Update, context: CallbackContext):
         ongoing_game = get_chat_round(context.bot_data, update.effective_chat.id)
@@ -157,6 +165,7 @@ def cmd_for(command):
             message(maybe_response[0]).format(*maybe_response[1:])
         )
     return cmd_handler
+
 
 def run():
     logging.basicConfig(level=logging.DEBUG,
@@ -172,6 +181,7 @@ def run():
     # FIXME: In chats schreiben, wenn neu gestartet
 
     dispatcher.add_handler(CommandHandler("show_state", cmd_show_state))
+    dispatcher.add_handler(CommandHandler("reset", cmd_reset))
     dispatcher.add_handler(CommandHandler("start", cmd_start))
     dispatcher.add_handler(CommandHandler("join", cmd_for('join'))
     dispatcher.add_handler(CommandHandler("leave", cmd_for('leave'))
