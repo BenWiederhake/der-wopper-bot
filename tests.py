@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Run as: ./tests.py
 
+import bot  # check whether the file parses
 import logic
 import unittest
 
