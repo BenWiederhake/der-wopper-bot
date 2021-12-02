@@ -199,12 +199,6 @@ def message(msg_id):
     return secrets.choice(MESSAGES[msg_id])
 
 
-# bot_data is a dict of:
-# * 'ongoing_games', which is a dict of:
-#   * keys: chat ID
-#   * values: logic.OngoingGame
-
-
 def cmd_admin(update: Update, context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
@@ -225,7 +219,7 @@ def cmd_show_state(update: Update, context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
-    update.effective_message.reply_text(str(context.bot_data))
+    update.effective_message.reply_text(str(ONGOING_GAMES))
 
 
 def cmd_resetall(update: Update, context: CallbackContext) -> None:
