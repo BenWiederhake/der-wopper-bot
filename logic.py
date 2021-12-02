@@ -203,6 +203,42 @@ def compute_choose(game, argument, sender_firstname, sender_username) -> None:
     return ('chosen_chosen', chosen_username, sender_firstname)
 
 
+def check_can_do_x(game, sender_firstname, sender_username):
+    if sender_username not in game.joined_users.keys():
+        return ('nonplayer', sender_firstname)
+
+    if game.last_chooser is None or game.last_chosen is None:
+        return ('dox_choose_first', sender_firstname)
+
+    if game.last_chooser[0] == sender_username:
+        return ('dox_wrong_side', sender_firstname, game.last_chosen[0])
+    if game.last_chosen[0] != sender_username:
+        return ('dox_not_involved', sender_firstname, game.last_chosen[0], game.last_chooser[1])
+
+    if game.last_wop is not None:
+        return ('dox_already_' + game.last_wop, sender_firstname, game.last_chooser[0])
+
+    return None
+
+
+def compute_do_w(game, argument, sender_firstname, sender_username) -> None:
+    why_not = check_can_do_x(game, sender_firstname, sender_username)
+    if why_not:
+        return why_not
+
+    game.last_wop = 'w'
+    return ('dox_w', sender_firstname, game.last_chooser[0])
+
+
+def compute_do_p(game, argument, sender_firstname, sender_username) -> None:
+    why_not = check_can_do_x(game, sender_firstname, sender_username)
+    if why_not:
+        return why_not
+
+    game.last_wop = 'p'
+    return ('dox_p', sender_firstname, game.last_chooser[0])
+
+
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
         return compute_join(game, argument, sender_firstname, sender_username)
@@ -220,10 +256,10 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_players(game, argument, sender_firstname, sender_username)
     elif command == 'uptime':
         return compute_uptime(game, argument, sender_firstname, sender_username)
-    #elif command == 'do_w':
-    #    return compute_players(game, argument, sender_firstname, sender_username)
-    #elif command == 'do_p':
-    #    return compute_players(game, argument, sender_firstname, sender_username)
+    elif command == 'do_w':
+        return compute_do_w(game, argument, sender_firstname, sender_username)
+    elif command == 'do_p':
+        return compute_do_p(game, argument, sender_firstname, sender_username)
     elif command == 'choose':
         return compute_choose(game, argument, sender_firstname, sender_username)
     else:

@@ -63,7 +63,7 @@ MESSAGES = {
         'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.',
     ],
     'wop_again': [
-        'Das steht doch schon fest, {0}? Es bleibt bei {1}.',
+        'Das steht doch schon fest, {0}? Es bleibt bei {1}. Jetzt entscheidet @{2}!',
     ],
     'wop_result_w': [
         'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}.',
@@ -138,6 +138,27 @@ MESSAGES = {
     ],
     'unknown_user': [
         'Hmm, das verstehe ich leider nicht, {0}. Probier\'s doch mal mit dem @username, also zum Beispiel @{1}.',
+    ],
+    'dox_choose_first': [
+        'Sorry {0}, aber zuerst müssen die Personen feststehen. Probier doch mal /random!',
+    ],
+    'dox_wrong_side': [
+        'Sorry {0}, aber @{1} wählt Wahrheit oder Pflicht, und du darfst eine Frage/Aufgabe stellen!',
+    ],
+    'dox_not_involved': [
+        'Sorry {0}, aber gerade ist @{1} dran. Und {2} stellt dann dementsprechend eine Frage oder Aufgabe.',
+    ],
+    'dox_already_w': [
+        'Tja {0}, du hast schon Wahrheit gewählt. Jetzt musst du eine Frage von @{1} beantworten.',
+    ],
+    'dox_already_p': [
+        'Tja {0}, du hast schon Pflicht gewählt. Jetzt musst du eine Aufgabe für @{1} erledigen.',
+    ],
+    'dox_w': [
+        'Soso, {0} wählt Wahrheit. @{1}, welche Wahrheit möchtest du über {0} wissen?',
+    ],
+    'dox_p': [
+        'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen?',
     ],
     'unknown_command': [
         'Häh?',
