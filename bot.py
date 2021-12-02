@@ -128,7 +128,7 @@ def message(msg_id):
 
 def get_chat_round(bot_data, chatID):
     chats = bot_data.setdefault('ongoing_games', dict())
-    return chats.setdefault(chatID, logic.OngoingGame)
+    return chats.setdefault(chatID, logic.OngoingGame())
 
 
 def cmd_show_state(update: Update, context: CallbackContext) -> None:
@@ -168,7 +168,7 @@ def cmd_reset(update: Update, context: CallbackContext) -> None:
 def cmd_for(command):
     def cmd_handler(update: Update, context: CallbackContext):
         ongoing_game = get_chat_round(context.bot_data, update.effective_chat.id)
-        maybe_response = logic.handle(ongoing_game, command, '', update.effective_user.first_name. update.effective_user.username)
+        maybe_response = logic.handle(ongoing_game, command, '', update.effective_user.first_name, update.effective_user.username)
         if maybe_response is None:
             return  # Don't respond at all
         update.effective_message.reply_text(
@@ -193,13 +193,13 @@ def run():
     dispatcher.add_handler(CommandHandler("show_state", cmd_show_state))
     dispatcher.add_handler(CommandHandler("reset", cmd_reset))
     dispatcher.add_handler(CommandHandler("start", cmd_start))
-    dispatcher.add_handler(CommandHandler("join", cmd_for('join'))
-    dispatcher.add_handler(CommandHandler("leave", cmd_for('leave'))
-    dispatcher.add_handler(CommandHandler("random", cmd_for('random'))
-    dispatcher.add_handler(CommandHandler("wop", cmd_for('wop'))
-    dispatcher.add_handler(CommandHandler("who", cmd_for('who'))
-    dispatcher.add_handler(CommandHandler("kick", cmd_for('kick'))
-    dispatcher.add_handler(CommandHandler("players", cmd_for('players'))
+    dispatcher.add_handler(CommandHandler("join", cmd_for('join')))
+    dispatcher.add_handler(CommandHandler("leave", cmd_for('leave')))
+    dispatcher.add_handler(CommandHandler("random", cmd_for('random')))
+    dispatcher.add_handler(CommandHandler("wop", cmd_for('wop')))
+    dispatcher.add_handler(CommandHandler("who", cmd_for('who')))
+    dispatcher.add_handler(CommandHandler("kick", cmd_for('kick')))
+    dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
 
     # Start the Bot
     # We pass 'allowed_updates' handle *all* updates including `chat_member` updates
