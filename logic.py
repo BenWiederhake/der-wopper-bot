@@ -16,7 +16,7 @@ class OngoingGame:
         self.last_chooser = None # or (username, firstname) tuple
         self.last_chosen = None # or (username, firstname) tuple
         self.last_wop = None # or 'w' or 'p'
-        if seed is None:
+        if seed is not None:
             self.rng = random.Random(seed)  # Necessary for testing
         else:
             self.rng = secrets.SystemRandom()
