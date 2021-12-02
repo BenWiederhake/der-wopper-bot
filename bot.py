@@ -177,13 +177,83 @@ def message(msg_id):
 #   * keys: chat ID
 #   * values: logic.OngoingGame
 
-def get_chat_round(bot_data, chatID):
-    chats = bot_data.setdefault('ongoing_games', dict())
-    return chats.setdefault(chatID, logic.OngoingGame())
+
+def cmd_admin(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    update.effective_message.reply_text(
+        f'The admin can do:'
+        f'\n/admin → show admin commands'
+        f'\n/show_state → show *all* internal state'
+        f'\n/resetall → reset all games'
+        f'\n/resethere → reset game in the current room'
+        f'\n/permit → permit games in the current room, if not already'
+        f'\n/deny → stop and deny games in the current room'
+        f'\n/denyall → stop and deny all games in all rooms'
+    )
 
 
 def cmd_show_state(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
     update.effective_message.reply_text(str(context.bot_data))
+
+
+def cmd_resetall(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    chats = context.bot_data.setdefault('ongoing_games', dict())
+    for key in chats.keys():
+        chats[key] = logic.OngoingGame()
+    update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(chats.keys())} erlaubte Räume blieben erhalten.)')
+
+
+def cmd_resethere(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    chats = context.bot_data.setdefault('ongoing_games', dict())
+    if update.effective_chat.id in chats:
+        chats[update.effective_chat.id] = logic.OngoingGame()
+        update.effective_message.reply_text('Spiel in diesem Raum zurückgesetzt. Spieler müssen erneut /join-en.')
+    else:
+        update.effective_message.reply_text('In diesem Raum sind noch keine Spiele erlaubt. Meintest du /permit?')
+
+
+def cmd_permit(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    chats = context.bot_data.setdefault('ongoing_games', dict())
+    if update.effective_chat.id in chats:
+        update.effective_message.reply_text('In diesem Raum kann man mit mir bereits Spiele spielen. Vielleicht meintest du /reset, /start, oder /join?')
+    else:
+        chats[update.effective_chat.id] = logic.OngoingGame()
+        update.effective_message.reply_text('In diesem Raum kann man nun Wahrheit oder Pflicht mit meiner Hilfe spielen. Probier doch mal /start oder /join! :)')
+
+
+def cmd_deny(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    chats = context.bot_data.setdefault('ongoing_games', dict())
+    if update.effective_chat.id in chats:
+        del chats[update.effective_chat.id]
+        update.effective_message.reply_text('Spiel gelöscht.')
+    else:
+        update.effective_message.reply_text('Spiel ist bereits gelöscht(?)')
+
+
+def cmd_denyall(update: Update, context: CallbackContext) -> None:
+    if update.effective_user.username != secret.OWNER:
+        return
+
+    count = len(context.bot_data['ongoing_games']) if 'ongoing_games' in context.bot_data else 'Null'
+    context.bot_data['ongoing_games'] = dict()
+    update.effective_message.reply_text('Alle Spiele gelöscht.')
 
 
 def cmd_start(update: Update, context: CallbackContext) -> None:
@@ -214,14 +284,6 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
     )
 
 
-def cmd_reset(update: Update, context: CallbackContext) -> None:
-    if update.effective_user.username != secret.OWNER:
-        return
-
-    context.bot_data.clear()
-    update.effective_message.reply_text('… I have no memory of this place.')
-
-
 def cmd_for(command):
     def cmd_handler(update: Update, context: CallbackContext):
         if update.message is None or update.message.text is None:
@@ -229,7 +291,10 @@ def cmd_for(command):
         text = update.message.text.split(' ', 1)
         argument = text[1] if len(text) == 2 else ''
 
-        ongoing_game = get_chat_round(context.bot_data, update.effective_chat.id)
+        chats = context.bot_data.setdefault('ongoing_games', dict())
+        ongoing_game = chats.get(update.effective_chat.id)
+        if ongoing_game is None:
+            return  # No interactions permitted
         maybe_response = logic.handle(ongoing_game, command, argument, update.effective_user.first_name, update.effective_user.username)
         if maybe_response is None:
             return  # Don't respond at all
@@ -252,8 +317,14 @@ def run():
 
     # FIXME: In chats schreiben, wenn neu gestartet
 
+    dispatcher.add_handler(CommandHandler("admin", cmd_admin))
     dispatcher.add_handler(CommandHandler("show_state", cmd_show_state))
-    dispatcher.add_handler(CommandHandler("reset", cmd_reset))
+    dispatcher.add_handler(CommandHandler("resetall", cmd_resetall))
+    dispatcher.add_handler(CommandHandler("resethere", cmd_resethere))
+    dispatcher.add_handler(CommandHandler("permit", cmd_permit))
+    dispatcher.add_handler(CommandHandler("deny", cmd_deny))
+    dispatcher.add_handler(CommandHandler("denyall", cmd_denyall))
+
     dispatcher.add_handler(CommandHandler("start", cmd_start))
     dispatcher.add_handler(CommandHandler("join", cmd_for('join')))
     dispatcher.add_handler(CommandHandler("leave", cmd_for('leave')))
@@ -264,6 +335,7 @@ def run():
     dispatcher.add_handler(CommandHandler("do_w", cmd_for('do_w')))
     dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_w')))
     dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
+    dispatcher.add_handler(CommandHandler("uptime", cmd_for('uptime')))
     dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
 
     # Start the Bot

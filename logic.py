@@ -25,11 +25,17 @@ class OngoingGame:
         else:
             self.rng = secrets.SystemRandom()
 
-    def __repr__(self):
-        return str(self.__dict__())
+    def to_dict(self):
+        return dict(
+            joined_users=self.joined_users,
+            last_chooser=self.last_chooser,
+            last_chosen=self.last_chosen,
+            last_wop=self.last_wop,
+            init_datetime=self.init_datetime,
+        )
 
-    def __str__(self):
-        return str(self.__dict__())
+    def __repr__(self):
+        return str(self.to_dict())
 
 
 def compute_join(game, argument, sender_firstname, sender_username):
@@ -167,7 +173,7 @@ def compute_players(game, argument, sender_firstname, sender_username) -> None:
 
 
 def compute_uptime(game, argument, sender_firstname, sender_username) -> None:
-    return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.strftime(DATETIME_FORMAT))
+    return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.now().strftime(DATETIME_FORMAT))
 
 
 def compute_choose(game, argument, sender_firstname, sender_username) -> None:
