@@ -43,51 +43,37 @@ def compute_leave(game, argument, sender_firstname, sender_username):
     return ('leave', sender_firstname)
 
 
-#def compute_random(update: Update, context: CallbackContext) -> None:
-#    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-#    last_chooser = chat_round['last_chooser']
-#    last_chosen = chat_round['last_chosen']
-#
-#    # FIXME: Complain if not your turn!
-#
-#    joined_users = chat_round['joined_users']
-#    if update.effective_user.username not in joined_users:
-#        update.effective_message.reply_text(
-#            message('nonplayer').format(update.effective_user.first_name)
-#        )
-#        return
-#
-#    if last_chooser is not None and last_chosen is not None:
-#        if update.effective_user.username == last_chooser.username and last_chosen.username in joined_users:
-#            update.effective_message.reply_text(
-#                message('random_already_chosen').format(update.effective_user.first_name, last_chosen.username)
-#            )
-#            return
-#        if update.effective_user.username != last_chooser.username and update.effective_user.username != last_chosen.username:
-#            update.effective_message.reply_text(
-#                message('random_already_chosen').format(update.effective_user.first_name, last_chosen.username)
-#            )
-#            return
-#
-#    available_players = joined_users.copy()
-#    del available_players[update.effective_user.username]
-#
-#    if len(available_players) == 0:
-#        update.effective_message.reply_text(
-#            message('random_singleplayer').format(update.effective_user.first_name)
-#        )
-#        return
-#
-#    chosen_username = secrets.choice(list(available_players.keys()))
-#    chosen_player = available_players[chosen_username]
-#    chat_round['last_chooser'] = update.effective_user
-#    chat_round['last_chosen'] = chosen_player
-#    chat_round['last_wop'] = None
-#    update.effective_message.reply_text(
-#        message('random_chosen').format(update.effective_user.username)
-#    )
-#
-#
+def compute_random(game, argument, sender_firstname, sender_username):
+    if sender_username not in game.joined_users.keys():
+        return ('nonplayer', sender_firstname)
+
+    # If both last_chooser and last_chosen are None, then we're in the first round, and we want to allow it anyway.
+
+    # If only last_chooser is None, then *probably* last_chosen should be the one doing /random, but we'll allow it anyway.
+
+    # If only last_chosen is None, then *probably* last_chooser should be the one doing /random, but we'll allow it anyway.
+
+    # If both exist, only allow the last_chosen to do /random:
+    if game.last_chooser is not None and game.last_chosen is not None:
+        # There's a good chance the player just misunderstood.
+        if game.last_chooser[0] == sender_username:
+            return ('random_already_chosen', sender_firstname, game.last_chosen[0])
+        if game.last_chosen[0] != sender_username:
+            return ('random_not_involved', sender_firstname, game.last_chooser[1], game.last_chosen[0])
+
+    available_players = game.joined_users.copy()
+    del available_players[sender_username]
+
+    if len(available_players) == 0:
+        return ('random_singleplayer', sender_firstname)
+
+    chosen_username, chosen_firstname = game.rng.choice(list(available_players.items()))
+    game.last_chooser = (sender_username, sender_firstname)
+    game.last_chosen = (chosen_username, chosen_firstname)
+    game.last_wop = None
+    return ('random_chosen', chosen_username)
+
+
 #def compute_wop(update: Update, context: CallbackContext) -> None:
 #    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
 #    last_chooser = chat_round['last_chooser']
@@ -162,8 +148,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_join(game, argument, sender_firstname, sender_username)
     elif command == 'leave':
         return compute_leave(game, argument, sender_firstname, sender_username)
-    #elif command == 'random':
-    #    return compute_random(game, argument, sender_firstname, sender_username)
+    elif command == 'random':
+        return compute_random(game, argument, sender_firstname, sender_username)
     #elif command == 'wop':
     #    return compute_wop(game, argument, sender_firstname, sender_username)
     #elif command == 'who':

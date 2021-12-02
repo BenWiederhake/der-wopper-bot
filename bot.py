@@ -37,6 +37,9 @@ MESSAGES = {
     'random_chosen': [
         'I choose you, @{}!',
     ],
+    'random_not_involved': [
+        'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
+    ],
     'random_already_chosen': [
         'Du hast doch schon jemanden gewählt, {0}? Und zwar @{1}!',
     ],
