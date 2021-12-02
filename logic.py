@@ -155,7 +155,7 @@ def compute_players(game, argument, sender_firstname, sender_username) -> None:
     return ('players_many' + msg_suffix, sender_firstname, firstnames_text)
 
 
-def uptime(game, argument, sender_firstname, sender_username) -> None:
+def compute_uptime(game, argument, sender_firstname, sender_username) -> None:
     return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.strftime(DATETIME_FORMAT))
 
 
@@ -175,7 +175,7 @@ def handle(game, command, argument, sender_firstname, sender_username):
     elif command == 'players':
         return compute_players(game, argument, sender_firstname, sender_username)
     elif command == 'uptime':
-        return compute_players(game, argument, sender_firstname, sender_username)
+        return compute_uptime(game, argument, sender_firstname, sender_username)
     #elif command == 'do_w':
     #    return compute_players(game, argument, sender_firstname, sender_username)
     #elif command == 'do_p':
