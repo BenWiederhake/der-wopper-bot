@@ -176,5 +176,11 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_players(game, argument, sender_firstname, sender_username)
     elif command == 'uptime':
         return compute_players(game, argument, sender_firstname, sender_username)
+    #elif command == 'do_w':
+    #    return compute_players(game, argument, sender_firstname, sender_username)
+    #elif command == 'do_p':
+    #    return compute_players(game, argument, sender_firstname, sender_username)
+    #elif command == 'choose':
+    #    return compute_players(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)

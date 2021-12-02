@@ -156,8 +156,11 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
         f'Hi {update.effective_user.first_name}!'
         f'\n/join → an der Runde teilnehmen'
         f'\n/leave → Runde verlassen (keine Angst, du bleibst im Chat)'
-        f'\n/random → neue (andere) Person aus der Runde wählen'
+        f'\n/random → nächste Person zufällig aus der Runde wählen'
+        f'\n/choose @username → nächste Person wählen'
         f'\n/wop → zufällig Wahrheit oder Pflicht wählen'
+        f'\n/do_w → Wahrheit wählen'
+        f'\n/do_p → Pflicht wählen'
         f'\n/who → wiederholt, wer zur Zeit dran ist'
         f'\n/kick → die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)'
         f'\n/players → schreibt in den Chat wer alles an der Runde teilnimmt'
@@ -165,8 +168,11 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
         # For BotFather:
         # join - an der Runde teilnehmen
         # leave - Runde verlassen (keine Angst, du bleibst im Chat)
-        # random - neue (andere) Person aus der Runde wählen
+        # random - nächste Person zufällig aus der Runde wählen
+        # choose - nächste Person wählen (braucht @username dahinter)
         # wop - zufällig Wahrheit oder Pflicht wählen
+        # do_w - Wahrheit wählen
+        # do_p - Pflicht wählen
         # who - wiederholt, wer zur Zeit dran ist
         # kick - die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)
         # players - schreibt in den Chat wer alles an der Runde teilnimmt
@@ -220,6 +226,9 @@ def run():
     dispatcher.add_handler(CommandHandler("wop", cmd_for('wop')))
     dispatcher.add_handler(CommandHandler("who", cmd_for('who')))
     dispatcher.add_handler(CommandHandler("kick", cmd_for('kick')))
+    dispatcher.add_handler(CommandHandler("do_w", cmd_for('do_w')))
+    dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_w')))
+    dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
     dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
 
     # Start the Bot
