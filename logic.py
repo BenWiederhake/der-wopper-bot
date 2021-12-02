@@ -34,6 +34,15 @@ class OngoingGame:
             init_datetime=self.init_datetime,
         )
 
+    def from_dict(d):
+        g = OngoingGame()
+        g.joined_users = d['joined_users']
+        g.last_chooser = d['last_chooser']
+        g.last_chosen = d['last_chosen']
+        g.last_wop = d['last_wop']
+        g.init_datetime = d['init_datetime']
+        return g
+
     def __repr__(self):
         return str(self.to_dict())
 

@@ -13,6 +13,10 @@ class TestStringMethods(unittest.TestCase):
             with self.subTest(step=i):
                 actual_response = logic.handle(game, *query)
                 self.assertEqual(expected_response, actual_response)
+        d = game.to_dict()
+        g2 = logic.OngoingGame.from_dict(d)
+        d2 = g2.to_dict()
+        self.assertEqual(d, d2)
 
     def test_empty(self):
         self.check_sequence([])
