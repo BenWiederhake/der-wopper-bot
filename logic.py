@@ -95,32 +95,20 @@ def compute_wop(game, argument, sender_firstname, sender_username):
     return ('wop_result_' + game.last_wop, sender_firstname, last_chooser_username)
 
 
-#def compute_who(update: Update, context: CallbackContext) -> None:
-#    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-#    last_chooser = chat_round['last_chooser']
-#    last_chosen = chat_round['last_chosen']
-#    last_wop = chat_round['last_wop']
-#
-#    if last_chooser is None:
-#        update.effective_message.reply_text(
-#            message('who_nobody').format(update.effective_user.first_name)
-#        )
-#        return
-#
-#    if last_chosen is None:
-#        update.effective_message.reply_text(
-#            message('who_kicked_or_removed').format(last_chooser.username)
-#        )
-#        return
-#
-#    if last_wop is None:
-#        update.effective_message.reply_text(
-#            message('who_no_wop').format(last_chooser.username, last_chosen.username)
-#        )
-#    else:
-#        update.effective_message.reply_text(
-#            message('who_wop_' + last_wop).format(last_chooser.first_name, last_chosen.username)
-#        )
+def compute_who(game, argument, sender_firstname, sender_username) -> None:
+    if game.last_chooser is None and game.last_chosen is None:
+        return ('who_nobody', sender_firstname)
+
+    if game.last_chooser is None:
+        return ('who_no_chooser', sender_firstname, game.last_chosen[0])
+
+    if game.last_chosen is None:
+        return ('who_no_chosen', game.last_chooser[0])
+
+    if game.last_wop is None:
+        return ('who_no_wop', game.last_chooser[0], game.last_chosen[0])
+    else:
+        return ('who_wop_' + game.last_wop, game.last_chooser[1], game.last_chosen[0])
 
 
 def handle(game, command, argument, sender_firstname, sender_username):
@@ -132,8 +120,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_random(game, argument, sender_firstname, sender_username)
     elif command == 'wop':
         return compute_wop(game, argument, sender_firstname, sender_username)
-    #elif command == 'who':
-    #    return compute_who(game, argument, sender_firstname, sender_username)
+    elif command == 'who':
+        return compute_who(game, argument, sender_firstname, sender_username)
     #elif command == 'kick':
     #    return compute_kick(game, argument, sender_firstname, sender_username)
     #elif command == 'players':

@@ -61,8 +61,11 @@ MESSAGES = {
     'who_nobody': [
         'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.'
     ],
-    'who_kicked_or_removed': [
-        'Im Moment ist @{0} dran, einen neuen Spieler zu wählen.'
+    'who_no_chooser': [
+        'Sorry {0}, ich bin verwirrt. Zwar wurde @{1} gewählt, aber die andere Person fehlt. Probiere doch mal /random.'
+    ],
+    'who_no_chosen': [
+        'Im Moment ist @{0} dran, einen neuen Spieler mit /random zu wählen.'
     ],
     'who_no_wop': [
         'Im Moment ist entweder @{1} dran, Wahrheit oder Pflicht zu wählen; oder @{0} muss sich eine Frage/Aufgabe ausdenken; oder @{1} muss darauf reagieren.'

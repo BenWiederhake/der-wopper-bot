@@ -198,6 +198,41 @@ class TestStringMethods(unittest.TestCase):
             (('wop', '', 'fina2', 'usna2'), ('wop_again', 'fina2', 'Pflicht', '???')),  # Must be the same result
         ])
 
+    def test_who_error(self):
+        self.check_sequence([
+            (('who', '', 'qfina', 'qusna'), ('who_nobody', 'qfina')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('who', '', 'qfina', 'qusna'), ('who_no_chooser', 'qfina', 'usna2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('who', '', 'qfina', 'qusna'), ('who_no_chosen', 'usna1')),
+        ])
+
+    def test_who_regular(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('who', '', 'qfina', 'qusna'), ('who_no_wop', 'usna1', 'usna2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
+            (('who', '', 'qfina', 'qusna'), ('who_wop_p', 'fina1', 'usna2')),
+        ])
+
+
 
 if __name__ == '__main__':
     unittest.main()
