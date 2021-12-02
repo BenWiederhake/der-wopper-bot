@@ -35,9 +35,9 @@ def compute_leave(game, argument, sender_firstname, sender_username):
         return ('already_left', sender_firstname)
 
     del game.joined_users[sender_username]
-    if game.last_chooser is not None and game.last_chooser[0] == update.effective_user.username:
+    if game.last_chooser is not None and game.last_chooser[0] == sender_username:
         game.last_chooser = None
-    if game.last_chosen is not None and game.last_chosen[0] == update.effective_user.username:
+    if game.last_chosen is not None and game.last_chosen[0] == sender_username:
         game.last_chosen = None
 
     return ('leave', sender_firstname)
