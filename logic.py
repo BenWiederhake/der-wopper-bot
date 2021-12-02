@@ -74,47 +74,27 @@ def compute_random(game, argument, sender_firstname, sender_username):
     return ('random_chosen', chosen_username)
 
 
-#def compute_wop(update: Update, context: CallbackContext) -> None:
-#    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
-#    last_chooser = chat_round['last_chooser']
-#    last_chosen = chat_round['last_chosen']
-#    last_wop = chat_round['last_wop']
-#
-#    joined_users = chat_round['joined_users']
-#    if update.effective_user.username not in joined_users:
-#        update.effective_message.reply_text(
-#            message('nonplayer').format(update.effective_user.first_name)
-#        )
-#        return
-#
-#    if last_chosen is None:
-#        update.effective_message.reply_text(
-#            message('wop_nobodychosen').format(update.effective_user.first_name, secrets.choice(WOP_TO_WOP.values()))
-#        )
-#        return
-#    if last_chosen.username != update.effective_user.username:
-#        update.effective_message.reply_text(
-#            message('wop_nonchosen').format(update.effective_user.first_name, last_chosen.username)
-#        )
-#        return
-#
-#    if last_wop is not None:
-#        update.effective_message.reply_text(
-#            message('wop_again').format(update.effective_user.first_name, WOP_TO_WOP[last_wop])
-#        )
-#        return
-#
-#    if last_chooser is None:
-#        last_chooser_username = '???'
-#    else:
-#        last_chooser_username = last_chooser.username
-#
-#    chat_round['last_wop'] = secrets.choice('wp')
-#    update.effective_message.reply_text(
-#        message('wop_result_' + chat_round['last_wop']).format(update.effective_user.first_name, last_chooser_username)
-#    )
-#
-#
+def compute_wop(game, argument, sender_firstname, sender_username):
+    if sender_username not in game.joined_users:
+        return ('nonplayer', sender_firstname)
+
+    if game.last_chosen is None:
+        return ('wop_nobodychosen', sender_firstname, game.rng.choice(list(WOP_TO_WOP.values())))
+    if game.last_chosen[0] != sender_username:
+        return ('wop_nonchosen', sender_firstname, game.last_chosen[0])
+
+    if game.last_chooser is None:
+        last_chooser_username = '???'
+    else:
+        last_chooser_username = game.last_chooser[0]
+
+    if game.last_wop is not None:
+        return ('wop_again', sender_firstname, WOP_TO_WOP[game.last_wop], last_chooser_username)
+
+    game.last_wop = game.rng.choice('wp')
+    return ('wop_result_' + game.last_wop, sender_firstname, last_chooser_username)
+
+
 #def compute_who(update: Update, context: CallbackContext) -> None:
 #    chat_round = get_chat_round(context.bot_data, update.effective_chat.id)
 #    last_chooser = chat_round['last_chooser']
@@ -150,8 +130,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_leave(game, argument, sender_firstname, sender_username)
     elif command == 'random':
         return compute_random(game, argument, sender_firstname, sender_username)
-    #elif command == 'wop':
-    #    return compute_wop(game, argument, sender_firstname, sender_username)
+    elif command == 'wop':
+        return compute_wop(game, argument, sender_firstname, sender_username)
     #elif command == 'who':
     #    return compute_who(game, argument, sender_firstname, sender_username)
     else:

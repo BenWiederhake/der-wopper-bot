@@ -47,10 +47,10 @@ MESSAGES = {
         'Ich bin verwirrt {0}, aber eigentlich ist zur Zeit niemand dran. Ich sag jetzt mal {1}, hilft das?'
     ],
     'wop_nonchosen': [
-        'Sorry {0}, aber gerade ist @{1} dran.'
+        'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.'
     ],
     'wop_again': [
-        'Du hast doch schon gefragt, {0}? Ich bleibe bei {1}.',
+        'Du hast doch schon gefragt, {0}? Ich bleibe bei {1}. Jetzt ist @{2} dran!',
     ],
     'wop_result_w': [
         'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}.'

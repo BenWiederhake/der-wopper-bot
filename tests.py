@@ -132,6 +132,72 @@ class TestStringMethods(unittest.TestCase):
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
         ])
 
+    def test_wop_nonplayer(self):
+        self.check_sequence([
+            (('wop', '', 'fina', 'usna'), ('nonplayer', 'fina')),
+        ])
+
+    def test_wop_nobodychosen(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('wop', '', 'fina', 'usna'), ('wop_nobodychosen', 'fina', 'Pflicht')),  # Relies on seeded RNG
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('wop', '', 'fina1', 'usna1'), ('wop_nobodychosen', 'fina1', 'Pflicht')),  # Relies on seeded RNG
+        ])
+
+    def test_wop_nonchosen(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('wop', '', 'fina1', 'usna1'), ('wop_nonchosen', 'fina1', 'usna2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('wop', '', 'fina3', 'usna3'), ('wop_nonchosen', 'fina3', 'usna2')),
+        ])
+
+    def test_wop_regular(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', '???')),  # Relies on seeded RNG
+        ])
+
+    def test_wop_again(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
+            (('wop', '', 'fina2', 'usna2'), ('wop_again', 'fina2', 'Pflicht', 'usna1')),  # Must be the same result
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_again', 'fina2', 'Pflicht', '???')),  # Must be the same result
+        ])
+
 
 if __name__ == '__main__':
     unittest.main()
