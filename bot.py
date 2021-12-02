@@ -304,6 +304,7 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
         f'\n/kick → die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)'
         f'\n/players → schreibt in den Chat wer alles an der Runde teilnimmt'
         f'\nMehr macht der Bot nicht. Man muss selber Fragen stellen, Fragen beantworten, oder kapieren wann man dran ist :P'
+        f'\nhttps://github.com/BenWiederhake/der-wopper-bot'
         # For BotFather:
         # join - an der Runde teilnehmen
         # leave - Runde verlassen (keine Angst, du bleibst im Chat)
