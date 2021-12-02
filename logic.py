@@ -1,6 +1,7 @@
 #!/bin/false
 # Not for execution
 
+import datetime
 import random
 import secrets
 
@@ -9,6 +10,8 @@ WOP_TO_WOP = {
     'p': 'Pflicht',
 }
 
+DATETIME_FORMAT = '%Y-%m-%d %T'
+
 
 class OngoingGame:
     def __init__(self, seed=None):
@@ -16,6 +19,7 @@ class OngoingGame:
         self.last_chooser = None # or (username, firstname) tuple
         self.last_chosen = None # or (username, firstname) tuple
         self.last_wop = None # or 'w' or 'p'
+        self.init_datetime = datetime.datetime.now()
         if seed is not None:
             self.rng = random.Random(seed)  # Necessary for testing
         else:
@@ -151,6 +155,10 @@ def compute_players(game, argument, sender_firstname, sender_username) -> None:
     return ('players_many' + msg_suffix, sender_firstname, firstnames_text)
 
 
+def uptime(game, argument, sender_firstname, sender_username) -> None:
+    return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.strftime(DATETIME_FORMAT))
+
+
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
         return compute_join(game, argument, sender_firstname, sender_username)
@@ -165,6 +173,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
     elif command == 'kick':
         return compute_kick(game, argument, sender_firstname, sender_username)
     elif command == 'players':
+        return compute_players(game, argument, sender_firstname, sender_username)
+    elif command == 'uptime':
         return compute_players(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)

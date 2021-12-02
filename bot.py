@@ -111,6 +111,9 @@ MESSAGES = {
         'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en.',
         'Okaydokey {0}, @{1} ist nicht mehr dabei.',
     ],
+    'uptime': [
+        'Der Bot war hier das erste mal {0} aktiv. Jetzt ist es {1}.',
+    ],
     'unknown_command': [
         'Häh? Kann mal jemand {} dessen Pillen bringen, danke.',
     ],
