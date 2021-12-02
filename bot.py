@@ -100,7 +100,7 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
         f'\n/join → an der Runde teilnehmen'
         f'\n/leave → Runde verlassen (keine Angst, du bleibst im Chat)'
         f'\n/random → neue (andere) Person aus der Runde wählen'
-        f'\n/wop → neue (andere) Person aus der Runde wählen'
+        f'\n/wop → zufällig Wahrheit oder Pflicht wählen'
         f'\n/who → wiederholt, wer zur Zeit dran ist'
         f'\n/kick → die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)'
         f'\n/players → schreibt in den Chat wer alles an der Runde teilnimmt'
@@ -109,10 +109,10 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
         # join - an der Runde teilnehmen
         # leave - Runde verlassen (keine Angst, du bleibst im Chat)
         # random - neue (andere) Person aus der Runde wählen
-        # wop - neue (andere) Person aus der Runde wählen
+        # wop - zufällig Wahrheit oder Pflicht wählen
         # who - wiederholt, wer zur Zeit dran ist
         # kick - die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)
-        # players - schreibt in den Chat wer Alles an der Runde teilnimmt
+        # players - schreibt in den Chat wer alles an der Runde teilnimmt
     )
 
 
