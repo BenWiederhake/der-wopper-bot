@@ -31,7 +31,7 @@ class OngoingGame:
             last_chooser=self.last_chooser,
             last_chosen=self.last_chosen,
             last_wop=self.last_wop,
-            init_datetime=self.init_datetime,
+            init_datetime=self.init_datetime.timestamp(),
         )
 
     def from_dict(d):
@@ -40,7 +40,7 @@ class OngoingGame:
         g.last_chooser = d['last_chooser']
         g.last_chosen = d['last_chosen']
         g.last_wop = d['last_wop']
-        g.init_datetime = d['init_datetime']
+        g.init_datetime = datetime.datetime.fromtimestamp(d['init_datetime'])
         return g
 
     def __repr__(self):

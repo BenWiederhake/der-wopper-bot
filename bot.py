@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # Heavily inspired by chatmemberbot.py in the examples folder.
 
+from atomicwrites import atomic_write
+import json
 import logging
+import os
 import secret  # See secret_template.py
 import secrets
 from telegram import Chat, ChatMember, ChatMemberUpdated, ParseMode, Update
 from telegram.ext import CallbackContext, ChatMemberHandler, CommandHandler, Updater
+
 import logic
 from logic import WOP_TO_WOP
 
@@ -167,6 +171,29 @@ MESSAGES = {
     ],
 }
 
+PERMANENCE_FILENAME = 'wopper_data.json'
+
+ONGOING_GAMES = dict()
+
+
+def load_ongoing_games():
+    global ONGOING_GAMES
+    if os.path.exists(PERMANENCE_FILENAME):
+        with open(PERMANENCE_FILENAME, 'r') as fp:
+            ongoing_games = json.load(fp)
+        for chat_id, game_dict in ongoing_games.items():
+            ONGOING_GAMES[int(chat_id)] = logic.OngoingGame.from_dict(game_dict)
+        logger.info(f'Loaded {len(ONGOING_GAMES)} games.')
+    else:
+        logger.info(f'Permanence file {PERMANENCE_FILENAME} does not exist; starting with all games denied.')
+
+
+def save_ongoing_games():
+    ongoing_games = {k: v.to_dict() for k, v in ONGOING_GAMES.items()}
+    with atomic_write(PERMANENCE_FILENAME, overwrite=True) as fp:
+        json.dump(ongoing_games, fp, indent=1)
+    logger.info(f'Wrote {len(ONGOING_GAMES)} to {PERMANENCE_FILENAME}.')
+
 
 def message(msg_id):
     return secrets.choice(MESSAGES[msg_id])
@@ -202,58 +229,69 @@ def cmd_show_state(update: Update, context: CallbackContext) -> None:
 
 
 def cmd_resetall(update: Update, context: CallbackContext) -> None:
+    global ONGOING_GAMES
+
     if update.effective_user.username != secret.OWNER:
         return
 
-    chats = context.bot_data.setdefault('ongoing_games', dict())
-    for key in chats.keys():
-        chats[key] = logic.OngoingGame()
-    update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(chats.keys())} erlaubte Räume blieben erhalten.)')
+    for key in ONGOING_GAMES.keys():
+        ONGOING_GAMES[key] = logic.OngoingGame()
+    save_ongoing_games()
+    update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(ONGOING_GAMES.keys())} erlaubte Räume blieben erhalten.)')
 
 
 def cmd_resethere(update: Update, context: CallbackContext) -> None:
+    global ONGOING_GAMES
+
     if update.effective_user.username != secret.OWNER:
         return
 
-    chats = context.bot_data.setdefault('ongoing_games', dict())
-    if update.effective_chat.id in chats:
-        chats[update.effective_chat.id] = logic.OngoingGame()
+    if update.effective_chat.id in ONGOING_GAMES.keys():
+        ONGOING_GAMES[update.effective_chat.id] = logic.OngoingGame()
+        save_ongoing_games()
         update.effective_message.reply_text('Spiel in diesem Raum zurückgesetzt. Spieler müssen erneut /join-en.')
     else:
         update.effective_message.reply_text('In diesem Raum sind noch keine Spiele erlaubt. Meintest du /permit?')
 
 
 def cmd_permit(update: Update, context: CallbackContext) -> None:
+    global ONGOING_GAMES
+
     if update.effective_user.username != secret.OWNER:
         return
 
-    chats = context.bot_data.setdefault('ongoing_games', dict())
-    if update.effective_chat.id in chats:
+    if update.effective_chat.id in ONGOING_GAMES.keys():
         update.effective_message.reply_text('In diesem Raum kann man mit mir bereits Spiele spielen. Vielleicht meintest du /reset, /start, oder /join?')
     else:
-        chats[update.effective_chat.id] = logic.OngoingGame()
+        ONGOING_GAMES[update.effective_chat.id] = logic.OngoingGame()
+        save_ongoing_games()
         update.effective_message.reply_text('In diesem Raum kann man nun Wahrheit oder Pflicht mit meiner Hilfe spielen. Probier doch mal /start oder /join! :)')
 
 
 def cmd_deny(update: Update, context: CallbackContext) -> None:
+    global ONGOING_GAMES
+
     if update.effective_user.username != secret.OWNER:
         return
 
-    chats = context.bot_data.setdefault('ongoing_games', dict())
     if update.effective_chat.id in chats:
-        del chats[update.effective_chat.id]
+        del ONGOING_GAMES[update.effective_chat.id]
+        save_ongoing_games()
         update.effective_message.reply_text('Spiel gelöscht.')
     else:
         update.effective_message.reply_text('Spiel ist bereits gelöscht(?)')
 
 
 def cmd_denyall(update: Update, context: CallbackContext) -> None:
+    global ONGOING_GAMES
+
     if update.effective_user.username != secret.OWNER:
         return
 
-    count = len(context.bot_data['ongoing_games']) if 'ongoing_games' in context.bot_data else 'Null'
-    context.bot_data['ongoing_games'] = dict()
-    update.effective_message.reply_text('Alle Spiele gelöscht.')
+    count = len(ONGOING_GAMES)
+    ONGOING_GAMES = dict()
+    save_ongoing_games()
+    update.effective_message.reply_text(f'Alle {count} Spiele gelöscht.')
 
 
 def cmd_start(update: Update, context: CallbackContext) -> None:
@@ -291,11 +329,11 @@ def cmd_for(command):
         text = update.message.text.split(' ', 1)
         argument = text[1] if len(text) == 2 else ''
 
-        chats = context.bot_data.setdefault('ongoing_games', dict())
-        ongoing_game = chats.get(update.effective_chat.id)
+        ongoing_game = ONGOING_GAMES.get(update.effective_chat.id)
         if ongoing_game is None:
             return  # No interactions permitted
         maybe_response = logic.handle(ongoing_game, command, argument, update.effective_user.first_name, update.effective_user.username)
+        save_ongoing_games()
         if maybe_response is None:
             return  # Don't respond at all
         update.effective_message.reply_text(
@@ -308,6 +346,8 @@ def run():
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     logger.info("Alive")
+
+    load_ongoing_games()
 
     # Create the Updater and pass it your bot's token.
     updater = Updater(secret.TOKEN)
