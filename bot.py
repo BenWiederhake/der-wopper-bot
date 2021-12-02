@@ -102,7 +102,7 @@ MESSAGES = {
     ],
     'players_few_self': [
         'Die Runde besteht lediglich aus {1}. Überrede doch ein paar Leute dazu, zu joinen, {0}!',
-        'Es spielen zur Zeit nur {1}. Mach mit, und /join :D',
+        'Es spielen zur Zeit nur {1}. Will jemand mitmachen? /join :D',
     ],
     'players_few_other': [
         'Die Runde besteht lediglich aus {1}. Magst du mitmachen, {0}? /join ;)',
