@@ -369,7 +369,7 @@ def run():
     dispatcher.add_handler(CommandHandler("who", cmd_for('who')))
     dispatcher.add_handler(CommandHandler("kick", cmd_for('kick')))
     dispatcher.add_handler(CommandHandler("do_w", cmd_for('do_w')))
-    dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_w')))
+    dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_p')))
     dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
     dispatcher.add_handler(CommandHandler("uptime", cmd_for('uptime')))
     dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
