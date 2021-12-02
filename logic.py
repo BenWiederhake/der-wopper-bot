@@ -21,6 +21,9 @@ class OngoingGame:
         else:
             self.rng = secrets.SystemRandom()
 
+    def __str__(self):
+        return str(self.__dict__())
+
 
 def compute_join(game, argument, sender_firstname, sender_username):
     if sender_username in game.joined_users.keys():
