@@ -125,7 +125,7 @@ MESSAGES = {
         'Okaydokey {0}, @{1} ist nicht mehr dabei.',
     ],
     'uptime': [
-        'Der Bot war hier das erste mal {0} aktiv. Jetzt ist es {1}.',
+        'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
     ],
     'unknown_command': [
         'Häh? Kann mal jemand {} dessen Pillen bringen, danke.',
