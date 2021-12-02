@@ -111,6 +111,30 @@ def compute_who(game, argument, sender_firstname, sender_username) -> None:
         return ('who_wop_' + game.last_wop, game.last_chooser[1], game.last_chosen[0])
 
 
+def compute_players(game, argument, sender_firstname, sender_username) -> None:
+    num_players = len(game.joined_users)
+    if num_players == 0:
+        return ('players_nobody', sender_firstname)
+
+    firstnames = list(game.joined_users.values())
+    firstnames.sort()
+    sender_is_in = sender_username in game.joined_users.keys()
+    msg_suffix = '_self' if sender_is_in else '_other'
+
+    if num_players == 1:
+        return ('players_one' + msg_suffix, sender_firstname, firstnames[0])
+
+    firstnames_head = ', '.join(firstnames[:-1])
+    firstnames_tail = firstnames[-1]
+    # Extending the message-interface is too painful, so let's do this instead.
+    firstnames_text = f'{firstnames_head} und {firstnames_tail}'
+
+    if num_players < 5:
+        return ('players_few' + msg_suffix, sender_firstname, firstnames_text)
+
+    return ('players_many' + msg_suffix, sender_firstname, firstnames_text)
+
+
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
         return compute_join(game, argument, sender_firstname, sender_username)
@@ -124,7 +148,7 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_who(game, argument, sender_firstname, sender_username)
     #elif command == 'kick':
     #    return compute_kick(game, argument, sender_firstname, sender_username)
-    #elif command == 'players':
-    #    return compute_players(game, argument, sender_firstname, sender_username)
+    elif command == 'players':
+        return compute_players(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)

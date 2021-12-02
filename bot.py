@@ -59,22 +59,47 @@ MESSAGES = {
         'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}.'
     ],
     'who_nobody': [
-        'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.'
+        'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.',
     ],
     'who_no_chooser': [
-        'Sorry {0}, ich bin verwirrt. Zwar wurde @{1} gewählt, aber die andere Person fehlt. Probiere doch mal /random.'
+        'Sorry {0}, ich bin verwirrt. Zwar wurde @{1} gewählt, aber die andere Person fehlt. Probiere doch mal /random.',
     ],
     'who_no_chosen': [
-        'Im Moment ist @{0} dran, einen neuen Spieler mit /random zu wählen.'
+        'Im Moment ist @{0} dran, einen neuen Spieler mit /random zu wählen.',
     ],
     'who_no_wop': [
-        'Im Moment ist entweder @{1} dran, Wahrheit oder Pflicht zu wählen; oder @{0} muss sich eine Frage/Aufgabe ausdenken; oder @{1} muss darauf reagieren.'
+        'Im Moment ist entweder @{1} dran, Wahrheit oder Pflicht zu wählen; oder @{0} muss sich eine Frage/Aufgabe ausdenken; oder @{1} muss darauf reagieren.',
     ],
     'who_wop_w': [
-        'Im Moment ist @{1} dran, denn {0} hat Wahrheit gewählt. Wenn du fertig bist, wähle mit /random den nächsten Spieler!'
+        'Im Moment ist @{1} dran, denn {0} hat Wahrheit gewählt. Wenn du fertig bist, wähle mit /random den nächsten Spieler!',
     ],
     'who_wop_p': [
-        'Im Moment ist @{1} dran, denn {0} hat Pflicht gewählt. Wenn du fertig bist, wähle mit /random den nächsten Spieler!'
+        'Im Moment ist @{1} dran, denn {0} hat Pflicht gewählt. Wenn du fertig bist, wähle mit /random den nächsten Spieler!',
+    ],
+    'players_nobody': [
+        'Sorry {0}, im Moment spielt keiner. PLICHT: Alle müssen /join schreiben, und irgendjemand schreibt /random! :D',
+    ],
+    'players_one_self': [
+        'Du spielst gerade mit dir selbst, {0}. Mach wenigstens die Kamera an!',
+        'Sorry, du bist ganz alleine, {0}. :( Mag jemand mitmachen? Einfach /join schreiben! :D',
+    ],
+    'players_one_other': [
+        'Im Moment spielt {1} mit sich selbst. Komm schon {0}, komm dazu und schreibe /join! :D',
+        'Im Moment spielt nur {1}. Mach mit und schreibe /join! :D',
+    ],
+    'players_few_self': [
+        'Die Runde besteht lediglich aus {1}. Überrede doch ein paar Leute dazu, zu joinen, {0}!',
+        'Es spielen zur Zeit nur {1}. Mach mit, und /join :D',
+    ],
+    'players_few_other': [
+        'Die Runde besteht lediglich aus {1}. Magst du mitmachen, {0}? /join ;)',
+        'Es spielen zur Zeit nur {1}. Mach mit, und /join :D',
+    ],
+    'players_many_self': [  # {0} ist der Name des Fragenden
+        'Die Runde besteht aus {1}.',
+    ],
+    'players_many_other': [  # {0} ist der Name des Fragenden
+        'Die Runde besteht aus {1}.',
     ],
     'unknown_command': [
         'Häh? Kann mal jemand {} dessen Pillen bringen, danke.',

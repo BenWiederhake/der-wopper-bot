@@ -232,6 +232,57 @@ class TestStringMethods(unittest.TestCase):
             (('who', '', 'qfina', 'qusna'), ('who_wop_p', 'fina1', 'usna2')),
         ])
 
+    def test_players_zero(self):
+        self.check_sequence([
+            (('players', '', 'fina1', 'usna1'), ('players_nobody', 'fina1')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('players', '', 'qfina', 'qusna'), ('players_nobody', 'qfina')),
+        ])
+
+    def test_players_one(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('players', '', 'fina1', 'usna1'), ('players_one_self', 'fina1', 'fina1')),
+            (('players', '', 'fina2', 'usna2'), ('players_one_other', 'fina2', 'fina1')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('players', '', 'fina1', 'usna1'), ('players_one_self', 'fina1', 'fina1')),
+            (('players', '', 'fina2', 'usna2'), ('players_one_other', 'fina2', 'fina1')),
+        ])
+
+    def test_players_few(self):
+        self.check_sequence([
+            (('join', '', 'a', 'ua'), ('welcome', 'a')),
+            (('join', '', 'b', 'ub'), ('welcome', 'b')),
+            (('players', '', 'a', 'ua'), ('players_few_self', 'a', 'a und b')),
+            (('players', '', 'xx', 'uxx'), ('players_few_other', 'xx', 'a und b')),
+            (('join', '', 'c', 'uc'), ('welcome', 'c')),
+            (('players', '', 'a', 'ua'), ('players_few_self', 'a', 'a, b und c')),
+            (('players', '', 'xx', 'uxx'), ('players_few_other', 'xx', 'a, b und c')),
+            (('join', '', 'd', 'ud'), ('welcome', 'd')),
+            (('players', '', 'a', 'ua'), ('players_few_self', 'a', 'a, b, c und d')),
+            (('players', '', 'xx', 'uxx'), ('players_few_other', 'xx', 'a, b, c und d')),
+        ])
+
+    def test_players_many(self):
+        self.check_sequence([
+            (('join', '', 'e', 'ue'), ('welcome', 'e')),
+            (('join', '', 'd', 'ud'), ('welcome', 'd')),
+            (('join', '', 'c', 'uc'), ('welcome', 'c')),
+            (('join', '', 'b', 'ub'), ('welcome', 'b')),
+            (('join', '', 'a', 'ua'), ('welcome', 'a')),
+            (('players', '', 'a', 'ua'), ('players_many_self', 'a', 'a, b, c, d und e')),
+            (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d und e')),
+            (('join', '', 'f', 'uf'), ('welcome', 'f')),
+            (('players', '', 'a', 'ua'), ('players_many_self', 'a', 'a, b, c, d, e und f')),
+            (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d, e und f')),
+        ])
 
 
 if __name__ == '__main__':
