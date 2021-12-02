@@ -53,7 +53,7 @@ def compute_leave(game, argument, sender_firstname, sender_username):
     return ('leave', sender_firstname)
 
 
-def compute_random(game, argument, sender_firstname, sender_username):
+def check_can_choose_player(game, sender_firstname, sender_username):
     if sender_username not in game.joined_users.keys():
         return ('nonplayer', sender_firstname)
 
@@ -70,6 +70,14 @@ def compute_random(game, argument, sender_firstname, sender_username):
             return ('random_already_chosen', sender_firstname, game.last_chosen[0])
         if game.last_chosen[0] != sender_username:
             return ('random_not_involved', sender_firstname, game.last_chooser[1], game.last_chosen[0])
+
+    return None
+
+
+def compute_random(game, argument, sender_firstname, sender_username):
+    why_not = check_can_choose_player(game, sender_firstname, sender_username)
+    if why_not:
+        return why_not
 
     available_players = game.joined_users.copy()
     del available_players[sender_username]
@@ -162,6 +170,39 @@ def compute_uptime(game, argument, sender_firstname, sender_username) -> None:
     return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.strftime(DATETIME_FORMAT))
 
 
+def compute_choose(game, argument, sender_firstname, sender_username) -> None:
+    why_not = check_can_choose_player(game, sender_firstname, sender_username)
+    if why_not:
+        return why_not
+
+    if len(game.joined_users) <= 1:
+        return ('random_singleplayer', sender_firstname)
+
+    if not argument:
+        return ('chosen_empty', sender_firstname, sender_username)
+
+    if argument.startswith('@'):
+        argument = argument[1:]
+
+    if argument in game.joined_users.keys():
+        chosen_username, chosen_firstname = argument, game.joined_users[argument]
+    else:
+        for usna, fina in game.joined_users.items():
+            if argument == fina:
+                chosen_username, chosen_firstname = usna, fina
+                break
+        else:
+            return ('unknown_user', sender_firstname, sender_username)
+
+    if chosen_username == sender_username:
+        return ('chosen_self', sender_firstname)
+
+    game.last_chooser = (sender_username, sender_firstname)
+    game.last_chosen = (chosen_username, chosen_firstname)
+    game.last_wop = None
+    return ('chosen_chosen', chosen_username, sender_firstname)
+
+
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
         return compute_join(game, argument, sender_firstname, sender_username)
@@ -183,7 +224,7 @@ def handle(game, command, argument, sender_firstname, sender_username):
     #    return compute_players(game, argument, sender_firstname, sender_username)
     #elif command == 'do_p':
     #    return compute_players(game, argument, sender_firstname, sender_username)
-    #elif command == 'choose':
-    #    return compute_players(game, argument, sender_firstname, sender_username)
+    elif command == 'choose':
+        return compute_choose(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)

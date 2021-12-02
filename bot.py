@@ -45,11 +45,11 @@ MESSAGES = {
         'Alleine spielen ist doof! Frag doch ein paar Leute, ob sie mitmachen wollen. Vielleicht findet sich ja wer :)',
     ],
     'random_chosen': [
-        'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen. Du kannst auch zufällig wählen, mit /wop.',
-        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? Oder /wop?',
+        'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen: /do_w /do_p Du kannst auch zufällig wählen, mit /wop.',
+        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? /do_w /do_p Oder /wop?',
     ],
     'random_not_involved': [
-        'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
+        'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /choose @username oder /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
     ],
     'random_already_chosen': [
         'Du hast doch schon jemanden gewählt, {0}? Und zwar @{1}!',
@@ -127,8 +127,22 @@ MESSAGES = {
     'uptime': [
         'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
     ],
+    'chosen_empty': [
+        'Und wen, {0}? Der /choose-Befehl braucht ein Argument, z.B. @{1}.',
+    ],
+    'chosen_self': [
+        'Tut mir Leid, aber du kannst dich nicht selbst wählen, {0}. Probier doch mal /random.'
+    ],
+    'chosen_chosen': [
+        '@{0}! {1} hat dich gewählt. Wahrheit oder Pflicht? /do_w /do_p Oder doch lieber zufällig? /wop',
+    ],
+    'unknown_user': [
+        'Hmm, das verstehe ich leider nicht, {0}. Probier\'s doch mal mit dem @username, also zum Beispiel @{1}.',
+    ],
     'unknown_command': [
-        'Häh? Kann mal jemand {} dessen Pillen bringen, danke.',
+        'Häh?',
+        'Was?',
+        'Bestimmt weiß ich eines Tages, was das bedeuten soll.',
     ],
 }
 
