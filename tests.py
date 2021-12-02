@@ -284,6 +284,51 @@ class TestStringMethods(unittest.TestCase):
             (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d, e und f')),
         ])
 
+    def test_kick_nonplayer(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', '', 'qfina', 'qusna'), ('kick_nonplayer', 'qfina')),
+        ])
+        self.check_sequence([
+            (('kick', '', 'qfina', 'qusna'), ('kick_nonplayer', 'qfina')),
+        ])
+
+    def test_kick_no_chosen(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('kick', '', 'fina1', 'usna1'), ('kick_no_chosen', 'fina1')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('kick', '', 'fina1', 'usna1'), ('kick_no_chosen', 'fina1')),
+        ])
+
+    def test_kick_regular(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', '', 'fina1', 'usna1'), ('kick', 'fina1', 'usna2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', '', 'fina2', 'usna2'), ('kick', 'fina2', 'usna2')),  # Self-kick is okay I guess?
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('kick', '', 'fina3', 'usna3'), ('kick', 'fina3', 'usna2')),  # join-kick is okay I guess?
+        ])
+
 
 if __name__ == '__main__':
     unittest.main()

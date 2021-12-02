@@ -101,6 +101,16 @@ MESSAGES = {
     'players_many_other': [  # {0} ist der Name des Fragenden
         'Die Runde besteht aus {1}.',
     ],
+    'kick_nonplayer': [
+        'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
+    ],
+    'kick_no_chosen': [
+        'Sorry {0}, aber im Moment ist niemand dran, also kann ich die Person auch nicht kicken. Probier doch mal /random!',
+    ],
+    'kick': [
+        'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en.',
+        'Okaydokey {0}, @{1} ist nicht mehr dabei.',
+    ],
     'unknown_command': [
         'Häh? Kann mal jemand {} dessen Pillen bringen, danke.',
     ],

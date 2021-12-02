@@ -111,6 +111,19 @@ def compute_who(game, argument, sender_firstname, sender_username) -> None:
         return ('who_wop_' + game.last_wop, game.last_chooser[1], game.last_chosen[0])
 
 
+def compute_kick(game, argument, sender_firstname, sender_username) -> None:
+    if sender_username not in game.joined_users:
+        return ('kick_nonplayer', sender_firstname)
+
+    if game.last_chosen is None:
+        return ('kick_no_chosen', sender_firstname)
+
+    old_last_chosen = game.last_chosen
+    game.last_chosen = None
+    game.last_wop = None
+    return ('kick', sender_firstname, old_last_chosen[0])
+
+
 def compute_players(game, argument, sender_firstname, sender_username) -> None:
     num_players = len(game.joined_users)
     if num_players == 0:
@@ -146,8 +159,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_wop(game, argument, sender_firstname, sender_username)
     elif command == 'who':
         return compute_who(game, argument, sender_firstname, sender_username)
-    #elif command == 'kick':
-    #    return compute_kick(game, argument, sender_firstname, sender_username)
+    elif command == 'kick':
+        return compute_kick(game, argument, sender_firstname, sender_username)
     elif command == 'players':
         return compute_players(game, argument, sender_firstname, sender_username)
     else:
