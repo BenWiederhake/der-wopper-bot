@@ -88,10 +88,10 @@ MESSAGES = {
         'Im Moment ist entweder @{1} dran, Wahrheit oder Pflicht zu wählen; oder @{0} muss sich eine Frage/Aufgabe ausdenken; oder @{1} muss darauf reagieren.',
     ],
     'who_wop_w': [
-        'Im Moment ist @{1} dran, denn es hat Wahrheit gewählt, und muss jetzt {0} eine Frage beantworten. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
+        'Im Moment ist @{1} dran, denn es wurde Wahrheit gewählt, und muss jetzt {0} eine Frage beantworten. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
     ],
     'who_wop_p': [
-        'Im Moment ist @{1} dran, denn es hat Pflicht gewählt, und muss jetzt eine Aufgabe für {0} erledigen. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
+        'Im Moment ist @{1} dran, denn es wurde Pflicht gewählt, und muss jetzt eine Aufgabe für {0} erledigen. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
     ],
     'players_nobody': [
         'Sorry {0}, im Moment spielt keiner. PLICHT: Alle müssen /join schreiben, und irgendjemand schreibt /random! :D',
@@ -127,6 +127,7 @@ MESSAGES = {
     'kick': [
         'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en.',
         'Okaydokey {0}, @{1} ist nicht mehr dabei.',
+        'Okay, ich kicke @{1}. Wer zu spät kommt, den bestraft das Leben!',
     ],
     'uptime': [
         'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
@@ -164,6 +165,7 @@ MESSAGES = {
     'dox_p': [
         'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen?',
     ],
+    # Do not overwrite:
     'unknown_command': [
         'Häh?',
         'Was?',
