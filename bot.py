@@ -183,8 +183,13 @@ def cmd_reset(update: Update, context: CallbackContext) -> None:
 
 def cmd_for(command):
     def cmd_handler(update: Update, context: CallbackContext):
+        if update.message is None or update.message.text is None:
+            return  # Don't consider Updates that don't stem from a text message.
+        text = update.message.text.split(' ', 1)
+        argument = text[1] if len(text) == 2 else ''
+
         ongoing_game = get_chat_round(context.bot_data, update.effective_chat.id)
-        maybe_response = logic.handle(ongoing_game, command, '', update.effective_user.first_name, update.effective_user.username)
+        maybe_response = logic.handle(ongoing_game, command, argument, update.effective_user.first_name, update.effective_user.username)
         if maybe_response is None:
             return  # Don't respond at all
         update.effective_message.reply_text(
