@@ -101,6 +101,14 @@ def compute_random(game, argument, sender_firstname, sender_username):
         return ('random_singleplayer', sender_firstname)
 
     chosen_username, chosen_firstname = game.rng.choice(list(available_players.items()))
+
+    if game.last_chooser is not None and chosen_username == game.last_chooser[0]:
+        # So A chose B, and now B is about to choose A. Let's make this a lot less likely by drawing again:
+        chosen_username, chosen_firstname = game.rng.choice(list(available_players.items()))
+        # Note: It is still possible that we go back to the same person – in fact, this will always happen in a two-player setup.
+        # However, in three-player setups we go back 25% of the time, and choose the other person 75% of the time.
+        # In four-player setups we go back 11.1% of the time, and in general it's 1/(n-1)² instead of 1/(n-1).
+
     game.last_chooser = (sender_username, sender_firstname)
     game.last_chosen = (chosen_username, chosen_firstname)
     game.last_wop = None
