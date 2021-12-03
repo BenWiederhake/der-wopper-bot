@@ -6,7 +6,7 @@ import logic
 import unittest
 
 
-class TestStringMethods(unittest.TestCase):
+class TestSequences(unittest.TestCase):
     def check_sequence(self, sequence):
         game = logic.OngoingGame('Static seed for reproducible randomness, do not change')
         for i, (query, expected_response) in enumerate(sequence):
