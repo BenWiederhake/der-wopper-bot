@@ -24,6 +24,9 @@ MESSAGES = {
         'Schön, dass du dabei bist, {0}!',
         '{0}! Es ist eine Falle!',
     ],
+    'welcome_no_username': [
+        'Sorry {0}, aber du musst einen @username haben, sonst komme ich nicht damit klar. :(',
+    ],
     'already_in': [
         'Du bist doch schon drin, {0}! :D',
         'Geht nicht, du bist schon drin, {0}.',

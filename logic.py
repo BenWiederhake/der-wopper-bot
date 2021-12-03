@@ -48,6 +48,9 @@ class OngoingGame:
 
 
 def compute_join(game, argument, sender_firstname, sender_username):
+    if not sender_username:
+        return ('welcome_no_username', sender_firstname)
+
     if sender_username in game.joined_users.keys():
         return ('already_in', sender_firstname)
     else:

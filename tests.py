@@ -32,6 +32,12 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina', 'usna'), ('already_in', 'fina')),
         ])
 
+    def test_join_no_username(self):
+        self.check_sequence([
+            (('join', '', 'fina', ''), ('welcome_no_username', 'fina')),
+            (('join', '', 'fina', None), ('welcome_no_username', 'fina')),
+        ])
+
     def test_leave(self):
         self.check_sequence([
             (('leave', '', 'fina', 'usna'), ('already_left', 'fina')),
