@@ -162,6 +162,8 @@ def compute_kick(game, argument, sender_firstname, sender_username) -> None:
     if game.last_chosen is None:
         return ('kick_no_chosen', sender_firstname)
 
+    del game.joined_users[game.last_chosen[0]]
+
     old_last_chosen = game.last_chosen
     game.last_chosen = None
     game.last_wop = None
