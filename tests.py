@@ -340,6 +340,30 @@ class TestSequences(unittest.TestCase):
             (('kick', '', 'fina3', 'usna3'), ('kick', 'fina3', 'usna2')),  # join-kick is okay I guess?
         ])
 
+    def test_kick_regular_function(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', '', 'fina1', 'usna1'), ('kick', 'fina1', 'usna2')),
+            (('leave', '', 'fina2', 'usna2'), ('already_left', 'fina2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', '', 'fina2', 'usna2'), ('kick', 'fina2', 'usna2')),  # Self-kick is okay I guess?
+            (('leave', '', 'fina2', 'usna2'), ('already_left', 'fina2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('kick', '', 'fina3', 'usna3'), ('kick', 'fina3', 'usna2')),  # join-kick is okay I guess?
+            (('leave', '', 'fina2', 'usna2'), ('already_left', 'fina2')),
+        ])
+
     def test_choose_nonplayer(self):
         self.check_sequence([
             (('choose', 'asdf', 'fina', 'usna'), ('nonplayer', 'fina')),
