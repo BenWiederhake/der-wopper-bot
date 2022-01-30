@@ -46,6 +46,26 @@ class OngoingGame:
     def __repr__(self):
         return str(self.to_dict())
 
+    def check_can_choose_player(self, sender_firstname, sender_username):
+        if sender_username not in self.joined_users.keys():
+            return ('nonplayer', sender_firstname)
+
+        # If both last_chooser and last_chosen are None, then we're in the first round, and we want to allow it anyway.
+
+        # If only last_chooser is None, then *probably* last_chosen should be the one doing /random, but we'll allow it anyway.
+
+        # If only last_chosen is None, then *probably* last_chooser should be the one doing /random, but we'll allow it anyway.
+
+        # If both exist, only allow the last_chosen to do /random:
+        if self.last_chooser is not None and self.last_chosen is not None:
+            # There's a good chance the player just misunderstood.
+            if self.last_chooser[0] == sender_username:
+                return ('random_already_chosen', sender_firstname, self.last_chosen[0])
+            if self.last_chosen[0] != sender_username:
+                return ('random_not_involved', sender_firstname, self.last_chooser[1], self.last_chosen[0])
+
+        return None
+
 
 def compute_join(game, argument, sender_firstname, sender_username):
     if not sender_username:
@@ -71,29 +91,8 @@ def compute_leave(game, argument, sender_firstname, sender_username):
     return ('leave', sender_firstname)
 
 
-def check_can_choose_player(game, sender_firstname, sender_username):
-    if sender_username not in game.joined_users.keys():
-        return ('nonplayer', sender_firstname)
-
-    # If both last_chooser and last_chosen are None, then we're in the first round, and we want to allow it anyway.
-
-    # If only last_chooser is None, then *probably* last_chosen should be the one doing /random, but we'll allow it anyway.
-
-    # If only last_chosen is None, then *probably* last_chooser should be the one doing /random, but we'll allow it anyway.
-
-    # If both exist, only allow the last_chosen to do /random:
-    if game.last_chooser is not None and game.last_chosen is not None:
-        # There's a good chance the player just misunderstood.
-        if game.last_chooser[0] == sender_username:
-            return ('random_already_chosen', sender_firstname, game.last_chosen[0])
-        if game.last_chosen[0] != sender_username:
-            return ('random_not_involved', sender_firstname, game.last_chooser[1], game.last_chosen[0])
-
-    return None
-
-
 def compute_random(game, argument, sender_firstname, sender_username):
-    why_not = check_can_choose_player(game, sender_firstname, sender_username)
+    why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
         return why_not
 
@@ -199,7 +198,7 @@ def compute_uptime(game, argument, sender_firstname, sender_username) -> None:
 
 
 def compute_choose(game, argument, sender_firstname, sender_username) -> None:
-    why_not = check_can_choose_player(game, sender_firstname, sender_username)
+    why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
         return why_not
 
