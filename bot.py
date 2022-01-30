@@ -137,7 +137,7 @@ MESSAGES = {
         'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
     ],
     'chosen_empty': [
-        'Und wen, {0}? Der /choose-Befehl braucht ein Argument, z.B. @{1}.',
+        'Und wen, {0}? Der /choose-Befehl braucht ein Argument, z.B. @{1} (nur halt … jemand Anderes).',
     ],
     'chosen_self': [
         'Tut mir Leid, aber du kannst dich nicht selbst wählen, {0}. Probier doch mal /random.'
