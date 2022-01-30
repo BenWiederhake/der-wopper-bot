@@ -36,6 +36,7 @@ MESSAGES = {
         'Och, schade. Na bis dann, {0}!',
         'Na toll, Ihr habt {0} erfolgreich vergrault!',
         '{0} möchte uns verlassen! Schade, dann bis zum nächsten Mal.',
+        'Ja dann GEH DOCH ZU NETTO! https://www.youtube.com/watch?v=YSMCC4sGkSo',
     ],
     'already_left': [
         'Pöh! Du warst sowieso nicht in der Runde, {0}!',
