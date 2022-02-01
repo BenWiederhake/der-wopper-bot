@@ -166,7 +166,7 @@ MESSAGES = {
         'Because … FUN! :D',
     ],
     'how': [
-        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: https://yopad.eu/p/***REMOVED***',
+        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: https://docs.google.com/spreadsheets/d/***REMOVED***/edit?usp=sharing',
     ],
     'unknown_command': [
         'Häh?',
