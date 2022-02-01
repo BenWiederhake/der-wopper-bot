@@ -286,7 +286,7 @@ def cmd_deny(update: Update, context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
-    if update.effective_chat.id in chats:
+    if update.effective_chat.id in ONGOING_GAMES.keys():
         del ONGOING_GAMES[update.effective_chat.id]
         save_ongoing_games()
         update.effective_message.reply_text('Spiel gelöscht.')
