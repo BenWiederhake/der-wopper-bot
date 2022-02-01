@@ -11,7 +11,6 @@ from telegram import Chat, ChatMember, ChatMemberUpdated, ParseMode, Update
 from telegram.ext import CallbackContext, ChatMemberHandler, CommandHandler, Updater
 
 import logic
-from logic import WOP_TO_WOP
 import msg
 
 
@@ -45,30 +44,30 @@ def message(msg_id):
     return secrets.choice(msg.MESSAGES[msg_id])
 
 
-def cmd_admin(update: Update, context: CallbackContext) -> None:
+def cmd_admin(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
     update.effective_message.reply_text(
-        f'The admin can do:'
-        f'\n/admin → show admin commands'
-        f'\n/show_state → show *all* internal state'
-        f'\n/resetall → reset all games'
-        f'\n/resethere → reset game in the current room'
-        f'\n/permit → permit games in the current room, if not already'
-        f'\n/deny → stop and deny games in the current room'
-        f'\n/denyall → stop and deny all games in all rooms'
+        'The admin can do:'
+        '\n/admin → show admin commands'
+        '\n/show_state → show *all* internal state'
+        '\n/resetall → reset all games'
+        '\n/resethere → reset game in the current room'
+        '\n/permit → permit games in the current room, if not already'
+        '\n/deny → stop and deny games in the current room'
+        '\n/denyall → stop and deny all games in all rooms'
     )
 
 
-def cmd_show_state(update: Update, context: CallbackContext) -> None:
+def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
     update.effective_message.reply_text(str(ONGOING_GAMES))
 
 
-def cmd_resetall(update: Update, context: CallbackContext) -> None:
+def cmd_resetall(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -80,7 +79,7 @@ def cmd_resetall(update: Update, context: CallbackContext) -> None:
     update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(ONGOING_GAMES.keys())} erlaubte Räume blieben erhalten.)')
 
 
-def cmd_resethere(update: Update, context: CallbackContext) -> None:
+def cmd_resethere(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -94,7 +93,7 @@ def cmd_resethere(update: Update, context: CallbackContext) -> None:
         update.effective_message.reply_text('In diesem Raum sind noch keine Spiele erlaubt. Meintest du /permit?')
 
 
-def cmd_permit(update: Update, context: CallbackContext) -> None:
+def cmd_permit(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -108,7 +107,7 @@ def cmd_permit(update: Update, context: CallbackContext) -> None:
         update.effective_message.reply_text('In diesem Raum kann man nun Wahrheit oder Pflicht mit meiner Hilfe spielen. Probier doch mal /start oder /join! :)')
 
 
-def cmd_deny(update: Update, context: CallbackContext) -> None:
+def cmd_deny(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -122,7 +121,7 @@ def cmd_deny(update: Update, context: CallbackContext) -> None:
         update.effective_message.reply_text('Spiel ist bereits gelöscht(?)')
 
 
-def cmd_denyall(update: Update, context: CallbackContext) -> None:
+def cmd_denyall(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -134,7 +133,7 @@ def cmd_denyall(update: Update, context: CallbackContext) -> None:
     update.effective_message.reply_text(f'Alle {count} Spiele gelöscht.')
 
 
-def cmd_start(update: Update, context: CallbackContext) -> None:
+def cmd_start(update: Update, _context: CallbackContext) -> None:
     update.effective_message.reply_text(
         f'Hi {update.effective_user.first_name}!'
         f'\n/join → an der Runde teilnehmen'
@@ -164,7 +163,7 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
 
 
 def cmd_random_reply(command):
-    def cmd_handler(update: Update, context: CallbackContext):
+    def cmd_handler(update: Update, _context: CallbackContext):
         ongoing_game = ONGOING_GAMES.get(update.effective_chat.id)
         if ongoing_game is None:
             return  # No interactions permitted
@@ -175,7 +174,7 @@ def cmd_random_reply(command):
 
 
 def cmd_for(command):
-    def cmd_handler(update: Update, context: CallbackContext):
+    def cmd_handler(update: Update, _context: CallbackContext):
         if update.message is None or update.message.text is None:
             return  # Don't consider Updates that don't stem from a text message.
         text = update.message.text.split(' ', 1)
@@ -206,8 +205,6 @@ def run():
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
-
-    # FIXME: In chats schreiben, wenn neu gestartet
 
     dispatcher.add_handler(CommandHandler("admin", cmd_admin))
     dispatcher.add_handler(CommandHandler("show_state", cmd_show_state))
