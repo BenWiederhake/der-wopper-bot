@@ -169,6 +169,16 @@ MESSAGES = {
     'dox_p': [
         'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen?',
     ],
+    'where': [
+        'Genau hier, in *diesem* Chat!',
+        'Where wolf?',
+    ],
+    'why': [
+        'Because … FUN! :D',
+    ],
+    'how': [
+        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: https://yopad.eu/p/***REMOVED***',
+    ],
     # Do not overwrite:
     'unknown_command': [
         'Häh?',
@@ -176,6 +186,8 @@ MESSAGES = {
         'Bestimmt weiß ich eines Tages, was das bedeuten soll.',
     ],
 }
+
+RANDOM_REPLY = {'where', 'why', 'how'}
 
 PERMANENCE_FILENAME = 'wopper_data.json'
 
@@ -323,6 +335,17 @@ def cmd_start(update: Update, context: CallbackContext) -> None:
     )
 
 
+def cmd_random_reply(command):
+    def cmd_handler(update: Update, context: CallbackContext):
+        ongoing_game = ONGOING_GAMES.get(update.effective_chat.id)
+        if ongoing_game is None:
+            return  # No interactions permitted
+        update.effective_message.reply_text(
+            message(command).format(update.effective_user.first_name, update.effective_user.username)
+        )
+    return cmd_handler
+
+
 def cmd_for(command):
     def cmd_handler(update: Update, context: CallbackContext):
         if update.message is None or update.message.text is None:
@@ -378,6 +401,9 @@ def run():
     dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
     dispatcher.add_handler(CommandHandler("uptime", cmd_for('uptime')))
     dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
+
+    for cmd_name in RANDOM_REPLY:
+        dispatcher.add_handler(CommandHandler(cmd_name, cmd_random_reply(cmd_name)))
 
     # Start the Bot
     # We pass 'allowed_updates' handle *all* updates including `chat_member` updates
