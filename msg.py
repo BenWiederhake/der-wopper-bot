@@ -49,7 +49,8 @@ MESSAGES = {
         'Du hast doch schon jemanden gewählt, {0}? Und zwar @{1}!',
         'Das hättest du dir vorher überlegen müssen {0}. Jetzt ist @{1} schon dran.',
     ],
-    'wop_nobodychosen': [ # {1} ist 'Wahrheit' oder 'Pflicht'
+    'wop_nobodychosen_COMMENT': '{1} ist \'Wahrheit\' oder \'Pflicht\'',
+    'wop_nobodychosen': [
         'Ich bin verwirrt {0}, eigentlich ist zur Zeit niemand dran. Ich sag jetzt mal {1}, hilft das?',
         '{0}, du hast das goldene Ahnungslos gezogen. Magst du vielleicht {1} machen?',
     ],
@@ -102,10 +103,12 @@ MESSAGES = {
         'Die Runde besteht lediglich aus {1}. Magst du mitmachen, {0}? /join ;)',
         'Es spielen zur Zeit nur {1}. Mach mit, und /join :D',
     ],
-    'players_many_self': [  # {0} ist der Name des Fragenden
+    'players_many_self_COMMENT': '{0} ist der Name des Fragenden',
+    'players_many_self': [
         'Die Runde besteht aus {1}.',
     ],
-    'players_many_other': [  # {0} ist der Name des Fragenden
+    'players_many_other_COMMENT': '{0} ist der Name des Fragenden',
+    'players_many_other': [
         'Die Runde besteht aus {1}.',
     ],
     'kick_nonplayer': [
@@ -126,7 +129,7 @@ MESSAGES = {
         'Und wen, {0}? Der /choose-Befehl braucht ein Argument, z.B. @{1} (nur halt … jemand Anderes).',
     ],
     'chosen_self': [
-        'Tut mir Leid, aber du kannst dich nicht selbst wählen, {0}. Probier doch mal /random.'
+        'Tut mir Leid, aber du kannst dich nicht selbst wählen, {0}. Probier doch mal /random.',
     ],
     'chosen_chosen': [
         '@{0}! {1} hat dich gewählt. Wahrheit oder Pflicht? /do_w /do_p Oder doch lieber zufällig? /wop',
@@ -165,7 +168,6 @@ MESSAGES = {
     'how': [
         'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: https://yopad.eu/p/***REMOVED***',
     ],
-    # Do not overwrite:
     'unknown_command': [
         'Häh?',
         'Was?',
