@@ -2,6 +2,7 @@
 # Not for execution
 
 import datetime
+from generation import GenerationTracker
 import random
 import secrets
 
@@ -20,6 +21,8 @@ class OngoingGame:
         self.last_chosen = None # or (username, firstname) tuple
         self.last_wop = None # or 'w' or 'p'
         self.init_datetime = datetime.datetime.now()
+        self.track_overall = GenerationTracker() # Overall; ensuring that noone has to wait too long
+        self.track_individual = dict() # username to GenerationTracker; ensuring that no pair happens too often / too seldomly
         if seed is not None:
             self.rng = random.Random(seed)  # Necessary for testing
         else:
@@ -32,6 +35,8 @@ class OngoingGame:
             last_chosen=self.last_chosen,
             last_wop=self.last_wop,
             init_datetime=self.init_datetime.timestamp(),
+            track_overall=self.track_overall.to_dict(),
+            track_individual={u: t.to_dict() for u, t in self.track_individual.items()},
         )
 
     def from_dict(d):
@@ -41,6 +46,8 @@ class OngoingGame:
         g.last_chosen = d['last_chosen']
         g.last_wop = d['last_wop']
         g.init_datetime = datetime.datetime.fromtimestamp(d['init_datetime'])
+        g.track_overall = GenerationTracker.from_dict(d['track_overall'])
+        g.track_individual = {u: GenerationTracker.from_dict(sub_dict) for u, sub_dict in d['track_individual'].items()}
         return g
 
     def __repr__(self):
