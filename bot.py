@@ -138,7 +138,8 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         f'Hi {update.effective_user.first_name}!'
         f'\n/join → an der Runde teilnehmen'
         f'\n/leave → Runde verlassen (keine Angst, du bleibst im Chat)'
-        f'\n/random → nächste Person zufällig aus der Runde wählen'
+        f'\n/random → nächste Person "zufällig" aus der Runde wählen'
+        f'\n/true_random → nächste Person gleichverteilt zufällig aus der Runde wählen, ohne auf faire Verteilung zu achten'
         f'\n/choose @username → nächste Person wählen'
         f'\n/wop → zufällig Wahrheit oder Pflicht wählen'
         f'\n/do_w → Wahrheit wählen'
@@ -148,6 +149,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         f'\n/players → schreibt in den Chat wer alles an der Runde teilnimmt'
         f'\nMehr macht der Bot nicht. Man muss selber Fragen stellen, Fragen beantworten, oder kapieren wann man dran ist :P'
         f'\nhttps://github.com/BenWiederhake/der-wopper-bot'
+        f'\nTexte ändern: https://docs.google.com/spreadsheets/d/***REMOVED***/edit?usp=sharing'
         # For BotFather:
         # join - an der Runde teilnehmen
         # leave - Runde verlassen (keine Angst, du bleibst im Chat)
@@ -218,6 +220,7 @@ def run():
     dispatcher.add_handler(CommandHandler("join", cmd_for('join')))
     dispatcher.add_handler(CommandHandler("leave", cmd_for('leave')))
     dispatcher.add_handler(CommandHandler("random", cmd_for('random')))
+    dispatcher.add_handler(CommandHandler("true_random", cmd_for('true_random')))
     dispatcher.add_handler(CommandHandler("wop", cmd_for('wop')))
     dispatcher.add_handler(CommandHandler("who", cmd_for('who')))
     dispatcher.add_handler(CommandHandler("kick", cmd_for('kick')))

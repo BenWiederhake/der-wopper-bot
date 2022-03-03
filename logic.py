@@ -92,6 +92,10 @@ def compute_leave(game, argument, sender_firstname, sender_username):
 
 
 def compute_random(game, argument, sender_firstname, sender_username):
+    return compute_true_random(game, argument, sender_firstname, sender_username)  # FIXME
+
+
+def compute_true_random(game, argument, sender_firstname, sender_username):
     why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
         return why_not
@@ -273,6 +277,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_leave(game, argument, sender_firstname, sender_username)
     elif command == 'random':
         return compute_random(game, argument, sender_firstname, sender_username)
+    elif command == 'true_random':
+        return compute_true_random(game, argument, sender_firstname, sender_username)
     elif command == 'wop':
         return compute_wop(game, argument, sender_firstname, sender_username)
     elif command == 'who':
