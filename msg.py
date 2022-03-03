@@ -1,6 +1,6 @@
 #!/usr/bin/env false
 
-RANDOM_REPLY = {'where', 'why', 'how'}
+RANDOM_REPLY = {'how', 'where', 'why'}
 
 MESSAGES = {
     'welcome': [
@@ -9,6 +9,9 @@ MESSAGES = {
         'Au weia, {0} ist mit von der Partie, das kann ja heiter werden!',
         'Schön, dass du dabei bist, {0}!',
         '{0}! Es ist eine Falle!',
+        'Ahoi {0}!',
+        'Hi {0}! Du verpflichtest dich also zur Wahrheit? ;)',
+        'Hi {0}! Du bewahrheitest dich also zur Pflicht? ;)',
     ],
     'welcome_no_username': [
         'Sorry {0}, aber du musst einen @username haben, sonst komme ich nicht damit klar. :(',
@@ -17,12 +20,16 @@ MESSAGES = {
         'Du bist doch schon drin, {0}! :D',
         'Geht nicht, du bist schon drin, {0}.',
         'Alzheimer, {0}? Du bist schon drin ;)',
+        'Klar! Das geht sehr einfach, du bist nämlich schon drin, {0}! :D',
     ],
     'leave': [
         'Och, schade. Na bis dann, {0}!',
         'Na toll, Ihr habt {0} erfolgreich vergrault!',
         '{0} möchte uns verlassen! Schade, dann bis zum nächsten Mal.',
         'Ja dann GEH DOCH ZU NETTO! https://www.youtube.com/watch?v=YSMCC4sGkSo',
+        'Aww, dann eben nicht mehr.',
+        'Bis zum nächsten Mal, {0}!',
+        'Es war mir ein Vergnügen. Bis dann, {0}! :)',
     ],
     'already_left': [
         'Pöh! Du warst sowieso nicht in der Runde, {0}!',
@@ -41,6 +48,8 @@ MESSAGES = {
     'random_chosen': [
         'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen: /do_w /do_p Du kannst auch zufällig wählen, mit /wop.',
         '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? /do_w /do_p Oder /wop?',
+        'Weiter geht\'s mit @{0}: Wahrheit oder Pflicht? /do_w /do_p Oder /wop?',
+        'Gleich hören wir eine Wahrheit oder eine Pflicht von @{0}! /do_w /do_p Oder /wop?',
     ],
     'random_not_involved': [
         'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /choose @username oder /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
@@ -62,9 +71,11 @@ MESSAGES = {
     ],
     'wop_result_w': [
         'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}.',
+        'WAHRHEIT! @{1} stellt eine Frage, und {0} muss ehrlich antworten.',
     ],
     'wop_result_p': [
         'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}.',
+        'PLICHT! @{1} sagt an, und {0} muss tun.',
     ],
     'who_nobody': [
         'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.',
@@ -154,9 +165,11 @@ MESSAGES = {
     ],
     'dox_w': [
         'Soso, {0} wählt Wahrheit. @{1}, welche Wahrheit möchtest du über {0} wissen?',
+        '@{1}, was würdest du gerne von {0} wissen?',
     ],
     'dox_p': [
         'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen?',
+        '{0} muss jetzt was tun! @{1}, was soll {0} denn machen?',
     ],
     'where': [
         'Genau hier, in *diesem* Chat!',
