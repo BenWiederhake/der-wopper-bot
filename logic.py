@@ -28,6 +28,26 @@ class OngoingGame:
         else:
             self.rng = secrets.SystemRandom()
 
+    def notify_join(self, username, firstname):
+        self.joined_users[username] = firstname
+        # FIXME: Update self.track_*
+
+    def notify_leave(self, username):
+        del self.joined_users[username]
+        if self.last_chooser is not None and self.last_chooser[0] == username:
+            self.last_chooser = None
+            # self.last_wop = None  # Debatable, but let's try to keep it.
+        if self.last_chosen is not None and self.last_chosen[0] == username:
+            self.last_chosen = None
+            self.last_wop = None
+        # FIXME: Update self.track_*
+
+    def notify_chosen(self, chooser_username, chooser_firstname, chosen_username, chosen_firstname):
+        self.last_chooser = (chooser_username, chooser_firstname)
+        self.last_chosen = (chosen_username, chosen_firstname)
+        self.last_wop = None
+        # FIXME: Update self.track_*
+
     def to_dict(self):
         return dict(
             joined_users=self.joined_users,
@@ -81,7 +101,7 @@ def compute_join(game, argument, sender_firstname, sender_username):
     if sender_username in game.joined_users.keys():
         return ('already_in', sender_firstname)
     else:
-        game.joined_users[sender_username] = sender_firstname
+        game.notify_join(sender_username, sender_firstname)
         return ('welcome', sender_firstname)
 
 
@@ -89,12 +109,7 @@ def compute_leave(game, argument, sender_firstname, sender_username):
     if sender_username not in game.joined_users.keys():
         return ('already_left', sender_firstname)
 
-    del game.joined_users[sender_username]
-    if game.last_chooser is not None and game.last_chooser[0] == sender_username:
-        game.last_chooser = None
-    if game.last_chosen is not None and game.last_chosen[0] == sender_username:
-        game.last_chosen = None
-
+    game.notify_leave(sender_username)
     return ('leave', sender_firstname)
 
 
@@ -122,9 +137,7 @@ def compute_true_random(game, argument, sender_firstname, sender_username):
         # However, in three-player setups we go back 25% of the time, and choose the other person 75% of the time.
         # In four-player setups we go back 11.1% of the time, and in general it's 1/(n-1)² instead of 1/(n-1).
 
-    game.last_chooser = (sender_username, sender_firstname)
-    game.last_chosen = (chosen_username, chosen_firstname)
-    game.last_wop = None
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname)
     return ('random_chosen', chosen_username)
 
 
@@ -172,11 +185,8 @@ def compute_kick(game, argument, sender_firstname, sender_username) -> None:
     if game.last_chosen is None:
         return ('kick_no_chosen', sender_firstname)
 
-    del game.joined_users[game.last_chosen[0]]
-
     old_last_chosen = game.last_chosen
-    game.last_chosen = None
-    game.last_wop = None
+    game.notify_leave(old_last_chosen[0])
     return ('kick', sender_firstname, old_last_chosen[0])
 
 
@@ -235,9 +245,7 @@ def compute_choose(game, argument, sender_firstname, sender_username) -> None:
     if chosen_username == sender_username:
         return ('chosen_self', sender_firstname)
 
-    game.last_chooser = (sender_username, sender_firstname)
-    game.last_chosen = (chosen_username, chosen_firstname)
-    game.last_wop = None
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname)
     return ('chosen_chosen', chosen_username, sender_firstname)
 
 
