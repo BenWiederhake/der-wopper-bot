@@ -82,6 +82,16 @@ class TestSequences(unittest.TestCase):
             (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
         ])
 
+    def test_true_random_twoplayer(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('true_random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('true_random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            (('true_random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('true_random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+        ])
+
     def test_random_chosen_left(self):
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
@@ -100,6 +110,24 @@ class TestSequences(unittest.TestCase):
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),  # someone else tries again
         ])
 
+    def test_true_random_chosen_left(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # chooser tries again
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('true_random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),  # someone else tries again
+        ])
+
     def test_random_chooser_left(self):
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
@@ -116,6 +144,24 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
             (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # someone else tries again
+        ])
+
+    def test_true_random_chooser_left(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('true_random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),  # chosen continues game
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('true_random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # someone else tries again
         ])
 
     def test_random_wrong(self):
@@ -141,6 +187,15 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+        ])
+
+    def test_true_random_several(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
+            (('true_random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
         ])
 
     def test_wop_nonplayer(self):
