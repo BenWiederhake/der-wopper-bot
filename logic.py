@@ -139,6 +139,24 @@ def compute_leave(game, argument, sender_firstname, sender_username):
     return ('leave', sender_firstname)
 
 
+def compute_show_random(game, argument, sender_firstname, sender_username):
+    if argument:
+        argument = argument.strip('@')
+        if argument not in game.joined_users:
+            return ('unknown_user', sender_firstname, sender_username)
+        sender_username, sender_firstname = argument, game.joined_users[argument]
+
+    if sender_username not in game.joined_users.keys():
+        return ('nonplayer', sender_firstname)
+
+    if len(game.joined_users) <= 1:
+        return ('random_singleplayer', sender_firstname)
+
+    weights = game.compute_weigths_for(sender_username)
+    weight_tuples = list(weights.items())
+    return ('debug1', str(weight_tuples))
+
+
 def compute_random(game, argument, sender_firstname, sender_username):
     why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
@@ -343,5 +361,7 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_do_p(game, argument, sender_firstname, sender_username)
     elif command == 'choose':
         return compute_choose(game, argument, sender_firstname, sender_username)
+    elif command == 'show_random':
+        return compute_show_random(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)

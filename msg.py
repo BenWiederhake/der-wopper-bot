@@ -186,4 +186,7 @@ MESSAGES = {
         'Was?',
         'Bestimmt weiß ich eines Tages, was das bedeuten soll.',
     ],
+    'debug1': [
+        '{0}',
+    ],
 }

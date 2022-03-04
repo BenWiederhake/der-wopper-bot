@@ -253,6 +253,42 @@ class TestSequences(unittest.TestCase):
             (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
         ])
 
+    def test_show_random_several(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 18), ('usna3', 18)]")),
+            (('show_random', 'usna1', 'fina1', 'usna1'), ('debug1', "[('usna2', 18), ('usna3', 18)]")),
+            (('show_random', 'usna2', 'fina1', 'usna1'), ('debug1', "[('usna1', 18), ('usna3', 18)]")),
+            (('show_random', 'usna3', 'fina1', 'usna1'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 32)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 25), ('usna3', 25)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 9)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 41)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 41)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 9), ('usna2', 10)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 5), ('usna3', 0)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 16)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 10), ('usna2', 13)]")),  # <- The important one
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 10), ('usna3', 1)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 17)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 0), ('usna2', 25)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 5)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 20)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 1), ('usna2', 16)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 0)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 4), ('usna2', 17)]")),  # <- The important one
+        ])
+
     def test_true_random_several(self):
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),

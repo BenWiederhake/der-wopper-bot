@@ -220,6 +220,7 @@ def run():
     dispatcher.add_handler(CommandHandler("start", cmd_start))
     dispatcher.add_handler(CommandHandler("join", cmd_for('join')))
     dispatcher.add_handler(CommandHandler("leave", cmd_for('leave')))
+    dispatcher.add_handler(CommandHandler("show_random", cmd_for('show_random')))
     dispatcher.add_handler(CommandHandler("random", cmd_for('random')))
     dispatcher.add_handler(CommandHandler("true_random", cmd_for('true_random')))
     dispatcher.add_handler(CommandHandler("wop", cmd_for('wop')))
