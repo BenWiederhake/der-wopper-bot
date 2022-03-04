@@ -6,6 +6,70 @@ import logic
 import unittest
 
 
+class TestMigration(unittest.TestCase):
+    def check_dict(self, d1):
+        g1 = logic.OngoingGame.from_dict(d1)
+        d2 = g1.to_dict()
+        g2 = logic.OngoingGame.from_dict(d2)
+        d3 = g2.to_dict()
+        self.assertEqual(d2, d3)
+
+    def test_empty_v0(self):
+        self.check_dict({
+            'joined_users': {
+                },
+            'last_chooser': None,
+            'last_chosen': None,
+            'last_wop': 'w',  # This is actually possible!
+            'init_datetime': 1234,
+            })
+
+    def test_nonempty_v0(self):
+        self.check_dict({
+            'joined_users': {
+                'usna1': 'fina1',
+                'usna2': 'fina2',
+                'usna3': 'fina3',
+                },
+            'last_chooser': 'usna1',
+            'last_chosen': 'usna2',
+            'last_wop': 'p',
+            'init_datetime': 1234,
+            })
+
+    def test_empty_v1(self):
+        self.check_dict({
+            'joined_users': {
+                },
+            'last_chooser': None,
+            'last_chosen': None,
+            'last_wop': None,
+            'init_datetime': 1234,
+            'track_overall': { 'g': 1, 'lc': {} },
+            'track_individual': {
+                }
+            })
+
+    def test_nonempty_v1(self):
+        self.check_dict({
+            'joined_users': {
+                'usna1': 'fina1',
+                'usna2': 'fina2',
+                'usna3': 'fina3',
+                },
+            'last_chooser': 'usna1',
+            'last_chosen': 'usna2',
+            'last_wop': 'p',
+            'init_datetime': 1234,
+            'track_overall': { 'g': 1, 'lc': {'usna1': -2, 'usna2': -2, 'usna3': -2} },
+            'track_individual': {
+                'usna1': {'g': 1, 'lc': {'usna2': -2, 'usna3': -2}},
+                'usna2': {'g': 1, 'lc': {'usna1': -2, 'usna3': -2}},
+                'usna3': {'g': 1, 'lc': {'usna1': -2, 'usna2': -2}},
+                }
+            })
+
+
 class TestSequences(unittest.TestCase):
     def check_sequence(self, sequence):
         game = logic.OngoingGame('Static seed for reproducible randomness, do not change')

@@ -79,13 +79,21 @@ class OngoingGame:
 
     def from_dict(d):
         g = OngoingGame()
-        g.joined_users = d['joined_users']
+        assert ('track_overall' in d) == ('track_individual' in d)
+        if 'track_overall' in d:
+            g.track_overall = GenerationTracker.from_dict(d['track_overall'])
+            g.track_individual = {u: GenerationTracker.from_dict(sub_dict) for u, sub_dict in d['track_individual'].items()}
+            g.joined_users = d['joined_users']
+        else:
+            print(f'WARNING: Migrating users to generational RNG! Affected users: {list(d["joined_users"].keys())}\nRNG experience may feel discontinuous.')
+            for username, firstname in d['joined_users'].items():
+                g.notify_join(username, firstname)
+            # No need to set g.joined_users
+
         g.last_chooser = d['last_chooser']
         g.last_chosen = d['last_chosen']
         g.last_wop = d['last_wop']
         g.init_datetime = datetime.datetime.fromtimestamp(d['init_datetime'])
-        g.track_overall = GenerationTracker.from_dict(d['track_overall'])
-        g.track_individual = {u: GenerationTracker.from_dict(sub_dict) for u, sub_dict in d['track_individual'].items()}
         return g
 
     def __repr__(self):
