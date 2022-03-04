@@ -7,6 +7,7 @@ import logging
 import os
 import secret  # See secret_template.py
 import secrets
+import sys
 from telegram import Chat, ChatMember, ChatMemberUpdated, ParseMode, Update
 from telegram.ext import CallbackContext, ChatMemberHandler, CommandHandler, Updater
 
@@ -246,4 +247,12 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) == 1:
+        run()
+    elif len(sys.argv) == 2 and sys.argv[1] == '--dry-run':
+        print(f'Dry-running from file {PERMANENCE_FILENAME}')
+        load_ongoing_games()
+        print(f'Loaded: {ONGOING_GAMES}')
+    else:
+        print(f'USAGE: {sys.argv[0]} [--dry-run]')
+        exit(1)
