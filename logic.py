@@ -60,6 +60,12 @@ class OngoingGame:
         self.last_chosen = (chosen_username, chosen_firstname)
         self.last_wop = None
 
+    def compute_weigths_for(self, sender_username):
+        # All numbers are configurable. In particular the coefficient for w_individual could be 2, to prioritize that.
+        w_overall = self.track_overall.get_weights(0)
+        w_individual = self.track_individual[sender_username].get_weights(0)
+        return GenerationTracker.combine_weights(1, w_overall, 1, w_individual)
+
     def to_dict(self):
         return dict(
             joined_users=self.joined_users,
@@ -126,7 +132,20 @@ def compute_leave(game, argument, sender_firstname, sender_username):
 
 
 def compute_random(game, argument, sender_firstname, sender_username):
-    return compute_true_random(game, argument, sender_firstname, sender_username)  # FIXME
+    why_not = game.check_can_choose_player(sender_firstname, sender_username)
+    if why_not:
+        return why_not
+
+    if len(game.joined_users) <= 1:
+        return ('random_singleplayer', sender_firstname)
+
+    weights = game.compute_weigths_for(sender_username)
+    weight_tuples = list(weights.items())
+    chosen_username = game.rng.choices(*zip(*weight_tuples))[0]
+    chosen_firstname = game.joined_users[chosen_username]  # This is unfortunate
+
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname)
+    return ('random_chosen', chosen_username)
 
 
 def compute_true_random(game, argument, sender_firstname, sender_username):

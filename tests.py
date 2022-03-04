@@ -185,8 +185,8 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
-            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
         ])
 
     def test_true_random_several(self):
