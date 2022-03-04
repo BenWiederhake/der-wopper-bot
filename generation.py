@@ -38,4 +38,4 @@ class GenerationTracker:
 
     @staticmethod
     def combine_weights(coeff1, weights1, coeff2, weights2):
-        return {p: coeff1 * w ** 2 + coeff2 * weights2[p] ** 2 for p, w in weights1.items() if p in weights2}
+        return {p: coeff1 * w + coeff2 * weights2[p] for p, w in weights1.items() if p in weights2}
