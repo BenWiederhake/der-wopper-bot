@@ -29,10 +29,21 @@ class OngoingGame:
             self.rng = secrets.SystemRandom()
 
     def notify_join(self, username, firstname):
+        new_tracker = GenerationTracker()
+        for other_username, other_tracker in self.track_individual.items():
+            new_tracker.notify_join(other_username)
+            other_tracker.notify_join(username)
+        self.track_individual[username] = new_tracker
+        self.track_overall.notify_join(username)
+
         self.joined_users[username] = firstname
-        # FIXME: Update self.track_*
 
     def notify_leave(self, username):
+        del self.track_individual[username]
+        for other_tracker in self.track_individual.values():
+            other_tracker.notify_leave(username)
+        self.track_overall.notify_leave(username)
+
         del self.joined_users[username]
         if self.last_chooser is not None and self.last_chooser[0] == username:
             self.last_chooser = None
@@ -40,13 +51,14 @@ class OngoingGame:
         if self.last_chosen is not None and self.last_chosen[0] == username:
             self.last_chosen = None
             self.last_wop = None
-        # FIXME: Update self.track_*
 
     def notify_chosen(self, chooser_username, chooser_firstname, chosen_username, chosen_firstname):
+        self.track_overall.notify_chosen(chosen_username)
+        self.track_individual[chooser_username].notify_chosen(chosen_username)
+
         self.last_chooser = (chooser_username, chooser_firstname)
         self.last_chosen = (chosen_username, chosen_firstname)
         self.last_wop = None
-        # FIXME: Update self.track_*
 
     def to_dict(self):
         return dict(
