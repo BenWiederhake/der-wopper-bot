@@ -20,6 +20,7 @@ class OngoingGame:
         self.last_chooser = None # or (username, firstname) tuple
         self.last_chosen = None # or (username, firstname) tuple
         self.last_wop = None # or 'w' or 'p'
+        self.last_reason = 'dunno' # text that can be queried with /whytho
         self.init_datetime = datetime.datetime.now()
         self.track_overall = GenerationTracker() # Overall; ensuring that noone has to wait too long
         self.track_individual = dict() # username to GenerationTracker; ensuring that no pair happens too often / too seldomly
@@ -52,13 +53,14 @@ class OngoingGame:
             self.last_chosen = None
             self.last_wop = None
 
-    def notify_chosen(self, chooser_username, chooser_firstname, chosen_username, chosen_firstname):
+    def notify_chosen(self, chooser_username, chooser_firstname, chosen_username, chosen_firstname, reason):
         self.track_overall.notify_chosen(chosen_username)
         self.track_individual[chooser_username].notify_chosen(chosen_username)
 
         self.last_chooser = (chooser_username, chooser_firstname)
         self.last_chosen = (chosen_username, chosen_firstname)
         self.last_wop = None
+        self.last_reason = reason
 
     def compute_weigths_for(self, sender_username):
         # All numbers are configurable. In particular the coefficient for w_individual could be 2, to prioritize that.
@@ -157,6 +159,10 @@ def compute_show_random(game, argument, sender_firstname, sender_username):
     return ('debug1', str(weight_tuples))
 
 
+def compute_whytho(game, argument, sender_firstname, sender_username):
+    return ('debug1', game.last_reason)
+
+
 def compute_random(game, argument, sender_firstname, sender_username):
     why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
@@ -170,7 +176,7 @@ def compute_random(game, argument, sender_firstname, sender_username):
     chosen_username = game.rng.choices(*zip(*weight_tuples))[0]
     chosen_firstname = game.joined_users[chosen_username]  # This is unfortunate
 
-    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname)
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, f'random{weight_tuples}')
     return ('random_chosen', chosen_username)
 
 
@@ -188,7 +194,7 @@ def compute_true_random(game, argument, sender_firstname, sender_username):
     # Purely uniform distribution, except only the player sending the request.
     chosen_username, chosen_firstname = game.rng.choice(list(available_players.items()))
 
-    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname)
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, f'true_random{list(available_players.values())}')
     return ('random_chosen', chosen_username)
 
 
@@ -296,7 +302,7 @@ def compute_choose(game, argument, sender_firstname, sender_username) -> None:
     if chosen_username == sender_username:
         return ('chosen_self', sender_firstname)
 
-    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname)
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, f'choose')
     return ('chosen_chosen', chosen_username, sender_firstname)
 
 
@@ -363,5 +369,7 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_choose(game, argument, sender_firstname, sender_username)
     elif command == 'show_random':
         return compute_show_random(game, argument, sender_firstname, sender_username)
+    elif command == 'whytho':
+        return compute_whytho(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)

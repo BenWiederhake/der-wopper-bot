@@ -264,14 +264,17 @@ class TestSequences(unittest.TestCase):
             (('show_random', 'usna3', 'fina1', 'usna1'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18), ('usna3', 18)]")),
             (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 32)]")),
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 25), ('usna3', 25)]")),  # <- The important one
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 9)]")),
             (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random[('usna1', 25), ('usna3', 25)]")),
             (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 41)]")),  # <- The important one
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 41)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 9), ('usna2', 10)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 1), ('usna3', 41)]")),
             (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 5), ('usna3', 0)]")),
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 16)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 10), ('usna2', 13)]")),  # <- The important one
@@ -447,6 +450,20 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
             (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
             (('true_random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+        ])
+
+    def test_whytho(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "dunno")),
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "dunno")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18)]")),
+            (('true_random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "true_random['fina1']")),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "choose")),
         ])
 
     def test_wop_nonplayer(self):
