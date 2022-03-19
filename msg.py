@@ -1,5 +1,7 @@
 #!/usr/bin/env false
 
+import secret
+
 RANDOM_REPLY = {'how', 'where', 'why'}
 
 MESSAGES = {
@@ -179,7 +181,7 @@ MESSAGES = {
         'Because … FUN! :D',
     ],
     'how': [
-        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: https://docs.google.com/spreadsheets/d/***REMOVED***/edit?usp=sharing',
+        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {0}',
     ],
     'unknown_command': [
         'Häh?',
