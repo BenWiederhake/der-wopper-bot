@@ -171,7 +171,7 @@ def cmd_random_reply(command):
         if ongoing_game is None:
             return  # No interactions permitted
         update.effective_message.reply_text(
-            message(command).format(update.effective_user.first_name, update.effective_user.username)
+            message(command).format(update.effective_user.first_name, update.effective_user.username, secret.MESSAGES_SHEET)
         )
     return cmd_handler
 

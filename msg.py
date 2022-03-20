@@ -172,15 +172,18 @@ MESSAGES = {
         '{0} muss jetzt was tun! @{1}, was soll {0} denn machen?',
     ],
     'where': [
-        'Genau hier, in *diesem* Chat!',
-        'Where wolf?',
+        'Genau hier, in *diesem* Chat, {0}!',
+        'In diesem einfach zu bearbeitendem Dokument: {2}',
     ],
+    'where_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'why': [
         'Because … FUN! :D',
     ],
+    'why_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'how': [
-        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {0}',
+        'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {2}',
     ],
+    'how_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'unknown_command': [
         'Häh?',
         'Was?',
