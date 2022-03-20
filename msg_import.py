@@ -7,31 +7,30 @@ import sys
 def parse_data(data):
     messages = dict()
     current_key = None
-    current_entry = 0
+
     for line in data.split('\n'):
-        line = line.rstrip('\t')
-        if not line:
+        line = line.rstrip('\t\r ')
+        if not line or line == '-':
             current_key = None
-            current_entry = 0
             continue
-        parts = line.split('\t')
-        assert 1 <= len(parts) <= 2, (line, current_key, current_entry)
-        if current_entry == 0:
-            assert parts[0].startswith('/'), (current_entry, line)
-            assert current_entry == 0, (line, current_key, current_entry)
-            current_key = parts[0][1:]
-            if len(parts) == 2:
-                messages[current_key + '_COMMENT'] = parts[1]
-            assert current_key not in messages, (line, current_key)
+
+        if not current_key:
+            assert line[0] == '/', line
+            current_key = line[1:]
+            assert current_key not in messages, (current_key, line)
             messages[current_key] = []
-        elif len(parts) == 1:
-            assert parts[0] == str(current_entry), (line, current_key, current_entry)
-        elif len(parts) == 2:
-            assert parts[0] == str(current_entry), (line, current_key, current_entry)
-            messages[current_key].append(parts[1])
-        else:
-            raise AssertionError((line, current_key, current_entry))
-        current_entry += 1
+            continue
+        assert line[0] != '/', (current_key, line)
+
+        if line[0] == '#':
+            comment_key = f'{current_key}_COMMENT'
+            assert comment_key not in messages, (comment_key, line)
+            messages[comment_key] = line[1:].strip()
+            continue
+
+        assert line[0] == '-', (current_key, line)
+        messages[current_key].append(line[1:].strip())
+
     return messages
 
 
@@ -60,7 +59,8 @@ def handle_import(data):
 
     print('#!/usr/bin/env false')
     print()
-    print(f'RANDOM_REPLY = {msg.RANDOM_REPLY}')
+    delimiter = "', '"
+    print(f'RANDOM_REPLY = {{\'{delimiter.join(sorted(msg.RANDOM_REPLY))}\'}}')
     print()
     if old_keys != new_keys:
         print(f'# WARNING: Lost keys {old_keys.difference(new_keys)}, stray keys {new_keys.difference(old_keys)}')

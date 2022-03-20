@@ -1,7 +1,5 @@
 #!/usr/bin/env false
 
-import secret
-
 RANDOM_REPLY = {'how', 'where', 'why'}
 
 MESSAGES = {
@@ -60,11 +58,11 @@ MESSAGES = {
         'Du hast doch schon jemanden gewählt, {0}? Und zwar @{1}!',
         'Das hättest du dir vorher überlegen müssen {0}. Jetzt ist @{1} schon dran.',
     ],
-    'wop_nobodychosen_COMMENT': '{1} ist \'Wahrheit\' oder \'Pflicht\'',
     'wop_nobodychosen': [
         'Ich bin verwirrt {0}, eigentlich ist zur Zeit niemand dran. Ich sag jetzt mal {1}, hilft das?',
         '{0}, du hast das goldene Ahnungslos gezogen. Magst du vielleicht {1} machen?',
     ],
+    'wop_nobodychosen_COMMENT': '{1} ist \'Wahrheit\' oder \'Pflicht\'',
     'wop_nonchosen': [
         'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.',
     ],
@@ -116,14 +114,14 @@ MESSAGES = {
         'Die Runde besteht lediglich aus {1}. Magst du mitmachen, {0}? /join ;)',
         'Es spielen zur Zeit nur {1}. Mach mit, und /join :D',
     ],
-    'players_many_self_COMMENT': '{0} ist der Name des Fragenden',
     'players_many_self': [
         'Die Runde besteht aus {1}.',
     ],
-    'players_many_other_COMMENT': '{0} ist der Name des Fragenden',
+    'players_many_self_COMMENT': '{0} ist der Name des Fragenden',
     'players_many_other': [
         'Die Runde besteht aus {1}.',
     ],
+    'players_many_other_COMMENT': '{0} ist der Name des Fragenden',
     'kick_nonplayer': [
         'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
     ],

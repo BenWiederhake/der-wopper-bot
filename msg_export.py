@@ -9,15 +9,11 @@ def do_export(messages):
             continue
 
         comment = messages.get(msg_id + '_COMMENT', None)
-        if comment is None:
-            comment_suffix = ''
-        else:
-            comment_suffix = '\t' + comment
-        print('/' + msg_id + comment_suffix)
-        for i, msg_val in enumerate(msg_coll):
-            print('\t'.join((str(i + 1), msg_val)))
-        for i in range(len(msg_coll), len(msg_coll) + 5):
-            print(i + 1)
+        print(f'/{msg_id}')
+        if comment:
+            print(f'# {comment}')
+        for msg_val in msg_coll:
+            print(f'- {msg_val}')
         print()
 
 
