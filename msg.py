@@ -1,5 +1,7 @@
 #!/usr/bin/env false
 
+import secret
+
 RANDOM_REPLY = {'how', 'where', 'why'}
 
 MESSAGES = {
@@ -184,6 +186,8 @@ MESSAGES = {
         'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {2}',
     ],
     'how_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
+    'chicken_w': secret.MESSAGES_CHICKEN_W,
+    'chicken_p': secret.MESSAGES_CHICKEN_P,
     'unknown_command': [
         'Häh?',
         'Was?',

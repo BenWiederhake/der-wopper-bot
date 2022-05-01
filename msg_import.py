@@ -45,6 +45,10 @@ def pretty_print(messages):
             print(f"    '{key}': '{escape(values)}',")
             continue
 
+        if key == 'chicken_w':
+            print("    'chicken_w': secret.MESSAGES_CHICKEN_W,")
+        if key == 'chicken_p':
+            print("    'chicken_p': secret.MESSAGES_CHICKEN_P,")
         print(f"    '{key}': [")
         for v in values:
             print(f"        '{escape(v)}',")
@@ -58,6 +62,8 @@ def handle_import(data):
     new_keys = set(parsed_data.keys())
 
     print('#!/usr/bin/env false')
+    print()
+    print('import secret')
     print()
     delimiter = "', '"
     print(f'RANDOM_REPLY = {{\'{delimiter.join(sorted(msg.RANDOM_REPLY))}\'}}')
