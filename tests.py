@@ -454,6 +454,7 @@ class TestSequences(unittest.TestCase):
 
     def test_whytho(self):
         self.check_sequence([
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "dunno")),
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('whytho', '', 'fina1', 'usna1'), ('debug1', "dunno")),
