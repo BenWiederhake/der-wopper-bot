@@ -81,8 +81,10 @@ class TestSequences(unittest.TestCase):
                 self.assertEqual(expected_response, actual_response)
                 self.assertIn(expected_response[0], msg.MESSAGES.keys())
                 if expected_response == actual_response and expected_response[0] in msg.MESSAGES.keys():
+                    template_list = msg.MESSAGES[expected_response[0]]
+                    self.assertTrue(template_list)
                     # Check that all templates all work:
-                    for template in msg.MESSAGES[expected_response[0]]:
+                    for template in template_list:
                         self.assertTrue(template.format(*expected_response[1:]))
         d = game.to_dict()
         g2 = logic.OngoingGame.from_dict(d)
