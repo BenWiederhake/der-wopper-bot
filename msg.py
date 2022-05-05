@@ -186,8 +186,23 @@ MESSAGES = {
         'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {2}',
     ],
     'how_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
+    'chicken_not_involved': [
+        'Tut mir Leid, {0}, aber du bist gerade nicht dran. Probier mal /random oder /who.',
+    ],
+    'chicken_not_involved_COMMENT': '{0} ist der Vorname der angesprochenen Person',
+    'chicken_wrong_side': [
+        'Nee, andersrum, {0}! Wenn @{1} ein feiges Hühnchen ist und sich vor der Aufgabe drücken will, kann es /chicken benutzen.',
+    ],
+    'chicken_wrong_side_COMMENT': '{0} ist der Vorname der angesprochenen Person, {1} ist der username (ohne @) der Person die gerade dran ist',
+    'chicken_too_early': [
+        'Zu früh, {0}! Zuerst wählst du eine Wahrheit oder eine Pflicht (mit /do_w, /do_p, pder zufällig mit /wop), dann bekommst du eine Aufgabe, und wenn du dann entscheidest ein feiges Hühnchen zu sein, *dann* kannst du /chicken benutzen.',
+        'Bist du etwa präventiv ein feiges Huhn, {0}? Du hast ja noch nichtmal gewählt ob es Wahrheit oder Pflicht sein soll! /do_w /do_p /wop',
+    ],
+    'chicken_too_early_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'chicken_w': secret.MESSAGES_CHICKEN_W,
+    'chicken_w_COMMENT': '{0} ist der Link auf dieses Dokument',
     'chicken_p': secret.MESSAGES_CHICKEN_P,
+    'chicken_p_COMMENT': '{0} ist der Link auf dieses Dokument',
     'unknown_command': [
         'Häh?',
         'Was?',

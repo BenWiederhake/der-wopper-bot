@@ -4,6 +4,7 @@
 import bot  # check whether the file parses
 import logic
 import msg  # check keyset
+import secret  # need MESSAGES_SHEET, ugh
 import unittest
 
 
@@ -914,6 +915,63 @@ class TestSequences(unittest.TestCase):
             (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
             (('do_p', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
+        ])
+
+    def test_chicken_negative(self):
+        self.check_sequence([
+            (('chicken', '', 'fina1', 'usna1'), ('nonplayer', 'fina1')),
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('chicken', '', 'fina1', 'usna1'), ('chicken_not_involved', 'fina1')),  # TODO: Message ID?
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('chicken', '', 'fina1', 'usna1'), ('chicken_wrong_side', 'fina1', 'usna2')),  # TODO: Message ID?
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_too_early', 'fina2')),  # TODO: Message ID?
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('chicken', '', 'fina3', 'usna3'), ('chicken_not_involved', 'fina3')),  # TODO: Message ID?
+        ])
+
+    def test_chicken_normal(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET)),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_p', '', 'fina2', 'usna2'), ('dox_p', 'fina2', 'usna1')),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+        ])
+
+    def test_chicken_wop(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG!
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+        ])
+
+    def test_chicken_edgecases(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG!
+            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            # Probably won't happen in real life, so the slightly weird response is okay, but it must not crash here:
+            (('chicken', '', 'fina1', 'usna1'), ('chicken_wrong_side', 'fina1', '???')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('chicken', '', 'fina3', 'usna3'), ('chicken_not_involved', 'fina3')),
         ])
 
 

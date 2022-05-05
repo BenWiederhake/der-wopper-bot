@@ -4,6 +4,7 @@
 import datetime
 from generation import GenerationTracker
 import random
+import secret  # For MESSAGES_SHEET
 import secrets
 
 WOP_TO_WOP = {
@@ -342,6 +343,24 @@ def compute_do_p(game, argument, sender_firstname, sender_username) -> None:
     return ('dox_p', sender_firstname, game.last_chooser[0])
 
 
+def compute_chicken(game, argument, sender_firstname, sender_username):
+    # Very similar to check_can_do_x and compute_wop
+    if sender_username not in game.joined_users.keys():
+        return ('nonplayer', sender_firstname)
+
+    if game.last_chooser is not None and game.last_chooser[0] == sender_username:
+        last_chosen_username = game.last_chosen[0] if game.last_chosen is not None else '???'
+        return ('chicken_wrong_side', sender_firstname, last_chosen_username)
+
+    if game.last_chosen is None or game.last_chosen[0] != sender_username:
+        return ('chicken_not_involved', sender_firstname)
+
+    if game.last_wop is None:
+        return ('chicken_too_early', sender_firstname)
+
+    return ('chicken_' + game.last_wop, secret.MESSAGES_SHEET)
+
+
 def handle(game, command, argument, sender_firstname, sender_username):
     if command == 'join':
         return compute_join(game, argument, sender_firstname, sender_username)
@@ -371,5 +390,7 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_show_random(game, argument, sender_firstname, sender_username)
     elif command == 'whytho':
         return compute_whytho(game, argument, sender_firstname, sender_username)
+    elif command == 'chicken':
+        return compute_chicken(game, argument, sender_firstname, sender_username)
     else:
         return ('unknown_command', sender_firstname)
