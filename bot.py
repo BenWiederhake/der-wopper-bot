@@ -161,7 +161,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         # wop - zufällig Wahrheit oder Pflicht wählen
         # do_w - Wahrheit wählen
         # do_p - Pflicht wählen
-        # chicken - Ein feiges Huhn sein
+        # chicken - ein feiges Huhn sein
         # who - wiederholt, wer zur Zeit dran ist
         # kick - die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)
         # players - schreibt in den Chat wer alles an der Runde teilnimmt
