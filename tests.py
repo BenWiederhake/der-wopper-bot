@@ -3,6 +3,7 @@
 
 import bot  # check whether the file parses
 import logic
+import msg  # check keyset
 import unittest
 
 
@@ -77,6 +78,11 @@ class TestSequences(unittest.TestCase):
             with self.subTest(step=i):
                 actual_response = logic.handle(game, *query)
                 self.assertEqual(expected_response, actual_response)
+                self.assertIn(expected_response[0], msg.MESSAGES.keys())
+                if expected_response == actual_response and expected_response[0] in msg.MESSAGES.keys():
+                    # Check that all templates all work:
+                    for template in msg.MESSAGES[expected_response[0]]:
+                        self.assertTrue(template.format(*expected_response[1:]))
         d = game.to_dict()
         g2 = logic.OngoingGame.from_dict(d)
         d2 = g2.to_dict()
@@ -808,8 +814,8 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('choose', 'usna3', 'fina1', 'usna1'), ('chosen_chosen', 'usna3', 'fina1')),  # Relies on seeded RNG
-            (('choose', 'usna2', 'fina3', 'usna3'), ('chosen_chosen', 'usna2', 'fina3')),  # Relies on seeded RNG
+            (('choose', 'usna3', 'fina1', 'usna1'), ('chosen_chosen', 'usna3', 'fina1')),
+            (('choose', 'usna2', 'fina3', 'usna3'), ('chosen_chosen', 'usna2', 'fina3')),
         ])
 
     def test_dox_nonplayer(self):
