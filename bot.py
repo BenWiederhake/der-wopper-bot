@@ -145,12 +145,14 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         f'\n/wop → zufällig Wahrheit oder Pflicht wählen'
         f'\n/do_w → Wahrheit wählen'
         f'\n/do_p → Pflicht wählen'
+        f'\n/chicken → Ein feiges Huhn sein, und sich vor der Aufgabe drücken'
         f'\n/who → wiederholt, wer zur Zeit dran ist'
         f'\n/kick → die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)'
         f'\n/players → schreibt in den Chat wer alles an der Runde teilnimmt'
         f'\nMehr macht der Bot nicht. Man muss selber Fragen stellen, Fragen beantworten, oder kapieren wann man dran ist :P'
         f'\nhttps://github.com/BenWiederhake/der-wopper-bot'
         f'\nTexte ändern: {secret.MESSAGES_SHEET}'
+        f'\n(Außerdem gibt\'s noch /uptime, /show_random, /whytho, /how, /where, /why.)'
         # For BotFather:
         # join - an der Runde teilnehmen
         # leave - Runde verlassen (keine Angst, du bleibst im Chat)
@@ -159,6 +161,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         # wop - zufällig Wahrheit oder Pflicht wählen
         # do_w - Wahrheit wählen
         # do_p - Pflicht wählen
+        # chicken - Ein feiges Huhn sein
         # who - wiederholt, wer zur Zeit dran ist
         # kick - die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)
         # players - schreibt in den Chat wer alles an der Runde teilnimmt
