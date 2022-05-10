@@ -72,12 +72,12 @@ MESSAGES = {
         'Das steht doch schon fest, {0}? Es bleibt bei {1}. Jetzt entscheidet @{2}!',
     ],
     'wop_result_w': [
-        'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}.',
-        'WAHRHEIT! @{1} stellt eine Frage, und {0} muss ehrlich antworten.',
+        'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
+        'WAHRHEIT! @{1} stellt eine Frage, und {0} muss ehrlich antworten. Danach geht\'s mit /random weiter.',
     ],
     'wop_result_p': [
-        'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}.',
-        'PLICHT! @{1} sagt an, und {0} muss tun.',
+        'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
+        'PLICHT! @{1} sagt an, und {0} muss tun. Danach geht\'s mit /random weiter.',
     ],
     'who_nobody': [
         'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.',
@@ -89,7 +89,7 @@ MESSAGES = {
         'Im Moment ist @{0} dran, einen neuen Spieler mit /random zu wählen.',
     ],
     'who_no_wop': [
-        'Im Moment ist entweder @{1} dran, Wahrheit oder Pflicht zu wählen; oder @{0} muss sich eine Frage/Aufgabe ausdenken; oder @{1} muss darauf reagieren.',
+        'Im Moment ist @{1} dran, Wahrheit oder Pflicht zu wählen. (Oder falls schon gewählt wurde ohne /do_w / /do_p zu benutzen, dann muss @{0} sich eine Frage/Aufgabe ausdenken.)',
     ],
     'who_wop_w': [
         'Im Moment ist @{1} dran, denn es wurde Wahrheit gewählt, und muss jetzt {0} eine Frage beantworten. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
@@ -166,12 +166,12 @@ MESSAGES = {
         'Tja {0}, du hast schon Pflicht gewählt. Jetzt musst du eine Aufgabe für @{1} erledigen.',
     ],
     'dox_w': [
-        'Soso, {0} wählt Wahrheit. @{1}, welche Wahrheit möchtest du über {0} wissen?',
-        '@{1}, was würdest du gerne von {0} wissen?',
+        'Soso, {0} wählt Wahrheit. @{1}, welche Wahrheit möchtest du über {0} wissen? (Oder sei ein feiges Huhn mit /chicken.)',
+        '@{1}, was würdest du gerne von {0} wissen? Danach geht\'s mit /random weiter.',
     ],
     'dox_p': [
-        'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen?',
-        '{0} muss jetzt was tun! @{1}, was soll {0} denn machen?',
+        'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen? (Oder sei ein feiges Huhn mit /chicken.)',
+        '{0} muss jetzt was tun! @{1}, was soll {0} denn machen? Danach geht\'s mit /random weiter.',
     ],
     'where': [
         'Genau hier, in *diesem* Chat, {0}!',
@@ -200,13 +200,14 @@ MESSAGES = {
     ],
     'chicken_too_early_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'chicken_w': secret.MESSAGES_CHICKEN_W,
-    'chicken_w_COMMENT': '{0} ist der Link auf dieses Dokument',
+    'chicken_w_COMMENT': '{0} ist der Link auf dieses Dokument, {1} ist der Besitzer',
     'chicken_p': secret.MESSAGES_CHICKEN_P,
     'chicken_p_COMMENT': '{0} ist der Link auf dieses Dokument',
     'unknown_command': [
         'Häh?',
         'Was?',
         'Bestimmt weiß ich eines Tages, was das bedeuten soll.',
+        'Ich habe nicht genügend Erfahrung, um diese Aufgabe auszuführen.',
     ],
     'debug1': [
         '{0}',

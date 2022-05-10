@@ -358,7 +358,7 @@ def compute_chicken(game, argument, sender_firstname, sender_username):
     if game.last_wop is None:
         return ('chicken_too_early', sender_firstname)
 
-    return ('chicken_' + game.last_wop, secret.MESSAGES_SHEET)
+    return ('chicken_' + game.last_wop, secret.MESSAGES_SHEET, secret.OWNER)
 
 
 def handle(game, command, argument, sender_firstname, sender_username):

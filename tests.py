@@ -938,18 +938,18 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET)),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET)),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_w', secret.MESSAGES_SHEET, secret.OWNER)),
         ])
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('do_p', '', 'fina2', 'usna2'), ('dox_p', 'fina2', 'usna1')),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
         ])
 
     def test_chicken_wop(self):
@@ -958,9 +958,9 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG!
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
         ])
 
     def test_chicken_edgecases(self):
