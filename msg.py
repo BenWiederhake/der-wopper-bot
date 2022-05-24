@@ -32,6 +32,7 @@ MESSAGES = {
         'Aww, dann eben nicht mehr.',
         'Bis zum nächsten Mal, {0}!',
         'Es war mir ein Vergnügen. Bis dann, {0}! :)',
+        'Brudi muss los!',
     ],
     'already_left': [
         'Pöh! Du warst sowieso nicht in der Runde, {0}!',
@@ -180,10 +181,12 @@ MESSAGES = {
     'where_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'why': [
         'Because … FUN! :D',
+        'Because I said so!',
     ],
     'why_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'how': [
         'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {2}',
+        'Vorsicht! Ich How zurück!',
     ],
     'how_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'chicken_not_involved': [
