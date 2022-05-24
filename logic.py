@@ -174,6 +174,7 @@ def compute_random(game, argument, sender_firstname, sender_username):
 
     weights = game.compute_weigths_for(sender_username)
     weight_tuples = list(weights.items())
+    game.rng.shuffle(weight_tuples)  # Wtf? This shouldn't be necessary!
     chosen_username = game.rng.choices(*zip(*weight_tuples))[0]
     chosen_firstname = game.joined_users[chosen_username]  # This is unfortunate
 

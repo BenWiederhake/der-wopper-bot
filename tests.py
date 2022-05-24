@@ -258,8 +258,8 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
         ])
 
     def test_show_random_several(self):
@@ -272,53 +272,51 @@ class TestSequences(unittest.TestCase):
             (('show_random', 'usna2', 'fina1', 'usna1'), ('debug1', "[('usna1', 18), ('usna3', 18)]")),
             (('show_random', 'usna3', 'fina1', 'usna1'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
-            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
-            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18), ('usna3', 18)]")),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 32)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 25), ('usna3', 25)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 9)]")),
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
-            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random[('usna1', 25), ('usna3', 25)]")),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 41)]")),  # <- The important one
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 41)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 9), ('usna2', 10)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
-            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 1), ('usna3', 41)]")),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 5), ('usna3', 0)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 16)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 10), ('usna2', 13)]")),  # <- The important one
-            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 10), ('usna3', 1)]")),  # <- The important one
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 17)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 0), ('usna2', 25)]")),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18), ('usna3', 18)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 32), ('usna3', 0)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 25), ('usna3', 9)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 25)]")),  # <- The important one
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random[('usna1', 25), ('usna2', 25)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 34), ('usna3', 10)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 41), ('usna2', 0)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random[('usna3', 10), ('usna1', 34)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 4)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 20)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 16), ('usna2', 1)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 5)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 20)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 1), ('usna2', 16)]")),
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 1)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 0)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 4), ('usna2', 17)]")),  # <- The important one
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 10)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 25)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 17), ('usna2', 0)]")),
         ])
 
     @unittest.skip('Not an actual test, just generates test data, must be sanity-checked by human')
     def test_make_reference(self):
         game = logic.OngoingGame('Static seed for reproducible randomness, do not change')
+        current_player = 'usna1'
         def observe(*tuple_in):
             tuple_out = logic.handle(game, *tuple_in)
-            print((tuple_in, tuple_out))
+            print(f'            {(tuple_in, tuple_out)},', end='')
+            if tuple_in[0] == 'show_random' and tuple_in[3] == current_player:
+                print('  # <- The important one', end='')
+            print()
             return tuple_out
         num_players = 5
-        num_turns = 20
+        num_turns = 40
         for i in range(1, num_players + 1):
             observe('join', '', f'fina{i}', f'usna{i}')
-        current_player = 'usna1'
+        player_sequence = [current_player.replace('usna', '')]
         for step in range(num_turns):
             for i in range(1, num_players + 1):
                 observe('show_random', '', f'fina{i}', f'usna{i}')
             tuple_out = observe('random', '', current_player.replace('usna', 'fina'), current_player)
             assert tuple_out[0] == 'random_chosen'
             current_player = tuple_out[1]
+            player_sequence.append(current_player.replace('usna', ''))
+        print(f'            # Sequence: {" ".join(player_sequence)}')
 
     def test_show_random_many(self):
         # Use test_make_reference to generate, then sanity-check by hand!
@@ -328,7 +326,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
             (('join', '', 'fina4', 'usna4'), ('welcome', 'fina4')),
             (('join', '', 'fina5', 'usna5'), ('welcome', 'fina5')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 18), ('usna3', 18), ('usna4', 18), ('usna5', 18)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 18), ('usna3', 18), ('usna4', 18), ('usna5', 18)]")),  # <- The important one
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 18), ('usna3', 18), ('usna4', 18), ('usna5', 18)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 18), ('usna2', 18), ('usna4', 18), ('usna5', 18)]")),
             (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 18), ('usna2', 18), ('usna3', 18), ('usna5', 18)]")),
@@ -339,117 +337,236 @@ class TestSequences(unittest.TestCase):
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 25), ('usna4', 25), ('usna5', 25)]")),  # <- The important one
             (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 25), ('usna2', 25), ('usna3', 9), ('usna5', 25)]")),
             (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 25), ('usna2', 25), ('usna3', 9), ('usna4', 25)]")),
-            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 1), ('usna4', 41), ('usna5', 41)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 34), ('usna3', 10), ('usna4', 34), ('usna5', 34)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 41), ('usna2', 0), ('usna4', 41), ('usna5', 41)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 34), ('usna2', 9), ('usna3', 10), ('usna5', 34)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 34), ('usna2', 9), ('usna3', 10), ('usna4', 34)]")),
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna4')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 4), ('usna4', 16), ('usna5', 52)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 52), ('usna3', 20), ('usna4', 0), ('usna5', 52)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 52), ('usna2', 1), ('usna4', 16), ('usna5', 52)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 45), ('usna2', 10), ('usna3', 13), ('usna5', 45)]")),  # <- The important one
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 45), ('usna2', 10), ('usna3', 13), ('usna4', 9)]")),
-            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna2')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 9), ('usna4', 17), ('usna5', 65)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 65), ('usna3', 25), ('usna4', 1), ('usna5', 65)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 65), ('usna2', 0), ('usna4', 17), ('usna5', 65)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 65), ('usna2', 0), ('usna3', 25), ('usna5', 65)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 58), ('usna2', 9), ('usna3', 18), ('usna4', 10)]")),
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna5')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 16), ('usna4', 20), ('usna5', 16)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 89), ('usna3', 41), ('usna4', 5), ('usna5', 0)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 80), ('usna2', 1), ('usna4', 20), ('usna5', 16)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 80), ('usna2', 1), ('usna3', 32), ('usna5', 16)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 73), ('usna2', 10), ('usna3', 25), ('usna4', 13)]")),  # <- The important one
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 41), ('usna3', 1), ('usna4', 41), ('usna5', 16)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 34), ('usna3', 10), ('usna4', 34), ('usna5', 9)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 41), ('usna2', 41), ('usna4', 41), ('usna5', 0)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 34), ('usna2', 34), ('usna3', 10), ('usna5', 9)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 34), ('usna2', 34), ('usna3', 10), ('usna4', 34)]")),  # <- The important one
             (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna2')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 25), ('usna4', 25), ('usna5', 17)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 106), ('usna3', 50), ('usna4', 10), ('usna5', 1)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 97), ('usna2', 0), ('usna4', 25), ('usna5', 17)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 97), ('usna2', 0), ('usna3', 41), ('usna5', 17)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 97), ('usna2', 0), ('usna3', 41), ('usna4', 25)]")),
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 36), ('usna4', 32), ('usna5', 20)]")),  # <- The important one
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 72), ('usna4', 20), ('usna5', 5)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 16), ('usna2', 1), ('usna4', 32), ('usna5', 20)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 16), ('usna2', 1), ('usna3', 52), ('usna5', 20)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 16), ('usna2', 1), ('usna3', 52), ('usna4', 32)]")),
-            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna5')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 29), ('usna3', 50), ('usna4', 50), ('usna5', 0)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 85), ('usna4', 29), ('usna5', 1)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 17), ('usna2', 4), ('usna4', 41), ('usna5', 16)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 17), ('usna2', 4), ('usna3', 65), ('usna5', 16)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 17), ('usna2', 4), ('usna3', 65), ('usna4', 41)]")),  # <- The important one
-            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna3')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 34), ('usna3', 1), ('usna4', 61), ('usna5', 1)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 4), ('usna3', 36), ('usna4', 40), ('usna5', 2)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 20), ('usna2', 9), ('usna4', 52), ('usna5', 17)]")),  # <- The important one
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 20), ('usna2', 9), ('usna3', 16), ('usna5', 17)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 29), ('usna2', 10), ('usna3', 0), ('usna4', 61)]")),
-            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna4')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 41), ('usna3', 2), ('usna4', 25), ('usna5', 4)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 9), ('usna3', 37), ('usna4', 4), ('usna5', 5)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 34), ('usna2', 17), ('usna4', 0), ('usna5', 29)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 25), ('usna2', 16), ('usna3', 17), ('usna5', 20)]")),  # <- The important one
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 34), ('usna2', 17), ('usna3', 1), ('usna4', 25)]")),
-            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna1')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 50), ('usna3', 5), ('usna4', 26), ('usna5', 9)]")),  # <- The important one
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 40), ('usna4', 5), ('usna5', 10)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 26), ('usna4', 1), ('usna5', 34)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 0), ('usna2', 26), ('usna3', 29), ('usna5', 34)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 25), ('usna2', 26), ('usna3', 4), ('usna4', 26)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 4), ('usna4', 52), ('usna5', 17)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 45), ('usna3', 13), ('usna4', 45), ('usna5', 10)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 52), ('usna2', 16), ('usna4', 52), ('usna5', 1)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 45), ('usna2', 9), ('usna3', 13), ('usna5', 10)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 52), ('usna2', 0), ('usna3', 20), ('usna4', 52)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 9), ('usna4', 16), ('usna5', 20)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 65), ('usna3', 25), ('usna4', 0), ('usna5', 20)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 65), ('usna2', 17), ('usna4', 16), ('usna5', 4)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 58), ('usna2', 10), ('usna3', 18), ('usna5', 13)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 65), ('usna2', 1), ('usna3', 25), ('usna4', 16)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 20), ('usna3', 0), ('usna4', 17), ('usna5', 25)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 80), ('usna3', 16), ('usna4', 1), ('usna5', 25)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 80), ('usna2', 20), ('usna4', 17), ('usna5', 9)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 80), ('usna2', 20), ('usna3', 0), ('usna5', 25)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 80), ('usna2', 4), ('usna3', 16), ('usna4', 17)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 25), ('usna3', 1), ('usna4', 20), ('usna5', 32)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 16), ('usna3', 17), ('usna4', 4), ('usna5', 32)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 0), ('usna2', 34), ('usna4', 29), ('usna5', 17)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 16), ('usna2', 25), ('usna3', 1), ('usna5', 32)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 16), ('usna2', 9), ('usna3', 17), ('usna4', 20)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 13), ('usna4', 40), ('usna5', 17)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 45), ('usna4', 8), ('usna5', 17)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 26), ('usna2', 1), ('usna4', 4), ('usna5', 41)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 1), ('usna2', 1), ('usna3', 34), ('usna5', 41)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 26), ('usna2', 1), ('usna3', 9), ('usna4', 29)]")),
-            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna4')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 20), ('usna4', 36), ('usna5', 26)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 65), ('usna4', 0), ('usna5', 29)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 29), ('usna2', 2), ('usna4', 0), ('usna5', 50)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 4), ('usna2', 2), ('usna3', 41), ('usna5', 50)]")),  # <- The important one
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 29), ('usna2', 2), ('usna3', 16), ('usna4', 25)]")),
-            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna5')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 4), ('usna3', 29), ('usna4', 37), ('usna5', 1)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 10), ('usna3', 74), ('usna4', 1), ('usna5', 4)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 34), ('usna2', 5), ('usna4', 1), ('usna5', 25)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 10), ('usna2', 8), ('usna3', 61), ('usna5', 0)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 34), ('usna2', 5), ('usna3', 25), ('usna4', 26)]")),  # <- The important one
-            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna1')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 9), ('usna3', 40), ('usna4', 40), ('usna5', 2)]")),  # <- The important one
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 85), ('usna4', 4), ('usna5', 5)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 10), ('usna4', 4), ('usna5', 26)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 1), ('usna2', 13), ('usna3', 72), ('usna5', 1)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 0), ('usna2', 13), ('usna3', 37), ('usna4', 40)]")),
-            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna4')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 58), ('usna4', 0), ('usna5', 8)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 2), ('usna3', 98), ('usna4', 0), ('usna5', 8)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 26), ('usna2', 17), ('usna4', 0), ('usna5', 29)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 2), ('usna2', 20), ('usna3', 85), ('usna5', 4)]")),  # <- The important one
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 1), ('usna2', 20), ('usna3', 50), ('usna4', 36)]")),
-            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna1')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 26), ('usna3', 73), ('usna4', 1), ('usna5', 13)]")),  # <- The important one
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 113), ('usna4', 1), ('usna5', 13)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 26), ('usna4', 1), ('usna5', 34)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 0), ('usna2', 34), ('usna3', 113), ('usna5', 10)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 0), ('usna2', 29), ('usna3', 65), ('usna4', 37)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 5), ('usna4', 34), ('usna5', 50)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 17), ('usna3', 20), ('usna4', 9), ('usna5', 41)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 1), ('usna2', 25), ('usna4', 34), ('usna5', 26)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 17), ('usna2', 16), ('usna3', 4), ('usna5', 41)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 17), ('usna2', 0), ('usna3', 20), ('usna4', 25)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 10), ('usna4', 41), ('usna5', 61)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 34), ('usna4', 17), ('usna5', 61)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 0), ('usna2', 26), ('usna4', 41), ('usna5', 37)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 16), ('usna2', 17), ('usna3', 9), ('usna5', 52)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 16), ('usna2', 1), ('usna3', 25), ('usna4', 32)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna5')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 40), ('usna3', 97), ('usna4', 5), ('usna5', 0)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 2), ('usna3', 130), ('usna4', 4), ('usna5', 4)]")),
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 26), ('usna2', 37), ('usna4', 4), ('usna5', 25)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 1), ('usna2', 45), ('usna3', 130), ('usna5', 1)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 1), ('usna2', 40), ('usna3', 82), ('usna4', 40)]")),  # <- The important one
-            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna2')),
-            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 4), ('usna3', 116), ('usna4', 10), ('usna5', 1)]")),
-            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 149), ('usna4', 9), ('usna5', 5)]")),  # <- The important one
-            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 29), ('usna2', 1), ('usna4', 9), ('usna5', 26)]")),
-            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 4), ('usna2', 9), ('usna3', 149), ('usna5', 2)]")),
-            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 5), ('usna2', 0), ('usna3', 104), ('usna4', 58)]")),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 5), ('usna3', 20), ('usna4', 61), ('usna5', 0)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 41), ('usna4', 26), ('usna5', 25)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 1), ('usna2', 29), ('usna4', 50), ('usna5', 1)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 17), ('usna2', 20), ('usna3', 16), ('usna5', 16)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 17), ('usna2', 4), ('usna3', 32), ('usna4', 41)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 10), ('usna3', 29), ('usna4', 36), ('usna5', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 4), ('usna3', 50), ('usna4', 1), ('usna5', 26)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 4), ('usna2', 34), ('usna4', 25), ('usna5', 2)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 20), ('usna2', 25), ('usna3', 25), ('usna5', 17)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 29), ('usna2', 10), ('usna3', 50), ('usna4', 0)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 40), ('usna4', 37), ('usna5', 0)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 9), ('usna3', 61), ('usna4', 2), ('usna5', 25)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 9), ('usna2', 41), ('usna4', 26), ('usna5', 1)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 34), ('usna2', 41), ('usna3', 37), ('usna5', 0)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 34), ('usna2', 17), ('usna3', 61), ('usna4', 1)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 26), ('usna3', 4), ('usna4', 40), ('usna5', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 16), ('usna3', 25), ('usna4', 5), ('usna5', 26)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 16), ('usna2', 50), ('usna4', 29), ('usna5', 2)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 41), ('usna2', 50), ('usna3', 1), ('usna5', 1)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 52), ('usna2', 29), ('usna3', 0), ('usna4', 5)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 5), ('usna4', 45), ('usna5', 4)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 25), ('usna3', 26), ('usna4', 10), ('usna5', 29)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 26), ('usna2', 0), ('usna4', 45), ('usna5', 8)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 50), ('usna2', 25), ('usna3', 2), ('usna5', 4)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 61), ('usna2', 4), ('usna3', 1), ('usna4', 10)]")),
             (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),
-            # usna3 had to wait for quite a long time (10 turns), but the probabilities were high to be chosen at any point.
-            # I'll attribute this as being a "medium-bad run", which shouldn't have happened, but oh well.
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 2), ('usna3', 4), ('usna4', 52), ('usna5', 9)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 37), ('usna3', 0), ('usna4', 20), ('usna5', 45)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 37), ('usna2', 1), ('usna4', 52), ('usna5', 13)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 61), ('usna2', 26), ('usna3', 1), ('usna5', 9)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 72), ('usna2', 5), ('usna3', 0), ('usna4', 17)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 5), ('usna3', 5), ('usna4', 36), ('usna5', 16)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 50), ('usna3', 1), ('usna4', 4), ('usna5', 52)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 53), ('usna2', 5), ('usna4', 0), ('usna5', 25)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 74), ('usna2', 29), ('usna3', 2), ('usna5', 16)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 85), ('usna2', 8), ('usna3', 1), ('usna4', 1)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 10), ('usna3', 8), ('usna4', 37), ('usna5', 25)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 4), ('usna4', 5), ('usna5', 61)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 4), ('usna2', 10), ('usna4', 1), ('usna5', 34)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 0), ('usna2', 45), ('usna3', 8), ('usna5', 26)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 36), ('usna2', 13), ('usna3', 4), ('usna4', 2)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 20), ('usna3', 18), ('usna4', 0), ('usna5', 37)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 2), ('usna3', 9), ('usna4', 4), ('usna5', 72)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 5), ('usna2', 17), ('usna4', 0), ('usna5', 45)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 1), ('usna2', 52), ('usna3', 13), ('usna5', 37)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 37), ('usna2', 20), ('usna3', 9), ('usna4', 1)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna2')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 4), ('usna3', 25), ('usna4', 1), ('usna5', 50)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 16), ('usna4', 5), ('usna5', 85)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 8), ('usna2', 1), ('usna4', 1), ('usna5', 58)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 5), ('usna2', 0), ('usna3', 25), ('usna5', 53)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 40), ('usna2', 4), ('usna3', 16), ('usna4', 2)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 5), ('usna3', 34), ('usna4', 4), ('usna5', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 13), ('usna3', 26), ('usna4', 13), ('usna5', 0)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 13), ('usna2', 2), ('usna4', 4), ('usna5', 9)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 10), ('usna2', 1), ('usna3', 34), ('usna5', 4)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 45), ('usna2', 5), ('usna3', 25), ('usna4', 5)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 8), ('usna3', 9), ('usna4', 9), ('usna5', 2)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 20), ('usna3', 1), ('usna4', 18), ('usna5', 1)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 20), ('usna2', 5), ('usna4', 9), ('usna5', 10)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 17), ('usna2', 4), ('usna3', 9), ('usna5', 5)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 65), ('usna2', 13), ('usna3', 0), ('usna4', 13)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 13), ('usna3', 10), ('usna4', 16), ('usna5', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 29), ('usna3', 2), ('usna4', 25), ('usna5', 0)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 34), ('usna2', 13), ('usna4', 17), ('usna5', 0)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 26), ('usna2', 9), ('usna3', 10), ('usna5', 4)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 74), ('usna2', 18), ('usna3', 1), ('usna4', 20)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 20), ('usna3', 13), ('usna4', 25), ('usna5', 2)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 4), ('usna3', 5), ('usna4', 34), ('usna5', 1)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 9), ('usna2', 20), ('usna4', 26), ('usna5', 1)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 1), ('usna2', 16), ('usna3', 13), ('usna5', 5)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 0), ('usna2', 32), ('usna3', 5), ('usna4', 34)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 34), ('usna3', 25), ('usna4', 0), ('usna5', 8)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 10), ('usna4', 9), ('usna5', 4)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 10), ('usna2', 29), ('usna4', 1), ('usna5', 4)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 2), ('usna2', 25), ('usna3', 18), ('usna5', 8)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 1), ('usna2', 41), ('usna3', 10), ('usna4', 9)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 45), ('usna3', 16), ('usna4', 1), ('usna5', 13)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 8), ('usna3', 1), ('usna4', 10), ('usna5', 9)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 13), ('usna2', 40), ('usna4', 2), ('usna5', 9)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 8), ('usna2', 37), ('usna3', 0), ('usna5', 18)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 4), ('usna2', 52), ('usna3', 1), ('usna4', 10)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 9), ('usna3', 17), ('usna4', 4), ('usna5', 20)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 13), ('usna3', 2), ('usna4', 13), ('usna5', 16)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 0), ('usna4', 8), ('usna5', 17)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 13), ('usna2', 1), ('usna3', 1), ('usna5', 25)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 9), ('usna2', 16), ('usna3', 2), ('usna4', 13)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 10), ('usna3', 20), ('usna4', 9), ('usna5', 29)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 8), ('usna4', 25), ('usna5', 26)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 16), ('usna2', 1), ('usna4', 13), ('usna5', 26)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 4), ('usna2', 2), ('usna3', 4), ('usna5', 34)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 0), ('usna2', 17), ('usna3', 5), ('usna4', 18)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 20), ('usna3', 34), ('usna4', 17), ('usna5', 0)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 13), ('usna4', 32), ('usna5', 1)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 17), ('usna2', 4), ('usna4', 20), ('usna5', 1)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 5), ('usna2', 5), ('usna3', 9), ('usna5', 9)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 1), ('usna2', 20), ('usna3', 10), ('usna4', 25)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 25), ('usna3', 41), ('usna4', 1), ('usna5', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 4), ('usna3', 20), ('usna4', 16), ('usna5', 2)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 20), ('usna2', 9), ('usna4', 4), ('usna5', 2)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 8), ('usna2', 10), ('usna3', 16), ('usna5', 10)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 5), ('usna2', 34), ('usna3', 20), ('usna4', 0)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 32), ('usna3', 25), ('usna4', 2), ('usna5', 4)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 9), ('usna3', 4), ('usna4', 17), ('usna5', 5)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 16), ('usna4', 5), ('usna5', 5)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 18), ('usna2', 20), ('usna3', 0), ('usna5', 20)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 10), ('usna2', 41), ('usna3', 4), ('usna4', 1)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 26), ('usna4', 5), ('usna5', 9)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 16), ('usna3', 5), ('usna4', 20), ('usna5', 10)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 41), ('usna2', 0), ('usna4', 13), ('usna5', 13)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 25), ('usna2', 4), ('usna3', 1), ('usna5', 25)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 17), ('usna2', 25), ('usna3', 5), ('usna4', 4)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 29), ('usna4', 10), ('usna5', 16)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 13), ('usna4', 34), ('usna5', 20)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 1), ('usna4', 18), ('usna5', 20)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 9), ('usna2', 5), ('usna3', 4), ('usna5', 32)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 1), ('usna2', 26), ('usna3', 8), ('usna4', 9)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 0), ('usna3', 45), ('usna4', 20), ('usna5', 26)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 18), ('usna4', 41), ('usna5', 29)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 26), ('usna2', 0), ('usna4', 25), ('usna5', 29)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 10), ('usna2', 4), ('usna3', 9), ('usna5', 41)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 2), ('usna2', 25), ('usna3', 13), ('usna4', 16)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 52), ('usna4', 4), ('usna5', 37)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 32), ('usna4', 0), ('usna5', 45)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 29), ('usna2', 1), ('usna4', 9), ('usna5', 40)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 13), ('usna2', 5), ('usna3', 16), ('usna5', 52)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 5), ('usna2', 26), ('usna3', 20), ('usna4', 0)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 4), ('usna3', 61), ('usna4', 5), ('usna5', 1)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 10), ('usna3', 41), ('usna4', 1), ('usna5', 9)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 34), ('usna2', 4), ('usna4', 10), ('usna5', 4)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 25), ('usna2', 13), ('usna3', 26), ('usna5', 0)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 10), ('usna2', 29), ('usna3', 29), ('usna4', 1)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna3')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 9), ('usna3', 36), ('usna4', 8), ('usna5', 2)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 17), ('usna3', 16), ('usna4', 4), ('usna5', 10)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 41), ('usna2', 9), ('usna4', 13), ('usna5', 5)]")),  # <- The important one
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 32), ('usna2', 18), ('usna3', 1), ('usna5', 1)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 20), ('usna2', 45), ('usna3', 0), ('usna4', 5)]")),
+            (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 37), ('usna4', 13), ('usna5', 5)]")),  # <- The important one
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 1), ('usna3', 17), ('usna4', 9), ('usna5', 13)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 0), ('usna2', 17), ('usna4', 25), ('usna5', 13)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 16), ('usna2', 25), ('usna3', 2), ('usna5', 4)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 4), ('usna2', 52), ('usna3', 1), ('usna4', 10)]")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna4')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 26), ('usna3', 53), ('usna4', 0), ('usna5', 13)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 2), ('usna3', 20), ('usna4', 0), ('usna5', 18)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 1), ('usna2', 26), ('usna4', 16), ('usna5', 18)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 17), ('usna2', 34), ('usna3', 5), ('usna5', 9)]")),  # <- The important one
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 5), ('usna2', 61), ('usna3', 4), ('usna4', 1)]")),
+            (('random', '', 'fina4', 'usna4'), ('random_chosen', 'usna2')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 1), ('usna3', 58), ('usna4', 1), ('usna5', 20)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 5), ('usna3', 25), ('usna4', 1), ('usna5', 25)]")),  # <- The important one
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 4), ('usna2', 1), ('usna4', 17), ('usna5', 25)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 29), ('usna2', 0), ('usna3', 13), ('usna5', 17)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 8), ('usna2', 36), ('usna3', 9), ('usna4', 2)]")),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna5')),
+            (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 2), ('usna3', 65), ('usna4', 4), ('usna5', 4)]")),
+            (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 13), ('usna3', 41), ('usna4', 5), ('usna5', 0)]")),
+            (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 9), ('usna2', 2), ('usna4', 20), ('usna5', 9)]")),
+            (('show_random', '', 'fina4', 'usna4'), ('debug1', "[('usna1', 34), ('usna2', 1), ('usna3', 20), ('usna5', 1)]")),
+            (('show_random', '', 'fina5', 'usna5'), ('debug1', "[('usna1', 13), ('usna2', 37), ('usna3', 16), ('usna4', 5)]")),  # <- The important one
+            (('random', '', 'fina5', 'usna5'), ('random_chosen', 'usna3')),
+            # Sequence: 1 3 5 2 4 3 1 2 1 5 4 5 3 2 3 4 1 4 2 5 3 5 1 4 3 2 1 5 4 3 2 1 2 4 5 3 1 4 2 5 3
         ])
 
     def test_true_random_several(self):
