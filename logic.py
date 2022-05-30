@@ -138,8 +138,21 @@ def compute_leave(game, argument, sender_firstname, sender_username):
     if sender_username not in game.joined_users.keys():
         return ('already_left', sender_firstname)
 
+    response = ('leave', sender_firstname)
+
+    if game.last_chooser is not None and game.last_chooser[0] == sender_username:
+        if game.last_chosen is None:
+            response = ('leave_chooser_dunno', sender_firstname)
+        else:
+            response = ('leave_chooser_handover', sender_firstname, game.last_chosen[0])
+    if game.last_chosen is not None and game.last_chosen[0] == sender_username:
+        if game.last_chooser is None:
+            response = ('leave_chosen_dunno', sender_firstname)
+        else:
+            response = ('leave_chosen_flee', sender_firstname, game.last_chooser[0])
+
     game.notify_leave(sender_username)
-    return ('leave', sender_firstname)
+    return response
 
 
 def compute_show_random(game, argument, sender_firstname, sender_username):

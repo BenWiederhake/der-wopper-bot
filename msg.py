@@ -35,6 +35,26 @@ MESSAGES = {
         'Es war mir ein Vergnügen. Bis dann, {0}! :)',
         'Brudi muss los!',
     ],
+    'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
+    'leave_chooser_dunno': [
+        'Tschüss {0}! Tja, damit ist keiner mehr dran. Macht mal jemand /random, bitte?',
+        'Ohne {0} ist garniemand mehr dran. Kann jemand bitte /random machen?',
+    ],
+    'leave_chooser_dunno_COMMENT': '{0} ist der Vorname der angesprochenen Person',
+    'leave_chooser_handover': [
+        'Ciao {0}! Das heißt für @{1}: Wenn du fertig bist, einfach mit /random weitermachen.',
+    ],
+    'leave_chooser_handover_COMMENT': '{0} ist der Vorname der angesprochenen Person, {1} der Username des verbleibenden Aufgaben-Erledigenden',
+    'leave_chosen_dunno': [
+        'Äh, ja, tschüss {0}. Und wer macht jetzt weiter? Könnte jemand bitte /random machen?',
+        'Du kannst mich doch nicht einfach so alleine lassen, {0}! Schnell, kann jemand bitte /random machen?!',
+    ],
+    'leave_chosen_dunno_COMMENT': '{0} ist der Vorname der angesprochenen Person',
+    'leave_chosen_flee': [
+        'Soso, {0} flieht. Dann würde ich sagen @{1} macht direkt nochmal mit /random weiter, oder?',
+        'Tja, ohne {0} kommt @{1} halt nochmal dran. Weiter geht\'s mit /random.',
+    ],
+    'leave_chosen_flee_COMMENT': '{0} ist der Vorname der angesprochenen Person, {1} der Username des verbleibenden Aufgaben-Stellenden',
     'already_left': [
         'Pöh! Du warst sowieso nicht in der Runde, {0}!',
         'Wenn der Kuchen redet, schweigen die Krümel, {0}!',

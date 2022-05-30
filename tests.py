@@ -126,6 +126,33 @@ class TestSequences(unittest.TestCase):
             (('leave', '', 'fina', 'usna'), ('already_left', 'fina')),
         ])
 
+    def test_leave_chooser_first(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'finb', 'usnb'), ('welcome', 'finb')),
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'usnb')),
+            (('leave', '', 'fina', 'usna'), ('leave_chooser_handover', 'fina', 'usnb')),
+            (('leave', '', 'finb', 'usnb'), ('leave_chosen_dunno', 'finb')),
+        ])
+
+    def test_leave_chosen_first(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'finb', 'usnb'), ('welcome', 'finb')),
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'usnb')),
+            (('leave', '', 'finb', 'usnb'), ('leave_chosen_flee', 'finb', 'usna')),
+            (('leave', '', 'fina', 'usna'), ('leave_chooser_dunno', 'fina')),
+        ])
+
+    def test_leave_other(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'finb', 'usnb'), ('welcome', 'finb')),
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'usnb')),
+            (('join', '', 'finc', 'usnc'), ('welcome', 'finc')),
+            (('leave', '', 'finc', 'usnc'), ('leave', 'finc')),
+        ])
+
     def test_random_nonplayer(self):
         self.check_sequence([
             (('random', '', 'fina', 'usna'), ('nonplayer', 'fina')),
@@ -171,7 +198,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),  # ← 'chosen' leaves!
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # chooser tries again
         ])
         self.check_sequence([
@@ -179,7 +206,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),  # ← 'chosen' leaves!
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),  # someone else tries again
         ])
 
@@ -189,7 +216,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),  # ← 'chosen' leaves!
             (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # chooser tries again
         ])
         self.check_sequence([
@@ -197,7 +224,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),  # ← 'chosen' leaves!
             (('true_random', '', 'fina3', 'usna3'), ('random_chosen', 'usna1')),  # someone else tries again
         ])
 
@@ -207,7 +234,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
             (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),  # chosen continues game
         ])
         self.check_sequence([
@@ -215,7 +242,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # someone else tries again
         ])
 
@@ -225,7 +252,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
             (('true_random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),  # chosen continues game
         ])
         self.check_sequence([
@@ -233,7 +260,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('true_random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
             (('true_random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # someone else tries again
         ])
 
@@ -607,7 +634,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
             (('wop', '', 'fina1', 'usna1'), ('wop_nobodychosen', 'fina1', 'Pflicht')),  # Relies on seeded RNG
         ])
 
@@ -622,7 +649,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
             (('wop', '', 'fina3', 'usna3'), ('wop_nonchosen', 'fina3', 'usna2')),
         ])
@@ -638,7 +665,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
             (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', '???')),  # Relies on seeded RNG
         ])
 
@@ -655,7 +682,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
             (('wop', '', 'fina2', 'usna2'), ('wop_again', 'fina2', 'Pflicht', '???')),  # Must be the same result
         ])
 
@@ -667,14 +694,14 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
             (('who', '', 'qfina', 'qusna'), ('who_no_chooser', 'qfina', 'usna2')),
         ])
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
             (('who', '', 'qfina', 'qusna'), ('who_no_chosen', 'usna1')),
         ])
 
@@ -765,7 +792,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
             (('kick', '', 'fina1', 'usna1'), ('kick_no_chosen', 'fina1')),
         ])
 
@@ -883,7 +910,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),  # ← 'chosen' leaves!
             (('choose', 'usna3', 'fina1', 'usna1'), ('chosen_chosen', 'usna3', 'fina1')),  # chooser tries again
         ])
         self.check_sequence([
@@ -891,7 +918,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),  # ← 'chosen' leaves!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),  # ← 'chosen' leaves!
             (('choose', 'usna1', 'fina3', 'usna3'), ('chosen_chosen', 'usna1', 'fina3')),  # someone else tries again
         ])
 
@@ -901,7 +928,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
             (('choose', 'usna3', 'fina2', 'usna2'), ('chosen_chosen', 'usna3', 'fina2')),  # chosen continues game
         ])
         self.check_sequence([
@@ -909,7 +936,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),  # ← 'chooser' leaves!
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
             (('choose', 'usna2', 'fina3', 'usna3'), ('chosen_chosen', 'usna2', 'fina3')),  # someone else tries again
         ])
 
@@ -964,7 +991,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
             (('do_w', '', 'fina1', 'usna1'), ('dox_choose_first', 'fina1')),
             (('do_p', '', 'fina1', 'usna1'), ('dox_choose_first', 'fina1')),
         ])
@@ -974,7 +1001,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_choose_first', 'fina2')),
             (('do_p', '', 'fina2', 'usna2'), ('dox_choose_first', 'fina2')),
         ])
@@ -1086,7 +1113,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG!
-            (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
             # Probably won't happen in real life, so the slightly weird response is okay, but it must not crash here:
             (('chicken', '', 'fina1', 'usna1'), ('chicken_wrong_side', 'fina1', '???')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
