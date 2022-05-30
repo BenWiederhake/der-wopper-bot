@@ -7,13 +7,14 @@ RANDOM_REPLY = {'how', 'where', 'why'}
 MESSAGES = {
     'welcome': [
         'Alles klar, {0}!',
-        'Na dann viel Spaß, {0}!',
+        'Na dann, viel Spaß, {0}!',
         'Au weia, {0} ist mit von der Partie, das kann ja heiter werden!',
         'Schön, dass du dabei bist, {0}!',
         '{0}! Es ist eine Falle!',
         'Ahoi {0}!',
         'Hi {0}! Du verpflichtest dich also zur Wahrheit? ;)',
         'Hi {0}! Du bewahrheitest dich also zur Pflicht? ;)',
+        'Oh, {0}! Gnihihi!',
     ],
     'welcome_no_username': [
         'Sorry {0}, aber du musst einen @username haben, sonst komme ich nicht damit klar. :(',
@@ -26,7 +27,7 @@ MESSAGES = {
     ],
     'leave': [
         'Och, schade. Na bis dann, {0}!',
-        'Na toll, Ihr habt {0} erfolgreich vergrault!',
+        'Na toll, ihr habt {0} erfolgreich vergrault!',
         '{0} möchte uns verlassen! Schade, dann bis zum nächsten Mal.',
         'Ja dann GEH DOCH ZU NETTO! https://www.youtube.com/watch?v=YSMCC4sGkSo',
         'Aww, dann eben nicht mehr.',
@@ -77,8 +78,8 @@ MESSAGES = {
         'WAHRHEIT! @{1} stellt eine Frage, und {0} muss ehrlich antworten. Danach geht\'s mit /random weiter.',
     ],
     'wop_result_p': [
-        'PLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
-        'PLICHT! @{1} sagt an, und {0} muss tun. Danach geht\'s mit /random weiter.',
+        'PFLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
+        'PFLICHT! @{1} sagt an, und {0} muss tun. Danach geht\'s mit /random weiter.',
     ],
     'who_nobody': [
         'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.',
@@ -99,11 +100,12 @@ MESSAGES = {
         'Im Moment ist @{1} dran, denn es wurde Pflicht gewählt, und muss jetzt eine Aufgabe für {0} erledigen. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
     ],
     'players_nobody': [
-        'Sorry {0}, im Moment spielt keiner. PLICHT: Alle müssen /join schreiben, und irgendjemand schreibt /random! :D',
+        'Sorry {0}, im Moment spielt keiner. PFLICHT: Alle müssen /join schreiben, und irgendjemand schreibt /random! :D',
     ],
     'players_one_self': [
         'Du spielst gerade mit dir selbst, {0}. Mach wenigstens die Kamera an!',
         'Sorry, du bist ganz alleine, {0}. :( Mag jemand mitmachen? Einfach /join schreiben! :D',
+        'It\'s like you\'re my mirror, my mirror staring back at me… 🎶 Wenn noch jemand /join schreibt funktioniert das alles besser!',
     ],
     'players_one_other': [
         'Im Moment spielt {1} mit sich selbst. Komm schon {0}, komm dazu und schreibe /join! :D',
@@ -127,6 +129,7 @@ MESSAGES = {
     'players_many_other_COMMENT': '{0} ist der Name des Fragenden',
     'kick_nonplayer': [
         'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
+        'Nur Menschen die mitspielen dürfen andere Mitspielende hier treten. Mit /join kannst du mitsielen!',
     ],
     'kick_no_chosen': [
         'Sorry {0}, aber im Moment ist niemand dran, also kann ich die Person auch nicht kicken. Probier doch mal /random!',
@@ -135,6 +138,7 @@ MESSAGES = {
         'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en.',
         'Okaydokey {0}, @{1} ist nicht mehr dabei.',
         'Okay, ich kicke @{1}. Wer zu spät kommt, den bestraft das Leben!',
+        'Keine Ahnung, warum ihr @{1} nicht mögt. Aber ich habe @{1} entfernt.',
     ],
     'uptime': [
         'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
@@ -150,6 +154,7 @@ MESSAGES = {
     ],
     'unknown_user': [
         'Hmm, das verstehe ich leider nicht, {0}. Probier\'s doch mal mit dem @username, also zum Beispiel @{1}.',
+        'Ich kenne wohl noch nicht alle Namen und Personen richtig. Wen meintest du, {0}? Vielleicht kenne ich ja den @Usernamen, zum Beispiel @{1}.',
     ],
     'dox_choose_first': [
         'Sorry {0}, aber zuerst müssen die Personen feststehen. Probier doch mal /random!',
@@ -186,6 +191,7 @@ MESSAGES = {
     'why_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'how': [
         'Noch hat niemand die Regeln geschrieben :( Hier kann man meinen Text ändern: {2}',
+        'Bisher gibt es keine Anleitung. Aber man kann eine schreiben, in diesem Dokument: {2}. Es ist sehr gut.',
         'Vorsicht! Ich How zurück!',
     ],
     'how_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
@@ -211,6 +217,8 @@ MESSAGES = {
         'Was?',
         'Bestimmt weiß ich eines Tages, was das bedeuten soll.',
         'Ich habe nicht genügend Erfahrung, um diese Aufgabe auszuführen.',
+        'Wenn ich mal groß und stark bin kann ich das auch!',
+        '🥺',
     ],
     'debug1': [
         '{0}',

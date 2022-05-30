@@ -236,6 +236,7 @@ def run():
     dispatcher.add_handler(CommandHandler("whytho", cmd_for('whytho')))
     dispatcher.add_handler(CommandHandler("uptime", cmd_for('uptime')))
     dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
+    dispatcher.add_handler(CommandHandler("unknown_command", cmd_for('unknown_command')))  # By popular opinion
 
     for cmd_name in msg.RANDOM_REPLY:
         dispatcher.add_handler(CommandHandler(cmd_name, cmd_random_reply(cmd_name)))
