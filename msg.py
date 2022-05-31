@@ -2,7 +2,7 @@
 
 import secret
 
-RANDOM_REPLY = {'how', 'where', 'why'}
+RANDOM_REPLY = {'how', 'kill', 'where', 'why'}
 
 MESSAGES = {
     'welcome': [
@@ -215,6 +215,11 @@ MESSAGES = {
         'Vorsicht! Ich How zurück!',
     ],
     'how_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
+    'kill': [
+        'Boah bist du brutal, {0}! Meintest du vielleicht /kick?',
+        'Hier wird niemand umgebracht, {0}! Höchstens rausgeworfen, mit /kick.',
+    ],
+    'kill_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'chicken_not_involved': [
         'Tut mir Leid, {0}, aber du bist gerade nicht dran. Probier mal /random oder /who.',
     ],

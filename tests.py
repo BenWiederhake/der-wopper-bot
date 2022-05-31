@@ -72,6 +72,17 @@ class TestMigration(unittest.TestCase):
             })
 
 
+class RandomReplyTests(unittest.TestCase):
+    def test(self):
+        for command in msg.RANDOM_REPLY:
+            with self.subTest(command=command):
+                template_list = msg.MESSAGES[command]
+                self.assertTrue(template_list)
+                # Check that all templates all work:
+                for template in template_list:
+                    self.assertTrue(template.format('Firstname', 'Username', 'https://foob.ar'))
+
+
 class TestSequences(unittest.TestCase):
     def check_sequence(self, sequence):
         game = logic.OngoingGame('Static seed for reproducible randomness, do not change')
