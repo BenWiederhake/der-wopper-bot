@@ -1,0 +1,1 @@
+./bot.py 2>&1 | tee the_wopper_$(date +%s).log
