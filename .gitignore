@@ -1,3 +1,5 @@
 __pycache__/
 secret.py
 wopper_data.json
+.venv/
+the_wopper_*.log
