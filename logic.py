@@ -119,6 +119,8 @@ class OngoingGame:
                 return ('random_already_chosen', sender_firstname, self.last_chosen[0])
             if self.last_chosen[0] != sender_username:
                 return ('random_not_involved', sender_firstname, self.last_chooser[1], self.last_chosen[0])
+            if self.last_wop is None:
+                return ('random_nowop', sender_username, self.last_chooser[1])
 
         return None
 
@@ -245,7 +247,7 @@ def compute_who(game, argument, sender_firstname, sender_username) -> None:
         return ('who_no_chosen', game.last_chooser[0])
 
     if game.last_wop is None:
-        return ('who_no_wop', game.last_chooser[0], game.last_chosen[0])
+        return ('who_no_wop', game.last_chosen[0], game.last_chooser[1])
     else:
         return ('who_wop_' + game.last_wop, game.last_chooser[1], game.last_chosen[0])
 

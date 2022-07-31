@@ -84,6 +84,11 @@ MESSAGES = {
         'Du hast doch schon jemanden gewählt, {0}? Und zwar @{1}!',
         'Das hättest du dir vorher überlegen müssen {0}. Jetzt ist @{1} schon dran.',
     ],
+    'random_nowop': [
+        'Einen Moment, @{0}! Zuerst muss du zwischen Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop) wählen. Und {1} gibt dir dann die entsprechende Aufgabe.',
+        'Hast du schon eine Wahrheit oder Pflicht für {1} gemacht? Bitte wähle Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop), @{0}! ;)',
+    ],
+    'random_nowop_COMMENT': '@{0} ist der Spieler der noch zwischen Wahrheit/Pflicht/Zufall entscheiden muss, und {1} ist der Vorname des aufgabenstellenden Spielers.',
     'wop_nobodychosen': [
         'Ich bin verwirrt {0}, eigentlich ist zur Zeit niemand dran. Ich sag jetzt mal {1}, hilft das?',
         '{0}, du hast das goldene Ahnungslos gezogen. Magst du vielleicht {1} machen?',
@@ -113,8 +118,9 @@ MESSAGES = {
         'Im Moment ist @{0} dran, einen neuen Spieler mit /random zu wählen.',
     ],
     'who_no_wop': [
-        'Im Moment ist @{1} dran, Wahrheit oder Pflicht zu wählen. (Oder falls schon gewählt wurde ohne /do_w / /do_p zu benutzen, dann muss @{0} sich eine Frage/Aufgabe ausdenken.)',
+        'Gerade wählt @{0} zwischen Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop). (Danach wird dann {1} eine Frage/Aufgabe stellen.)',
     ],
+    'who_no_wop_COMMENT': '{0} ist der Username woppenden Person, {1} ist der Vorname der aufgebenden Person.',
     'who_wop_w': [
         'Im Moment ist @{1} dran, denn es wurde Wahrheit gewählt, und muss jetzt {0} eine Frage beantworten. Wenn ihr fertig seid, darf @{1} mit /random den nächsten Spieler wählen. :)',
     ],
