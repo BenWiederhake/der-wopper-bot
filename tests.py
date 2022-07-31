@@ -89,14 +89,14 @@ class TestSequences(unittest.TestCase):
         for i, (query, expected_response) in enumerate(sequence):
             with self.subTest(step=i):
                 actual_response = logic.handle(game, *query)
-                self.assertEqual(expected_response, actual_response)
+                self.assertEqual(expected_response, actual_response, query)
                 self.assertIn(expected_response[0], msg.MESSAGES.keys())
                 if expected_response == actual_response and expected_response[0] in msg.MESSAGES.keys():
                     template_list = msg.MESSAGES[expected_response[0]]
-                    self.assertTrue(template_list)
+                    self.assertTrue(template_list, expected_response[0])
                     # Check that all templates all work:
                     for template in template_list:
-                        self.assertTrue(template.format(*expected_response[1:]))
+                        self.assertTrue(template.format(*expected_response[1:]), (template, expected_response))
         d = game.to_dict()
         g2 = logic.OngoingGame.from_dict(d)
         d2 = g2.to_dict()
@@ -1078,13 +1078,13 @@ class TestSequences(unittest.TestCase):
         self.check_sequence([
             (('chicken', '', 'fina1', 'usna1'), ('nonplayer', 'fina1')),
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
-            (('chicken', '', 'fina1', 'usna1'), ('chicken_not_involved', 'fina1')),  # TODO: Message ID?
+            (('chicken', '', 'fina1', 'usna1'), ('chicken_not_involved', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
-            (('chicken', '', 'fina1', 'usna1'), ('chicken_wrong_side', 'fina1', 'usna2')),  # TODO: Message ID?
-            (('chicken', '', 'fina2', 'usna2'), ('chicken_too_early', 'fina2')),  # TODO: Message ID?
+            (('chicken', '', 'fina1', 'usna1'), ('chicken_wrong_side', 'fina1', 'usna2')),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_too_early', 'fina2')),
             (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
-            (('chicken', '', 'fina3', 'usna3'), ('chicken_not_involved', 'fina3')),  # TODO: Message ID?
+            (('chicken', '', 'fina3', 'usna3'), ('chicken_not_involved', 'fina3')),
         ])
 
     def test_chicken_normal(self):
