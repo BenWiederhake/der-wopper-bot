@@ -215,27 +215,6 @@ def compute_true_random(game, argument, sender_firstname, sender_username):
     return ('random_chosen', chosen_username)
 
 
-def compute_wop(game, argument, sender_firstname, sender_username):
-    if sender_username not in game.joined_users:
-        return ('nonplayer', sender_firstname)
-
-    if game.last_chosen is None:
-        return ('wop_nobodychosen', sender_firstname, game.rng.choice(list(WOP_TO_WOP.values())))
-    if game.last_chosen[0] != sender_username:
-        return ('wop_nonchosen', sender_firstname, game.last_chosen[0])
-
-    if game.last_chooser is None:
-        last_chooser_username = '???'
-    else:
-        last_chooser_username = game.last_chooser[0]
-
-    if game.last_wop is not None:
-        return ('wop_again', sender_firstname, WOP_TO_WOP[game.last_wop], last_chooser_username)
-
-    game.last_wop = game.rng.choice('wp')
-    return ('wop_result_' + game.last_wop, sender_firstname, last_chooser_username)
-
-
 def compute_who(game, argument, sender_firstname, sender_username) -> None:
     if game.last_chooser is None and game.last_chosen is None:
         return ('who_nobody', sender_firstname)
@@ -339,6 +318,27 @@ def check_can_do_x(game, sender_firstname, sender_username):
         return ('dox_already_' + game.last_wop, sender_firstname, game.last_chooser[0])
 
     return None
+
+
+def compute_wop(game, argument, sender_firstname, sender_username):
+    if sender_username not in game.joined_users:
+        return ('nonplayer', sender_firstname)
+
+    if game.last_chosen is None:
+        return ('wop_nobodychosen', sender_firstname, game.rng.choice(list(WOP_TO_WOP.values())))
+    if game.last_chosen[0] != sender_username:
+        return ('wop_nonchosen', sender_firstname, game.last_chosen[0])
+
+    if game.last_chooser is None:
+        last_chooser_username = '???'
+    else:
+        last_chooser_username = game.last_chooser[0]
+
+    if game.last_wop is not None:
+        return ('wop_again', sender_firstname, WOP_TO_WOP[game.last_wop], last_chooser_username)
+
+    game.last_wop = game.rng.choice('wp')
+    return ('wop_result_' + game.last_wop, sender_firstname, last_chooser_username)
 
 
 def compute_do_w(game, argument, sender_firstname, sender_username) -> None:
