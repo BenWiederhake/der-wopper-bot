@@ -27,19 +27,7 @@ That should be it.
 - Create your bot
     * This means you have to talk to the `@BotFather`: https://web.telegram.org/z/#93372553
     * Do `/newbot`, edit it as much as you like (i.e. description, photo)
-    * For the commands, paste the following as-is:
-      ```
-      join - an der Runde teilnehmen
-      leave - Runde verlassen (keine Angst, du bleibst im Chat)
-      random - nächste Person zufällig aus der Runde wählen
-      choose - nächste Person wählen (braucht @username dahinter)
-      wop - zufällig Wahrheit oder Pflicht wählen
-      do_w - Wahrheit wählen
-      do_p - Pflicht wählen
-      who - wiederholt, wer zur Zeit dran ist
-      kick - die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)
-      players - schreibt in den Chat wer alles an der Runde teilnimmt
-      ```
+    * For the commands, see `bot.py`, function `cmd_start`.
     * Invite him into the group chat(s) you like
     * Afterwards, set the bot to "Allow groups: No"
     * Copy the API token

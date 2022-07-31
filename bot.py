@@ -157,6 +157,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         # join - an der Runde teilnehmen
         # leave - Runde verlassen (keine Angst, du bleibst im Chat)
         # random - nächste Person zufällig aus der Runde wählen
+        # start - Hier geht's los! :D
         # choose - nächste Person wählen (braucht @username dahinter)
         # wop - zufällig Wahrheit oder Pflicht wählen
         # do_w - Wahrheit wählen
