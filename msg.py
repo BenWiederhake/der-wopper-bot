@@ -15,6 +15,7 @@ MESSAGES = {
         'Hi {0}! Du verpflichtest dich also zur Wahrheit? ;)',
         'Hi {0}! Du bewahrheitest dich also zur Pflicht? ;)',
         'Oh, {0}! Gnihihi!',
+        'Herzlich Willkommen.',
     ],
     'welcome_no_username': [
         'Sorry {0}, aber du musst einen @username haben, sonst komme ich nicht damit klar. :(',
@@ -34,6 +35,7 @@ MESSAGES = {
         'Bis zum nächsten Mal, {0}!',
         'Es war mir ein Vergnügen. Bis dann, {0}! :)',
         'Brudi muss los!',
+        'Flieht, ihr Narren!',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
