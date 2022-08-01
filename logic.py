@@ -238,6 +238,9 @@ def compute_kick(game, argument, sender_firstname, sender_username) -> None:
     if game.last_chosen is None:
         return ('kick_no_chosen', sender_firstname)
 
+    if game.last_chosen[0] == sender_username:
+        return ('kick_self', sender_firstname)
+
     old_last_chosen = game.last_chosen
     game.notify_leave(old_last_chosen[0])
     return ('kick', sender_firstname, old_last_chosen[0])

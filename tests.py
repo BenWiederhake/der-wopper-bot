@@ -927,7 +927,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('kick', '', 'fina2', 'usna2'), ('kick', 'fina2', 'usna2')),  # Self-kick is okay I guess?
+            (('kick', '', 'fina2', 'usna2'), ('kick_self', 'fina2')),  # Self-kick is probably unintentional.
         ])
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
@@ -949,8 +949,8 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
-            (('kick', '', 'fina2', 'usna2'), ('kick', 'fina2', 'usna2')),  # Self-kick is okay I guess?
-            (('leave', '', 'fina2', 'usna2'), ('already_left', 'fina2')),
+            (('kick', '', 'fina2', 'usna2'), ('kick_self', 'fina2')),  # Doesn't happen!
+            (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
         ])
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),

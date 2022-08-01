@@ -162,6 +162,12 @@ MESSAGES = {
     'kick_no_chosen': [
         'Sorry {0}, aber im Moment ist niemand dran, also kann ich die Person auch nicht kicken. Probier doch mal /random!',
     ],
+    'kick_self': [
+        'I\'m sorry, {0}, I\'m afraid I can\'t let you do that: Du hast versucht dich selbst zu kicken. Du könntest auch einfach mit /random weitermachen?',
+        'Eigentlich bist ja im Moment *du* dran, {0}! 🤔 Weiter geht\'s mit /random.',
+        'Du trittst dir selbst in den Hintern, {0}, im wahrsten Sinne des Wortes! Probier doch mal /random.',
+    ],
+    'kick_self_COMMENT': '{0} ist der Vorname der Person, die sich selbst kicken will.',
     'kick': [
         'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en.',
         'Okaydokey {0}, @{1} ist nicht mehr dabei.',
