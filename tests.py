@@ -779,7 +779,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
-            (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', '???')),  # Relies on seeded RNG
+            (('wop', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),
         ])
 
     def test_wop_again(self):
@@ -1064,6 +1064,26 @@ class TestSequences(unittest.TestCase):
             (('choose', 'usna2', 'fina3', 'usna3'), ('chosen_chosen', 'usna2', 'fina3')),  # someone else tries again
         ])
 
+    def test_wop_chooser_left(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
+            (('choose', 'usna3', 'fina2', 'usna2'), ('chosen_chosen', 'usna3', 'fina2')),  # chosen continues game normally
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),  # ← 'chooser' leaves!
+            (('do_w', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # ← 'chooser' has already left, so doing a 'W' doesn't make sense.
+            (('do_p', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # same
+            (('wop', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # same
+        ])
+
     def test_choose_wrong(self):
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
@@ -1127,8 +1147,8 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
-            (('do_w', '', 'fina2', 'usna2'), ('dox_choose_first', 'fina2')),
-            (('do_p', '', 'fina2', 'usna2'), ('dox_choose_first', 'fina2')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),
+            (('do_p', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),
         ])
 
     def test_dox_twoplayer(self):

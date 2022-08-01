@@ -98,7 +98,7 @@ MESSAGES = {
         'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.',
     ],
     'wop_again': [
-        'Das steht doch schon fest, {0}? Es bleibt bei {1}. Jetzt entscheidet @{2}!',
+        'Das steht doch schon fest, {0}? Es bleibt bei {1}. Jetzt entscheidet @{2} die Aufgabe!',
     ],
     'wop_result_w': [
         'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
@@ -186,6 +186,10 @@ MESSAGES = {
     ],
     'dox_choose_first': [
         'Sorry {0}, aber zuerst müssen die Personen feststehen. Probier doch mal /random!',
+    ],
+    'dox_no_chooser': [
+        'Ohne Auftrag-Geber gibt es keine Wahrheit oder Pflicht. Mach doch einfach mit /random weiter, @{0}! :)',
+        'Sorry @{0}, aber es gibt keine Wahrheit oder Pflicht ohne Fragen- oder Aufgaben-Steller. Weiter geht\'s mit /random.',
     ],
     'dox_wrong_side': [
         'Sorry {0}, aber @{1} wählt Wahrheit oder Pflicht, und du darfst eine Frage/Aufgabe stellen!',
