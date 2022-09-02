@@ -25,6 +25,7 @@ MESSAGES = {
         'Geht nicht, du bist schon drin, {0}.',
         'Alzheimer, {0}? Du bist schon drin ;)',
         'Klar! Das geht sehr einfach, du bist nämlich schon drin, {0}! :D',
+        'Du möchtest gleich zweimal mitmachen, {0} ? Ganz schön motiviert heute!',
     ],
     'leave': [
         'Och, schade. Na bis dann, {0}!',
@@ -36,6 +37,7 @@ MESSAGES = {
         'Es war mir ein Vergnügen. Bis dann, {0}! :)',
         'Brudi muss los!',
         'Flieht, ihr Narren!',
+        'Was, du möchtest schon gehen, {0}?!',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
