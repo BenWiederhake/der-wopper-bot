@@ -103,11 +103,11 @@ MESSAGES = {
         'Das steht doch schon fest, {0}? Es bleibt bei {1}. Jetzt entscheidet @{2} die Aufgabe!',
     ],
     'wop_result_w': [
-        'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
+        'WAHRHEIT! @{1} darf eine Frage stellen, und du musst die Wahrheit sagen, {0}. (Oder sag /nope.)',
         'WAHRHEIT! @{1} stellt eine Frage, und {0} muss ehrlich antworten. Danach geht\'s mit /random weiter.',
     ],
     'wop_result_p': [
-        'PFLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder sei ein feiges Huhn mit /chicken.)',
+        'PFLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder /nope und mach was Anderes.)',
         'PFLICHT! @{1} sagt an, und {0} muss tun. Danach geht\'s mit /random weiter.',
     ],
     'who_nobody': [
@@ -212,11 +212,11 @@ MESSAGES = {
         'Tja {0}, du hast schon Pflicht gewählt. Jetzt musst du eine Aufgabe für @{1} erledigen.',
     ],
     'dox_w': [
-        'Soso, {0} wählt Wahrheit. @{1}, welche Wahrheit möchtest du über {0} wissen? (Oder sei ein feiges Huhn mit /chicken.)',
+        'Soso, {0} wählt Wahrheit. @{1}, welche Wahrheit möchtest du über {0} wissen? (Oder mach /nope und beantworte was Anderes.)',
         '@{1}, was würdest du gerne von {0} wissen? Danach geht\'s mit /random weiter.',
     ],
     'dox_p': [
-        'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen? (Oder sei ein feiges Huhn mit /chicken.)',
+        'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen? (Oder /nope zu dieser Pflicht, dann bekommst du eine Andere.)',
         '{0} muss jetzt was tun! @{1}, was soll {0} denn machen? Danach geht\'s mit /random weiter.',
     ],
     'where': [
