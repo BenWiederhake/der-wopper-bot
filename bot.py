@@ -145,7 +145,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         f'\n/wop → zufällig Wahrheit oder Pflicht wählen'
         f'\n/do_w → Wahrheit wählen'
         f'\n/do_p → Pflicht wählen'
-        f'\n/chicken → Ein feiges Huhn sein, und sich vor der Aufgabe drücken'
+        f'\n/nope → Sich vor der Aufgabe drücken'
         f'\n/who → wiederholt, wer zur Zeit dran ist'
         f'\n/kick → die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)'
         f'\n/players → schreibt in den Chat wer alles an der Runde teilnimmt'
@@ -162,9 +162,9 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         # wop - zufällig Wahrheit oder Pflicht wählen
         # do_w - Wahrheit wählen
         # do_p - Pflicht wählen
-        # chicken - ein feiges Huhn sein
+        # nope - Aufgabe ablehnen, Ersatz bekommen
         # who - wiederholt, wer zur Zeit dran ist
-        # kick - die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)
+        # kick - Person aus dem Spiel werfen (bleibt aber im Chat)
         # players - schreibt in den Chat wer alles an der Runde teilnimmt
     )
 
@@ -233,6 +233,7 @@ def run():
     dispatcher.add_handler(CommandHandler("do_w", cmd_for('do_w')))
     dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_p')))
     dispatcher.add_handler(CommandHandler("chicken", cmd_for('chicken')))
+    dispatcher.add_handler(CommandHandler("nope", cmd_for('chicken')))
     dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
     dispatcher.add_handler(CommandHandler("whytho", cmd_for('whytho')))
     dispatcher.add_handler(CommandHandler("uptime", cmd_for('uptime')))
