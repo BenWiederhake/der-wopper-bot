@@ -38,6 +38,7 @@ MESSAGES = {
         'Brudi muss los!',
         'Flieht, ihr Narren!',
         'Was, du möchtest schon gehen, {0}?!',
+        '{0}, lass uns gemeinsam in den Sonnenuntergang laufen! <3',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
@@ -245,7 +246,7 @@ MESSAGES = {
     ],
     'chicken_not_involved_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'chicken_wrong_side': [
-        'Nee, andersrum, {0}! Wenn @{1} ein feiges Hühnchen ist und sich vor der Aufgabe drücken will, kann es /chicken benutzen.',
+        'Nee, andersrum, {0}! Wenn @{1} nicht will und sich vor der Aufgabe drücken will, kann es /nope benutzen.',
     ],
     'chicken_wrong_side_COMMENT': '{0} ist der Vorname der angesprochenen Person, {1} ist der username (ohne @) der Person die gerade dran ist',
     'chicken_too_early': [
