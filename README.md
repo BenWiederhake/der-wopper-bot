@@ -1,6 +1,6 @@
 # Der WoPperBot
 
-> Yet another Wahrheit-oder-Pflicht bot for Telegram, because all the others suck.
+Yet another Wahrheit-oder-Pflicht ("truth or dare") bot for Telegram, because all the others suck.
 
 The existing bots are all defunct or incomplete. So I wrote my own.
 
