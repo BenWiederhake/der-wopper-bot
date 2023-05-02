@@ -222,6 +222,7 @@ def run():
     dispatcher.add_handler(CommandHandler("denyall", cmd_denyall))
 
     dispatcher.add_handler(CommandHandler("start", cmd_start))
+    dispatcher.add_handler(CommandHandler("help", cmd_start))
     dispatcher.add_handler(CommandHandler("join", cmd_for('join')))
     dispatcher.add_handler(CommandHandler("leave", cmd_for('leave')))
     dispatcher.add_handler(CommandHandler("show_random", cmd_for('show_random')))
