@@ -15,7 +15,9 @@ MESSAGES = {
         'Hi {0}! Du verpflichtest dich also zur Wahrheit? ;)',
         'Hi {0}! Du bewahrheitest dich also zur Pflicht? ;)',
         'Oh, {0}! Gnihihi!',
-        'Herzlich Willkommen.',
+        'Herzlich Willkommen {0}.',
+        'Oh, ein neuer Mensch :)',
+        'Wir haben Nachwuchs bekommen!',
     ],
     'welcome_no_username': [
         'Sorry {0}, aber du musst einen @username haben, sonst komme ich nicht damit klar. :(',
@@ -39,6 +41,7 @@ MESSAGES = {
         'Flieht, ihr Narren!',
         'Was, du möchtest schon gehen, {0}?!',
         '{0}, lass uns gemeinsam in den Sonnenuntergang laufen! <3',
+        'Aber du kannst uns doch nicht einfach so alleine lassen!',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
@@ -76,9 +79,10 @@ MESSAGES = {
     ],
     'random_chosen': [
         'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen: /do_w /do_p Du kannst auch zufällig wählen, mit /wop.',
-        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? /do_w /do_p Oder /wop?',
-        'Weiter geht\'s mit @{0}: Wahrheit oder Pflicht? /do_w /do_p Oder /wop?',
-        'Gleich hören wir eine Wahrheit oder eine Pflicht von @{0}! /do_w /do_p Oder /wop?',
+        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? /do_w /do_p oder /wop?',
+        'Weiter geht\'s mit @{0}: Wahrheit oder Pflicht? /do_w /do_p oder /wop?',
+        'Gleich hören wir eine Wahrheit oder eine Pflicht von @{0}! /do_w /do_p oder /wop?',
+        'Die Qual der Wahl, was möchtest du @{0}? Pflicht oder Wahrheit? /do_w /do_p oder /wop?',
     ],
     'random_not_involved': [
         'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /choose @username oder /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
@@ -108,7 +112,7 @@ MESSAGES = {
         'WAHRHEIT! @{1} stellt eine Frage, und {0} muss ehrlich antworten. Danach geht\'s mit /random weiter.',
     ],
     'wop_result_p': [
-        'PFLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder /nope und mach was Anderes.)',
+        'PFLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder schreibe /nope und mach was Anderes.)',
         'PFLICHT! @{1} sagt an, und {0} muss tun. Danach geht\'s mit /random weiter.',
     ],
     'who_nobody': [
