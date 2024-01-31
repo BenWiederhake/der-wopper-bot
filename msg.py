@@ -42,6 +42,7 @@ MESSAGES = {
         'Was, du möchtest schon gehen, {0}?!',
         '{0}, lass uns gemeinsam in den Sonnenuntergang laufen! <3',
         'Aber du kannst uns doch nicht einfach so alleine lassen!',
+        'Sicher, dass du nicht lieber kommen möchtest?',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
@@ -67,6 +68,7 @@ MESSAGES = {
         'Pöh! Du warst sowieso nicht in der Runde, {0}!',
         'Wenn der Kuchen redet, schweigen die Krümel, {0}!',
         'Mehr als "nicht dabei" geht nicht {0}.',
+        'Zweimal gehen ist fast schon wegrennen. Magst du uns so wenig?',
     ],
     'nonplayer': [
         'Du bist der Runde noch nicht beigetreten, {0}. Probier doch mal /join!',
@@ -141,6 +143,7 @@ MESSAGES = {
         'Du spielst gerade mit dir selbst, {0}. Mach wenigstens die Kamera an!',
         'Sorry, du bist ganz alleine, {0}. :( Mag jemand mitmachen? Einfach /join schreiben! :D',
         'It\'s like you\'re my mirror, my mirror staring back at me… 🎶 Wenn noch jemand /join schreibt funktioniert das alles besser!',
+        'All by my seeelf… 🎶  Du musst noch jemanden suchen, der auch /join schreibt.',
     ],
     'players_one_other': [
         'Im Moment spielt {1} mit sich selbst. Komm schon {0}, komm dazu und schreibe /join! :D',
@@ -164,7 +167,7 @@ MESSAGES = {
     'players_many_other_COMMENT': '{0} ist der Name des Fragenden',
     'kick_nonplayer': [
         'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
-        'Nur Menschen die mitspielen dürfen andere Mitspielende hier treten. Mit /join kannst du mitsielen!',
+        'Nur Menschen die mitspielen dürfen andere Mitspielende hier treten. Mit /join kannst du mitspielen!',
     ],
     'kick_no_chosen': [
         'Sorry {0}, aber im Moment ist niemand dran, also kann ich die Person auch nicht kicken. Probier doch mal /random!',
