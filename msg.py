@@ -27,7 +27,7 @@ MESSAGES = {
         'Geht nicht, du bist schon drin, {0}.',
         'Alzheimer, {0}? Du bist schon drin ;)',
         'Klar! Das geht sehr einfach, du bist nämlich schon drin, {0}! :D',
-        'Du möchtest gleich zweimal mitmachen, {0} ? Ganz schön motiviert heute!',
+        'Du möchtest gleich zweimal mitmachen, {0}? Ganz schön motiviert heute!',
     ],
     'leave': [
         'Och, schade. Na bis dann, {0}!',
@@ -43,6 +43,7 @@ MESSAGES = {
         '{0}, lass uns gemeinsam in den Sonnenuntergang laufen! <3',
         'Aber du kannst uns doch nicht einfach so alleine lassen!',
         'Sicher, dass du nicht lieber kommen möchtest?',
+        'Don\'t LEAF me!',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
@@ -66,7 +67,6 @@ MESSAGES = {
     'leave_chosen_flee_COMMENT': '{0} ist der Vorname der angesprochenen Person, {1} der Username des verbleibenden Aufgaben-Stellenden',
     'already_left': [
         'Pöh! Du warst sowieso nicht in der Runde, {0}!',
-        'Wenn der Kuchen redet, schweigen die Krümel, {0}!',
         'Mehr als "nicht dabei" geht nicht {0}.',
         'Zweimal gehen ist fast schon wegrennen. Magst du uns so wenig?',
     ],
@@ -138,33 +138,42 @@ MESSAGES = {
     ],
     'players_nobody': [
         'Sorry {0}, im Moment spielt keiner. PFLICHT: Alle müssen /join schreiben, und irgendjemand schreibt /random! :D',
+        'Sorry {0}, im Moment spielt keiner. PFLICHT: Schreibe coolere, tollere Bot-Nachrichten in dieses Dokument ein! :D {1}',
     ],
+    'players_nobody_COMMENT': '{0} ist der Name des Fragenden und {1} ist der Link auf dieses Dokument',
     'players_one_self': [
         'Du spielst gerade mit dir selbst, {0}. Mach wenigstens die Kamera an!',
         'Sorry, du bist ganz alleine, {0}. :( Mag jemand mitmachen? Einfach /join schreiben! :D',
         'It\'s like you\'re my mirror, my mirror staring back at me… 🎶 Wenn noch jemand /join schreibt funktioniert das alles besser!',
         'All by my seeelf… 🎶  Du musst noch jemanden suchen, der auch /join schreibt.',
+        'Sorry, es gibt gerade keine anderen Spieler, {0} :( Du könntest dir in der Zwischenzeit tolle neue Nachrichten ausdenken, und sie dort eintragen: {1}',
     ],
+    'players_one_self_COMMENT': '{0} ist der Name des Fragenden und {1} ist der Link auf dieses Dokument',
     'players_one_other': [
         'Im Moment spielt {1} mit sich selbst. Komm schon {0}, komm dazu und schreibe /join! :D',
         'Im Moment spielt nur {1}. Mach mit und schreibe /join! :D',
     ],
+    'players_one_other_COMMENT': '{0} ist der Name des Fragenden und {1} ist der Link auf dieses Dokument',
     'players_few_self': [
         'Die Runde besteht lediglich aus {1}. Überrede doch ein paar Leute dazu, zu joinen, {0}!',
         'Es spielen zur Zeit nur {1}. Will jemand mitmachen? /join :D',
     ],
+    'players_few_self_COMMENT': '{0} ist der Name des Fragenden, {1} ist die Komma-verbundene Liste der Vornamen der Spieler:innen.',
     'players_few_other': [
         'Die Runde besteht lediglich aus {1}. Magst du mitmachen, {0}? /join ;)',
         'Es spielen zur Zeit nur {1}. Mach mit, und /join :D',
     ],
+    'players_few_other_COMMENT': '{0} ist der Name des Fragenden, {1} ist die Komma-verbundene Liste der Vornamen der Spieler:innen.',
     'players_many_self': [
-        'Die Runde besteht aus {1}.',
+        'Die Runde besteht aus {2} Leuten: {1}.',
+        'Satte {2} Spieler:innen: {1}.',
     ],
-    'players_many_self_COMMENT': '{0} ist der Name des Fragenden',
+    'players_many_self_COMMENT': '{0} ist der Name des Fragenden, {1} ist die Komma-verbundene Liste der Vornamen der Spieler, {2} ist die Anzahl Spieler:innen.',
     'players_many_other': [
-        'Die Runde besteht aus {1}.',
+        'Die Runde besteht aus {2} Leuten: {1}.',
+        'Satte {2} Spieler:innen: {1}.',
     ],
-    'players_many_other_COMMENT': '{0} ist der Name des Fragenden',
+    'players_many_other_COMMENT': '{0} ist der Name des Fragenden, {1} ist die Komma-verbundene Liste der Vornamen der Spieler, {2} ist die Anzahl Spieler:innen.',
     'kick_nonplayer': [
         'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
         'Nur Menschen die mitspielen dürfen andere Mitspielende hier treten. Mit /join kannst du mitspielen!',
@@ -179,10 +188,11 @@ MESSAGES = {
     ],
     'kick_self_COMMENT': '{0} ist der Vorname der Person, die sich selbst kicken will.',
     'kick': [
-        'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en.',
+        'Tschüss @{1}! {0} hat dich rausgekickt. Du kannst gerne wieder /join-en, @{1}.',
         'Okaydokey {0}, @{1} ist nicht mehr dabei.',
-        'Okay, ich kicke @{1}. Wer zu spät kommt, den bestraft das Leben!',
-        'Keine Ahnung, warum ihr @{1} nicht mögt. Aber ich habe @{1} entfernt.',
+        'Okay, ich kicke @{1}. Wer zu spät kommt, den bestraft das Leben! (Du kannst aber gerne wieder /join-en!)',
+        '@{1} exit stage left.',
+        'Tschüss @{1}! Bis zur nächsten Runde :D (Oder sofort wieder /join-en?)',
     ],
     'uptime': [
         'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
@@ -230,11 +240,13 @@ MESSAGES = {
     'where': [
         'Genau hier, in *diesem* Chat, {0}!',
         'In diesem einfach zu bearbeitendem Dokument: {2}',
+        'Schau doch mal in {2} , {0}.',
     ],
     'where_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'why': [
         'Because … FUN! :D',
         'Because I said so!',
+        'Du könntest hier eine bessere Antwort einfügen: {2}',
     ],
     'why_COMMENT': '{0} ist der Name des Fragenden, {1} der @username, und {2} ist der Link auf dieses Dokument',
     'how': [
