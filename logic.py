@@ -249,7 +249,7 @@ def compute_kick(game, argument, sender_firstname, sender_username) -> None:
 def compute_players(game, argument, sender_firstname, sender_username) -> None:
     num_players = len(game.joined_users)
     if num_players == 0:
-        return ('players_nobody', sender_firstname)
+        return ('players_nobody', sender_firstname, secret.MESSAGES_SHEET)
 
     firstnames = list(game.joined_users.values())
     firstnames.sort()

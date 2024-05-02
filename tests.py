@@ -842,12 +842,12 @@ class TestSequences(unittest.TestCase):
 
     def test_players_zero(self):
         self.check_sequence([
-            (('players', '', 'fina1', 'usna1'), ('players_nobody', 'fina1')),
+            (('players', '', 'fina1', 'usna1'), ('players_nobody', 'fina1', secret.MESSAGES_SHEET)),
         ])
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('leave', '', 'fina1', 'usna1'), ('leave', 'fina1')),
-            (('players', '', 'qfina', 'qusna'), ('players_nobody', 'qfina')),
+            (('players', '', 'qfina', 'qusna'), ('players_nobody', 'qfina', secret.MESSAGES_SHEET)),
         ])
 
     def test_players_one(self):
