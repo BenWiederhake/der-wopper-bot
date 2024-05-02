@@ -267,7 +267,7 @@ def compute_players(game, argument, sender_firstname, sender_username) -> None:
     if num_players < 5:
         return ('players_few' + msg_suffix, sender_firstname, firstnames_text)
 
-    return ('players_many' + msg_suffix, sender_firstname, firstnames_text)
+    return ('players_many' + msg_suffix, sender_firstname, firstnames_text, str(num_players))
 
 
 def compute_uptime(game, argument, sender_firstname, sender_username) -> None:

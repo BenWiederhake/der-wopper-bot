@@ -885,11 +885,11 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'c', 'uc'), ('welcome', 'c')),
             (('join', '', 'b', 'ub'), ('welcome', 'b')),
             (('join', '', 'a', 'ua'), ('welcome', 'a')),
-            (('players', '', 'a', 'ua'), ('players_many_self', 'a', 'a, b, c, d und e')),
-            (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d und e')),
+            (('players', '', 'a', 'ua'), ('players_many_self', 'a', 'a, b, c, d und e', '5')),
+            (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d und e', '5')),
             (('join', '', 'f', 'uf'), ('welcome', 'f')),
-            (('players', '', 'a', 'ua'), ('players_many_self', 'a', 'a, b, c, d, e und f')),
-            (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d, e und f')),
+            (('players', '', 'a', 'ua'), ('players_many_self', 'a', 'a, b, c, d, e und f', '6')),
+            (('players', '', 'xx', 'uxx'), ('players_many_other', 'xx', 'a, b, c, d, e und f', '6')),
         ])
 
     def test_kick_nonplayer(self):
