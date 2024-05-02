@@ -69,7 +69,7 @@ def handle_import(data):
     print(f'RANDOM_REPLY = {{\'{delimiter.join(sorted(msg.RANDOM_REPLY))}\'}}')
     print()
     if old_keys != new_keys:
-        print(f'# WARNING: Lost keys {old_keys.difference(new_keys)}, stray keys {new_keys.difference(old_keys)}')
+        print(f'# WARNING: Lost keys {old_keys.difference(new_keys)}, new keys {new_keys.difference(old_keys)}')
     pretty_print(parsed_data)
 
 
