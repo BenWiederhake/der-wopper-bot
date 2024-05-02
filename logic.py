@@ -257,7 +257,7 @@ def compute_players(game, argument, sender_firstname, sender_username) -> None:
     msg_suffix = '_self' if sender_is_in else '_other'
 
     if num_players == 1:
-        return ('players_one' + msg_suffix, sender_firstname, firstnames[0])
+        return ('players_one' + msg_suffix, sender_firstname, firstnames[0], secret.MESSAGES_SHEET)
 
     firstnames_head = ', '.join(firstnames[:-1])
     firstnames_tail = firstnames[-1]

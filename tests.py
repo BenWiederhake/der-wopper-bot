@@ -853,15 +853,15 @@ class TestSequences(unittest.TestCase):
     def test_players_one(self):
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
-            (('players', '', 'fina1', 'usna1'), ('players_one_self', 'fina1', 'fina1')),
-            (('players', '', 'fina2', 'usna2'), ('players_one_other', 'fina2', 'fina1')),
+            (('players', '', 'fina1', 'usna1'), ('players_one_self', 'fina1', 'fina1', secret.MESSAGES_SHEET)),
+            (('players', '', 'fina2', 'usna2'), ('players_one_other', 'fina2', 'fina1', secret.MESSAGES_SHEET)),
         ])
         self.check_sequence([
             (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('leave', '', 'fina2', 'usna2'), ('leave', 'fina2')),
-            (('players', '', 'fina1', 'usna1'), ('players_one_self', 'fina1', 'fina1')),
-            (('players', '', 'fina2', 'usna2'), ('players_one_other', 'fina2', 'fina1')),
+            (('players', '', 'fina1', 'usna1'), ('players_one_self', 'fina1', 'fina1', secret.MESSAGES_SHEET)),
+            (('players', '', 'fina2', 'usna2'), ('players_one_other', 'fina2', 'fina1', secret.MESSAGES_SHEET)),
         ])
 
     def test_players_few(self):
