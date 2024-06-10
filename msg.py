@@ -116,6 +116,7 @@ MESSAGES = {
     'wop_result_p': [
         'PFLICHT! @{1} darf dir eine Aufgabe stellen, und du musst sie ausführen, {0}. (Oder schreibe /nope und mach was Anderes.)',
         'PFLICHT! @{1} sagt an, und {0} muss tun. Danach geht\'s mit /random weiter.',
+        'Die PFLICHT ruft! @{1} sagt dir, was zu tun ist!',
     ],
     'who_nobody': [
         'Sorry {0}, ich bin verwirrt. Im Moment ist niemand dran. Probiere doch mal /join und /random.',
@@ -146,14 +147,14 @@ MESSAGES = {
         'Sorry, du bist ganz alleine, {0}. :( Mag jemand mitmachen? Einfach /join schreiben! :D',
         'It\'s like you\'re my mirror, my mirror staring back at me… 🎶 Wenn noch jemand /join schreibt funktioniert das alles besser!',
         'All by my seeelf… 🎶  Du musst noch jemanden suchen, der auch /join schreibt.',
-        'Sorry, es gibt gerade keine anderen Spieler, {0} :( Du könntest dir in der Zwischenzeit tolle neue Nachrichten ausdenken, und sie dort eintragen: {1}',
+        'Sorry, es gibt gerade keine anderen Spieler, {0} :( Du könntest dir in der Zwischenzeit tolle neue Nachrichten ausdenken, und sie dort eintragen: {2}',
     ],
-    'players_one_self_COMMENT': '{0} ist der Name des Fragenden und {1} ist der Link auf dieses Dokument',
+    'players_one_self_COMMENT': '{0} ist der Name des Fragenden, {1} ist der einzige Spielende, und {2} ist der Link auf dieses Dokument',
     'players_one_other': [
         'Im Moment spielt {1} mit sich selbst. Komm schon {0}, komm dazu und schreibe /join! :D',
         'Im Moment spielt nur {1}. Mach mit und schreibe /join! :D',
     ],
-    'players_one_other_COMMENT': '{0} ist der Name des Fragenden und {1} ist der Link auf dieses Dokument',
+    'players_one_other_COMMENT': '{0} ist der Name des Fragenden, {1} ist der einzige Spielende, und {2} ist der Link auf dieses Dokument',
     'players_few_self': [
         'Die Runde besteht lediglich aus {1}. Überrede doch ein paar Leute dazu, zu joinen, {0}!',
         'Es spielen zur Zeit nur {1}. Will jemand mitmachen? /join :D',
