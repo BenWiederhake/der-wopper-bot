@@ -215,7 +215,7 @@ def compute_true_random(game, argument, sender_firstname, sender_username):
     return ('random_chosen', chosen_username)
 
 
-def compute_who(game, argument, sender_firstname, sender_username) -> None:
+def compute_who(game, argument, sender_firstname, sender_username):
     if game.last_chooser is None and game.last_chosen is None:
         return ('who_nobody', sender_firstname)
 
@@ -231,7 +231,7 @@ def compute_who(game, argument, sender_firstname, sender_username) -> None:
         return ('who_wop_' + game.last_wop, game.last_chooser[1], game.last_chosen[0])
 
 
-def compute_kick(game, argument, sender_firstname, sender_username) -> None:
+def compute_kick(game, argument, sender_firstname, sender_username):
     if sender_username not in game.joined_users:
         return ('kick_nonplayer', sender_firstname)
 
@@ -246,7 +246,7 @@ def compute_kick(game, argument, sender_firstname, sender_username) -> None:
     return ('kick', sender_firstname, old_last_chosen[0])
 
 
-def compute_players(game, argument, sender_firstname, sender_username) -> None:
+def compute_players(game, argument, sender_firstname, sender_username):
     num_players = len(game.joined_users)
     if num_players == 0:
         return ('players_nobody', sender_firstname, secret.MESSAGES_SHEET)
@@ -270,11 +270,11 @@ def compute_players(game, argument, sender_firstname, sender_username) -> None:
     return ('players_many' + msg_suffix, sender_firstname, firstnames_text, str(num_players))
 
 
-def compute_uptime(game, argument, sender_firstname, sender_username) -> None:
+def compute_uptime(game, argument, sender_firstname, sender_username):
     return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.now().strftime(DATETIME_FORMAT))
 
 
-def compute_choose(game, argument, sender_firstname, sender_username) -> None:
+def compute_choose(game, argument, sender_firstname, sender_username):
     why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
         return why_not
@@ -346,7 +346,7 @@ def compute_wop(game, argument, sender_firstname, sender_username):
     return ('wop_result_' + game.last_wop, sender_firstname, last_chooser_username)
 
 
-def compute_do_w(game, argument, sender_firstname, sender_username) -> None:
+def compute_do_w(game, argument, sender_firstname, sender_username):
     why_not = check_can_do_x(game, sender_firstname, sender_username)
     if why_not:
         return why_not
@@ -355,7 +355,7 @@ def compute_do_w(game, argument, sender_firstname, sender_username) -> None:
     return ('dox_w', sender_firstname, game.last_chooser[0])
 
 
-def compute_do_p(game, argument, sender_firstname, sender_username) -> None:
+def compute_do_p(game, argument, sender_firstname, sender_username):
     why_not = check_can_do_x(game, sender_firstname, sender_username)
     if why_not:
         return why_not
