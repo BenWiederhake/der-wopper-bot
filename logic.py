@@ -364,6 +364,15 @@ def compute_do_p(game, argument, sender_firstname, sender_username):
     return ('dox_p', sender_firstname, game.last_chooser[0])
 
 
+def compute_do_idc(game, argument, sender_firstname, sender_username):
+    why_not = check_can_do_x(game, sender_firstname, sender_username)
+    if why_not:
+        return why_not
+
+    game.last_wop = game.rng.choice('wp')
+    return ('do_idc_' + game.last_wop, sender_firstname, game.last_chooser[0])
+
+
 def compute_chicken(game, argument, sender_firstname, sender_username):
     # Very similar to check_can_do_x and compute_wop
     if sender_username not in game.joined_users.keys():
@@ -405,6 +414,8 @@ def handle(game, command, argument, sender_firstname, sender_username):
         return compute_do_w(game, argument, sender_firstname, sender_username)
     elif command == 'do_p':
         return compute_do_p(game, argument, sender_firstname, sender_username)
+    elif command == 'do_idc':
+        return compute_do_idc(game, argument, sender_firstname, sender_username)
     elif command == 'choose':
         return compute_choose(game, argument, sender_firstname, sender_username)
     elif command == 'show_random':

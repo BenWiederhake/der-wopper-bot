@@ -238,6 +238,12 @@ MESSAGES = {
         'Eine Pflicht für {0}, bitte! @{1}, was soll {0} denn machen? (Oder /nope zu dieser Pflicht, dann bekommst du eine Andere.)',
         '{0} muss jetzt was tun! @{1}, was soll {0} denn machen? Danach geht\'s mit /random weiter.',
     ],
+    'do_idc_w': [
+        '{0} Wahrheit für @{1}',
+    ],
+    'do_idc_p': [
+        'Pflicht {0} für @{1}',
+    ],
     'where': [
         'Genau hier, in *diesem* Chat, {0}!',
         'In diesem einfach zu bearbeitendem Dokument: {2}',

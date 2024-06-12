@@ -199,6 +199,22 @@ class TestSequences(unittest.TestCase):
             (('random', '', 'fina', 'usna'), ('random_nowop', 'usna', 'ofina')),
         ])
 
+    def test_random_twoplayer_idc_nowop(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('random', '', 'ofina', 'ousna'), ('random_nowop', 'ousna', 'fina')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
+            (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            (('random', '', 'fina', 'usna'), ('random_nowop', 'usna', 'ofina')),
+        ])
+
     def test_choose_nowop(self):
         self.check_sequence([
             (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
@@ -211,6 +227,22 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
             (('choose', 'ousna', 'fina', 'usna'), ('chosen_chosen', 'ousna', 'fina')),
             (('do_w', '', 'ofina', 'ousna'), ('dox_w', 'ofina', 'usna')),
+            (('choose', 'usna', 'ofina', 'ousna'), ('chosen_chosen', 'usna', 'ofina')),
+            (('choose', 'ousna', 'fina', 'usna'), ('random_nowop', 'usna', 'ofina')),
+        ])
+
+    def test_choose_idc_nowop(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('choose', 'ousna', 'fina', 'usna'), ('chosen_chosen', 'ousna', 'fina')),
+            (('choose', 'usna', 'ofina', 'ousna'), ('random_nowop', 'ousna', 'fina')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('choose', 'ousna', 'fina', 'usna'), ('chosen_chosen', 'ousna', 'fina')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
             (('choose', 'usna', 'ofina', 'ousna'), ('chosen_chosen', 'usna', 'ofina')),
             (('choose', 'ousna', 'fina', 'usna'), ('random_nowop', 'usna', 'ofina')),
         ])
@@ -231,6 +263,22 @@ class TestSequences(unittest.TestCase):
             (('true_random', '', 'fina', 'usna'), ('random_nowop', 'usna', 'ofina')),
         ])
 
+    def test_true_random_twoplayer_idc_nowop(self):
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('true_random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('true_random', '', 'ofina', 'ousna'), ('random_nowop', 'ousna', 'fina')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('true_random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
+            (('true_random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            (('true_random', '', 'fina', 'usna'), ('random_nowop', 'usna', 'ofina')),
+        ])
+
     def test_random_twoplayer(self):
         self.check_sequence([
             (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
@@ -241,6 +289,33 @@ class TestSequences(unittest.TestCase):
             (('do_w', '', 'fina', 'usna'), ('dox_w', 'fina', 'ousna')),
             (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
             (('do_w', '', 'ofina', 'ousna'), ('dox_w', 'ofina', 'usna')),
+            (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+        ])
+
+    def test_idc_random_twoplayer(self):
+        # Check that /do_idc can result in both options
+        self.check_sequence([
+            (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
+            (('join', '', 'ofina', 'ousna'), ('welcome', 'ofina')),
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
+            (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            (('do_idc', '', 'fina', 'usna'), ('do_idc_p', 'fina', 'ousna')),  # Relies on seeded RNG
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
+            (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            (('do_idc', '', 'fina', 'usna'), ('do_idc_p', 'fina', 'ousna')),  # Relies on seeded RNG
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
+            (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            (('do_idc', '', 'fina', 'usna'), ('do_idc_p', 'fina', 'ousna')),  # Relies on seeded RNG
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
+            (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
+            # Finally!
+            (('do_idc', '', 'fina', 'usna'), ('do_idc_w', 'fina', 'ousna')),  # Relies on seeded RNG
+            (('random', '', 'fina', 'usna'), ('random_chosen', 'ousna')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_w', 'ofina', 'usna')),  # Relies on seeded RNG
             (('random', '', 'ofina', 'ousna'), ('random_chosen', 'usna')),
         ])
 
@@ -733,6 +808,23 @@ class TestSequences(unittest.TestCase):
             (('whytho', '', 'fina1', 'usna1'), ('debug1', "choose")),
         ])
 
+    def test_idc_whytho(self):
+        self.check_sequence([
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "dunno")),
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "dunno")),
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "dunno")),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('do_idc', '', 'fina2', 'usna2'), ('do_idc_p', 'fina2', 'usna1')),  # Relies on seeded RNG
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18)]")),
+            (('true_random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
+            (('do_idc', '', 'fina1', 'usna1'), ('do_idc_p', 'fina1', 'usna2')),  # Relies on seeded RNG
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "true_random['fina1']")),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "choose")),
+        ])
+
     def test_wop_nonplayer(self):
         self.check_sequence([
             (('wop', '', 'fina', 'usna'), ('nonplayer', 'fina')),
@@ -838,6 +930,13 @@ class TestSequences(unittest.TestCase):
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
             (('who', '', 'qfina', 'qusna'), ('who_wop_w', 'fina1', 'usna2')),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('do_idc', '', 'fina2', 'usna2'), ('do_idc_p', 'fina2', 'usna1')),  # Relies on seeded RNG
+            (('who', '', 'qfina', 'qusna'), ('who_wop_p', 'fina1', 'usna2')),
         ])
 
     def test_players_zero(self):
@@ -1082,6 +1181,7 @@ class TestSequences(unittest.TestCase):
             (('do_w', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # ← 'chooser' has already left, so doing a 'W' doesn't make sense.
             (('do_p', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # same
             (('wop', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # same
+            (('do_idc', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),  # same
         ])
 
     def test_choose_wrong(self):
@@ -1114,6 +1214,7 @@ class TestSequences(unittest.TestCase):
         self.check_sequence([
             (('do_w', '', 'fina', 'usna'), ('nonplayer', 'fina')),
             (('do_p', '', 'fina', 'usna'), ('nonplayer', 'fina')),
+            (('do_idc', '', 'fina', 'usna'), ('nonplayer', 'fina')),
         ])
 
     def test_dox_nonplayer_nonempty(self):
@@ -1122,6 +1223,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'b', 'b'), ('welcome', 'b')),
             (('do_w', '', 'fina', 'usna'), ('nonplayer', 'fina')),
             (('do_p', '', 'fina', 'usna'), ('nonplayer', 'fina')),
+            (('do_idc', '', 'fina', 'usna'), ('nonplayer', 'fina')),
         ])
 
     def test_dox_nobody(self):
@@ -1129,6 +1231,7 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina', 'usna'), ('welcome', 'fina')),
             (('do_w', '', 'fina', 'usna'), ('dox_choose_first', 'fina')),
             (('do_p', '', 'fina', 'usna'), ('dox_choose_first', 'fina')),
+            (('do_idc', '', 'fina', 'usna'), ('dox_choose_first', 'fina')),
         ])
 
     def test_dox_nochosen(self):
@@ -1139,6 +1242,7 @@ class TestSequences(unittest.TestCase):
             (('leave', '', 'fina2', 'usna2'), ('leave_chosen_flee', 'fina2', 'usna1')),
             (('do_w', '', 'fina1', 'usna1'), ('dox_choose_first', 'fina1')),
             (('do_p', '', 'fina1', 'usna1'), ('dox_choose_first', 'fina1')),
+            (('do_idc', '', 'fina1', 'usna1'), ('dox_choose_first', 'fina1')),
         ])
 
     def test_dox_nochooser(self):
@@ -1149,6 +1253,7 @@ class TestSequences(unittest.TestCase):
             (('leave', '', 'fina1', 'usna1'), ('leave_chooser_handover', 'fina1', 'usna2')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),
             (('do_p', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),
+            (('do_idc', '', 'fina2', 'usna2'), ('dox_no_chooser', 'usna2')),
         ])
 
     def test_dox_twoplayer(self):
@@ -1159,6 +1264,8 @@ class TestSequences(unittest.TestCase):
             (('do_w', '', 'ofina', 'ousna'), ('dox_w', 'ofina', 'usna')),
             (('choose', 'usna', 'ofina', 'ousna'), ('chosen_chosen', 'usna', 'ofina')),
             (('do_p', '', 'fina', 'usna'), ('dox_p', 'fina', 'ousna')),
+            (('choose', 'ousna', 'fina', 'usna'), ('chosen_chosen', 'ousna', 'fina')),
+            (('do_idc', '', 'ofina', 'ousna'), ('do_idc_p', 'ofina', 'usna')),  # Relies on seeded RNG
         ])
 
     def test_dox_not_involved(self):
@@ -1169,6 +1276,7 @@ class TestSequences(unittest.TestCase):
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('do_w', '', 'fina3', 'usna3'), ('dox_not_involved', 'fina3', 'usna2', 'fina1')),
             (('do_p', '', 'fina3', 'usna3'), ('dox_not_involved', 'fina3', 'usna2', 'fina1')),
+            (('do_idc', '', 'fina3', 'usna3'), ('dox_not_involved', 'fina3', 'usna2', 'fina1')),
         ])
 
     def test_dox_wrong_side(self):
@@ -1178,6 +1286,7 @@ class TestSequences(unittest.TestCase):
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('do_w', '', 'fina1', 'usna1'), ('dox_wrong_side', 'fina1', 'usna2')),
             (('do_p', '', 'fina1', 'usna1'), ('dox_wrong_side', 'fina1', 'usna2')),
+            (('do_idc', '', 'fina1', 'usna1'), ('dox_wrong_side', 'fina1', 'usna2')),
         ])
 
     def test_dox_again(self):
@@ -1188,6 +1297,7 @@ class TestSequences(unittest.TestCase):
             (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_already_w', 'fina2', 'usna1')),
             (('do_p', '', 'fina2', 'usna2'), ('dox_already_w', 'fina2', 'usna1')),
+            (('do_idc', '', 'fina2', 'usna2'), ('dox_already_w', 'fina2', 'usna1')),
             (('wop', '', 'fina2', 'usna2'), ('wop_again', 'fina2', 'Wahrheit', 'usna1')),
         ])
         self.check_sequence([
@@ -1197,6 +1307,7 @@ class TestSequences(unittest.TestCase):
             (('do_p', '', 'fina2', 'usna2'), ('dox_p', 'fina2', 'usna1')),
             (('do_p', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
+            (('do_idc', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
             (('wop', '', 'fina2', 'usna2'), ('wop_again', 'fina2', 'Pflicht', 'usna1')),
         ])
         self.check_sequence([
@@ -1206,6 +1317,7 @@ class TestSequences(unittest.TestCase):
             (('wop', '', 'fina2', 'usna2'), ('wop_result_p', 'fina2', 'usna1')),  # Relies on seeded RNG
             (('do_p', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
+            (('do_idc', '', 'fina2', 'usna2'), ('dox_already_p', 'fina2', 'usna1')),
         ])
 
     def test_chicken_negative(self):
@@ -1236,6 +1348,15 @@ class TestSequences(unittest.TestCase):
             (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('do_p', '', 'fina2', 'usna2'), ('dox_p', 'fina2', 'usna1')),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+            (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
+        ])
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_idc', '', 'fina2', 'usna2'), ('do_idc_p', 'fina2', 'usna1')),  # Relies on seeded RNG
             (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
             (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
             (('chicken', '', 'fina2', 'usna2'), ('chicken_p', secret.MESSAGES_SHEET, secret.OWNER)),
