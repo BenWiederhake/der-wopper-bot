@@ -145,6 +145,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         f'\n/wop → zufällig Wahrheit oder Pflicht wählen'
         f'\n/do_w → Wahrheit wählen'
         f'\n/do_p → Pflicht wählen'
+        f'\n/do_idc → Der Fragesteller darf Wahrheit oder Pflicht wählen'
         f'\n/nope → Sich vor der Aufgabe drücken'
         f'\n/who → wiederholt, wer zur Zeit dran ist'
         f'\n/kick → die zuletzt gewählte Person aus dem Spiel werfen (bleibt aber im Chat)'
@@ -162,6 +163,7 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
         # wop - zufällig Wahrheit oder Pflicht wählen
         # do_w - Wahrheit wählen
         # do_p - Pflicht wählen
+        # do_idc - Wahrheit/Pflicht beides okay
         # nope - Aufgabe ablehnen, Ersatz bekommen
         # who - wiederholt, wer zur Zeit dran ist
         # kick - Person aus dem Spiel werfen (bleibt aber im Chat)
@@ -233,6 +235,7 @@ def run():
     dispatcher.add_handler(CommandHandler("kick", cmd_for('kick')))
     dispatcher.add_handler(CommandHandler("do_w", cmd_for('do_w')))
     dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_p')))
+    dispatcher.add_handler(CommandHandler("do_idc", cmd_for('do_idc')))
     dispatcher.add_handler(CommandHandler("chicken", cmd_for('chicken')))
     dispatcher.add_handler(CommandHandler("nope", cmd_for('chicken')))
     dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
