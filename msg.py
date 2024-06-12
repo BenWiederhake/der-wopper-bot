@@ -84,11 +84,11 @@ MESSAGES = {
         'Alleine spielen ist doof! Frag doch ein paar Leute, ob sie mitmachen wollen. Vielleicht findet sich ja wer :)',
     ],
     'random_chosen': [
-        'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen: /do_w /do_p Du kannst auch zufällig wählen, mit /wop.',
-        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? /do_w /do_p oder /wop?',
-        'Weiter geht\'s mit @{0}: Wahrheit oder Pflicht? /do_w /do_p oder /wop?',
-        'Gleich hören wir eine Wahrheit oder eine Pflicht von @{0}! /do_w /do_p oder /wop?',
-        'Die Qual der Wahl, was möchtest du @{0}? Pflicht oder Wahrheit? /do_w /do_p oder /wop?',
+        'I choose you, @{0}! Du musst jetzt Wahrheit oder Pflicht wählen: /do_w /do_p Du kannst auch zufällig wählen, mit /wop, oder es ist dir egal mit /do_idc.',
+        '@{0} hat das große Los gezogen und ist dran: Wahrheit oder Pflicht? /do_w /do_p /do_idc oder /wop?',
+        'Weiter geht\'s mit @{0}: Wahrheit oder Pflicht? /do_w /do_p /do_idc oder /wop?',
+        'Gleich hören wir eine Wahrheit oder eine Pflicht von @{0}! /do_w /do_p /do_idc oder /wop?',
+        'Die Qual der Wahl, was möchtest du @{0}? Pflicht oder Wahrheit? /do_w /do_p /do_idc oder /wop?',
     ],
     'random_not_involved': [
         'Warte noch etwas, {0}. Sobald @{2} fertig ist mit der Wahrheit/Pflicht an {1}, darf @{2} weitermachen mit /choose @username oder /random. Alternativ, schreibe /kick um @{2} aus der Runde zu schmeißen.',
@@ -98,8 +98,8 @@ MESSAGES = {
         'Das hättest du dir vorher überlegen müssen {0}. Jetzt ist @{1} schon dran.',
     ],
     'random_nowop': [
-        'Einen Moment, @{0}! Zuerst muss du zwischen Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop) wählen. Und {1} gibt dir dann die entsprechende Aufgabe.',
-        'Hast du schon eine Wahrheit oder Pflicht für {1} gemacht? Bitte wähle Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop), @{0}! ;)',
+        'Einen Moment, @{0}! Zuerst muss du zwischen Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop) wählen. Und {1} gibt dir dann die entsprechende Aufgabe. Wenn es dir völlig egal ist und {1} beliebig aussuchen darf, dann nimm /do_idc ("I don\'t care")',
+        'Hast du schon eine Wahrheit oder Pflicht für {1} gemacht? Bitte wähle Wahrheit (/do_w), Pflicht (/do_p), Egal (/do_idc), oder Zufall (/wop), @{0}! ;)',
     ],
     'random_nowop_COMMENT': '@{0} ist der Spieler der noch zwischen Wahrheit/Pflicht/Zufall entscheiden muss, und {1} ist der Vorname des aufgabenstellenden Spielers.',
     'wop_nobodychosen': [
@@ -108,7 +108,7 @@ MESSAGES = {
     ],
     'wop_nobodychosen_COMMENT': '{1} ist \'Wahrheit\' oder \'Pflicht\'',
     'wop_nonchosen': [
-        'Sorry {0}, aber gerade ist @{1} dran, Wahrheit oder Pflicht zu wählen.',
+        'Sorry {0}, aber gerade ist @{1} dran, zu wählen: Wahrheit (/do_w), Pflicht (/do_p), Egal (/do_idc), oder Zufall (/wop).',
     ],
     'wop_again': [
         'Das steht doch schon fest, {0}? Es bleibt bei {1}. Jetzt entscheidet @{2} die Aufgabe!',
@@ -132,7 +132,7 @@ MESSAGES = {
         'Im Moment ist @{0} dran, einen neuen Spieler mit /random zu wählen.',
     ],
     'who_no_wop': [
-        'Gerade wählt @{0} zwischen Wahrheit (/do_w), Pflicht (/do_p), oder Zufall (/wop). (Danach wird dann {1} eine Frage/Aufgabe stellen.)',
+        'Gerade wählt @{0} zwischen Wahrheit (/do_w), Pflicht (/do_p), Egal (/do_idc), oder Zufall (/wop). (Danach wird dann {1} eine Frage / Aufgabe stellen.)',
     ],
     'who_no_wop_COMMENT': '{0} ist der Username woppenden Person, {1} ist der Vorname der aufgebenden Person.',
     'who_wop_w': [
@@ -210,7 +210,7 @@ MESSAGES = {
         'Tut mir Leid, aber du kannst dich nicht selbst wählen, {0}. Probier doch mal /random.',
     ],
     'chosen_chosen': [
-        '@{0}! {1} hat dich gewählt. Wahrheit oder Pflicht? /do_w /do_p Oder doch lieber zufällig? /wop',
+        '@{0}! {1} hat dich gewählt. Wahrheit oder Pflicht? /do_w /do_p /do_idc Oder doch lieber zufällig? /wop',
     ],
     'unknown_user': [
         'Hmm, das verstehe ich leider nicht, {0}. Probier\'s doch mal mit dem @username, also zum Beispiel @{1}.',
@@ -287,8 +287,8 @@ MESSAGES = {
     ],
     'chicken_wrong_side_COMMENT': '{0} ist der Vorname der angesprochenen Person, {1} ist der username (ohne @) der Person die gerade dran ist',
     'chicken_too_early': [
-        'Zu früh, {0}! Zuerst wählst du eine Wahrheit oder eine Pflicht (mit /do_w, /do_p, pder zufällig mit /wop), dann bekommst du eine Aufgabe, und wenn du dann entscheidest ein feiges Hühnchen zu sein, *dann* kannst du /chicken benutzen.',
-        'Bist du etwa präventiv ein feiges Huhn, {0}? Du hast ja noch nichtmal gewählt ob es Wahrheit oder Pflicht sein soll! /do_w /do_p /wop',
+        'Zu früh, {0}! Zuerst wählst du eine Wahrheit oder eine Pflicht (mit /do_w, /do_p, oder zufällig mit /wop, oder egal mit /do_idc), dann bekommst du eine Aufgabe, und wenn du dann entscheidest dass es zu viel ist, *dann* kannst du /nope benutzen.',
+        'Bist du etwa präventiv zurückgeschreckt, {0}? Du hast ja noch nichtmal gewählt ob es Wahrheit oder Pflicht sein soll! /do_w /do_p /do_idc /wop',
     ],
     'chicken_too_early_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'chicken_w': secret.MESSAGES_CHICKEN_W,
