@@ -179,6 +179,16 @@ MESSAGES = {
         'Satte {2} Spieler:innen: {1}.',
     ],
     'players_many_other_COMMENT': '{0} ist der Name des Fragenden, {1} ist die Komma-verbundene Liste der Vornamen der Spieler, {2} ist die Anzahl Spieler:innen.',
+    'kick_argument_no_chosen_COMMENT': '{0} ist der Name des Fragenden, {1} ist das gegebene (und abgelehnte) Argument',
+    'kick_argument_no_chosen': [
+        'Sorry {0}, aber mit dem Kommando kann man nur die aktuelle Person kicken, darum werde ich {1} nicht rauswerfen. Im Moment ist niemand dran, darum ist /kick garnicht nötig. Mach einfach mit /random oder so weiter.',
+        'Nee, {1} hat es nicht verdient zu fliegen, {0}! Da gerade niemand dran ist, kannst du einfach mit /random weitermachen.',
+    ],
+    'kick_argument_COMMENT': '{0} ist der Name des Fragenden, {1} ist das gegebene (und abgelehnte) Argument, {2} ist der Spieler der fliegen würde.',
+    'kick_argument': [
+        'Sorry {0}, aber mit dem Kommando kann man nur die aktuelle Person kicken, darum werde ich {1} nicht rauswerfen. Im Moment ist {2} dran; wenn diese Person übersprungen werden soll, scheib einfach nur /kick.',
+        'Nee, {1} hat es nicht verdient zu fliegen, {0}! {2} ist gerade dran; wenn diese:r Spieler:in übersprungen werden soll, mach /kick ohne Argumente.',
+    ],
     'kick_nonplayer': [
         'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
         'Nur Menschen die mitspielen dürfen andere Mitspielende hier treten. Mit /join kannst du mitspielen!',

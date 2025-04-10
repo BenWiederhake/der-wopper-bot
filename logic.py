@@ -250,6 +250,12 @@ def compute_who(game, argument, sender_firstname, sender_username):
 
 
 def compute_kick(game, argument, sender_firstname, sender_username):
+    if argument != "":
+        if game.last_chosen is None:
+            return ('kick_argument_no_chosen', sender_firstname, argument)
+        else:
+            return ('kick_argument', sender_firstname, argument, game.last_chosen[1])
+
     if sender_username not in game.joined_users:
         return ('kick_nonplayer', sender_firstname)
 

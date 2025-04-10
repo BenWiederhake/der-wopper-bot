@@ -1283,6 +1283,29 @@ class TestSequences(unittest.TestCase):
             (('leave', '', 'fina2', 'usna2'), ('already_left', 'fina2')),
         ])
 
+    def test_kick_argument_no_chosen(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('kick', 'whatever', 'fina1', 'usna1'), ('kick_argument_no_chosen', 'fina1', 'whatever')),
+        ])
+
+    def test_kick_argument(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', 'whatever', 'fina1', 'usna1'), ('kick_argument', 'fina1', 'whatever', 'fina2')),
+        ])
+
+    def test_kick_argument_self(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
+            (('kick', 'whatever', 'fina2', 'usna2'), ('kick_argument', 'fina2', 'whatever', 'fina2')),
+        ])
+
     def test_choose_nonplayer(self):
         self.check_sequence([
             (('choose', 'asdf', 'fina', 'usna'), ('nonplayer', 'fina')),
