@@ -45,11 +45,11 @@ def message(msg_id):
     return secrets.choice(msg.MESSAGES[msg_id])
 
 
-def cmd_admin(update: Update, _context: CallbackContext) -> None:
+async def cmd_admin(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
-    update.effective_message.reply_text(
+    await update.effective_message.reply_text(
         'The admin can do:'
         '\n/admin → show admin commands'
         '\n/show_state → show *all* internal state'
@@ -61,14 +61,14 @@ def cmd_admin(update: Update, _context: CallbackContext) -> None:
     )
 
 
-def cmd_show_state(update: Update, _context: CallbackContext) -> None:
+async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
     update.effective_message.reply_text(str(ONGOING_GAMES))
 
 
-def cmd_resetall(update: Update, _context: CallbackContext) -> None:
+async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -77,10 +77,10 @@ def cmd_resetall(update: Update, _context: CallbackContext) -> None:
     for key in ONGOING_GAMES.keys():
         ONGOING_GAMES[key] = logic.OngoingGame()
     save_ongoing_games()
-    update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(ONGOING_GAMES.keys())} erlaubte Räume blieben erhalten.)')
+    await update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(ONGOING_GAMES.keys())} erlaubte Räume blieben erhalten.)')
 
 
-def cmd_resethere(update: Update, _context: CallbackContext) -> None:
+async def cmd_resethere(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -89,26 +89,26 @@ def cmd_resethere(update: Update, _context: CallbackContext) -> None:
     if update.effective_chat.id in ONGOING_GAMES.keys():
         ONGOING_GAMES[update.effective_chat.id] = logic.OngoingGame()
         save_ongoing_games()
-        update.effective_message.reply_text('Spiel in diesem Raum zurückgesetzt. Spieler müssen erneut /join-en.')
+        await update.effective_message.reply_text('Spiel in diesem Raum zurückgesetzt. Spieler müssen erneut /join-en.')
     else:
-        update.effective_message.reply_text('In diesem Raum sind noch keine Spiele erlaubt. Meintest du /permit?')
+        await update.effective_message.reply_text('In diesem Raum sind noch keine Spiele erlaubt. Meintest du /permit?')
 
 
-def cmd_permit(update: Update, _context: CallbackContext) -> None:
+async def cmd_permit(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
         return
 
     if update.effective_chat.id in ONGOING_GAMES.keys():
-        update.effective_message.reply_text('In diesem Raum kann man mit mir bereits Spiele spielen. Vielleicht meintest du /reset, /start, oder /join?')
+        await update.effective_message.reply_text('In diesem Raum kann man mit mir bereits Spiele spielen. Vielleicht meintest du /reset, /start, oder /join?')
     else:
         ONGOING_GAMES[update.effective_chat.id] = logic.OngoingGame()
         save_ongoing_games()
-        update.effective_message.reply_text('In diesem Raum kann man nun Wahrheit oder Pflicht mit meiner Hilfe spielen. Probier doch mal /start oder /join! :)')
+        await update.effective_message.reply_text('In diesem Raum kann man nun Wahrheit oder Pflicht mit meiner Hilfe spielen. Probier doch mal /start oder /join! :)')
 
 
-def cmd_deny(update: Update, _context: CallbackContext) -> None:
+async def cmd_deny(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -117,12 +117,12 @@ def cmd_deny(update: Update, _context: CallbackContext) -> None:
     if update.effective_chat.id in ONGOING_GAMES.keys():
         del ONGOING_GAMES[update.effective_chat.id]
         save_ongoing_games()
-        update.effective_message.reply_text('Spiel gelöscht.')
+        await update.effective_message.reply_text('Spiel gelöscht.')
     else:
-        update.effective_message.reply_text('Spiel ist bereits gelöscht(?)')
+        await update.effective_message.reply_text('Spiel ist bereits gelöscht(?)')
 
 
-def cmd_denyall(update: Update, _context: CallbackContext) -> None:
+async def cmd_denyall(update: Update, _context: CallbackContext) -> None:
     global ONGOING_GAMES
 
     if update.effective_user.username != secret.OWNER:
@@ -131,11 +131,11 @@ def cmd_denyall(update: Update, _context: CallbackContext) -> None:
     count = len(ONGOING_GAMES)
     ONGOING_GAMES = dict()
     save_ongoing_games()
-    update.effective_message.reply_text(f'Alle {count} Spiele gelöscht.')
+    await update.effective_message.reply_text(f'Alle {count} Spiele gelöscht.')
 
 
-def cmd_start(update: Update, _context: CallbackContext) -> None:
-    update.effective_message.reply_text(
+async def cmd_start(update: Update, _context: CallbackContext) -> None:
+    await update.effective_message.reply_text(
         f'Hi {update.effective_user.first_name}!'
         f'\n/join → an der Runde teilnehmen'
         f'\n/leave → Runde verlassen (keine Angst, du bleibst im Chat)'
@@ -172,18 +172,18 @@ def cmd_start(update: Update, _context: CallbackContext) -> None:
 
 
 def cmd_random_reply(command):
-    def cmd_handler(update: Update, _context: CallbackContext):
+    async def cmd_handler(update: Update, _context: CallbackContext):
         ongoing_game = ONGOING_GAMES.get(update.effective_chat.id)
         if ongoing_game is None:
             return  # No interactions permitted
-        update.effective_message.reply_text(
+        await update.effective_message.reply_text(
             message(command).format(update.effective_user.first_name, update.effective_user.username, secret.MESSAGES_SHEET)
         )
     return cmd_handler
 
 
 def cmd_for(command):
-    def cmd_handler(update: Update, _context: CallbackContext):
+    async def cmd_handler(update: Update, _context: CallbackContext):
         if update.message is None or update.message.text is None:
             return  # Don't consider Updates that don't stem from a text message.
         text = update.message.text.split(' ', 1)
@@ -196,7 +196,7 @@ def cmd_for(command):
         save_ongoing_games()
         if maybe_response is None:
             return  # Don't respond at all
-        update.effective_message.reply_text(
+        await update.effective_message.reply_text(
             message(maybe_response[0]).format(*maybe_response[1:])
         )
     return cmd_handler
