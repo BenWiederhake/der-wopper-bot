@@ -75,6 +75,7 @@ class OngoingGame:
             last_chooser=self.last_chooser,
             last_chosen=self.last_chosen,
             last_wop=self.last_wop,
+            last_reason=self.last_reason,
             init_datetime=self.init_datetime.timestamp(),
             track_overall=self.track_overall.to_dict(),
             track_individual={u: t.to_dict() for u, t in self.track_individual.items()},
@@ -96,6 +97,7 @@ class OngoingGame:
         g.last_chooser = d['last_chooser']
         g.last_chosen = d['last_chosen']
         g.last_wop = d['last_wop']
+        g.last_reason = d.get("last_reason") or "dunno"
         g.init_datetime = datetime.datetime.fromtimestamp(d['init_datetime'])
         return g
 

@@ -71,6 +71,26 @@ class TestMigration(unittest.TestCase):
                 }
             })
 
+    def test_nonempty_v2(self):
+        self.check_dict({
+            'joined_users': {
+                'usna1': 'fina1',
+                'usna2': 'fina2',
+                'usna3': 'fina3',
+                },
+            'last_chooser': 'usna1',
+            'last_chosen': 'usna2',
+            'last_wop': 'p',
+            'last_reason': 'Some reason-string here',
+            'init_datetime': 1234,
+            'track_overall': { 'g': 1, 'lc': {'usna1': -2, 'usna2': -2, 'usna3': -2} },
+            'track_individual': {
+                'usna1': {'g': 1, 'lc': {'usna2': -2, 'usna3': -2}},
+                'usna2': {'g': 1, 'lc': {'usna1': -2, 'usna3': -2}},
+                'usna3': {'g': 1, 'lc': {'usna1': -2, 'usna2': -2}},
+                }
+            })
+
 
 class RandomReplyTests(unittest.TestCase):
     def test(self):
