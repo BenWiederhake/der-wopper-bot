@@ -179,6 +179,22 @@ def compute_whytho(game, argument, sender_firstname, sender_username):
     return ('debug1', game.last_reason)
 
 
+def percent(fraction):
+    if fraction >= 0.05:
+        return f"{fraction:.0%}"
+    elif fraction >= 0.01:
+        return f"{fraction:.1%}"
+    elif fraction >= 0.0001:
+        return f"{fraction:.2%}"
+    else:
+        return f"<0.01%, holy shit!"
+
+
+def nicely_format_random(weight_tuples):
+    total_weight = sum(weight for (_, weight) in weight_tuples)
+    return "\n".join(f"- {name}: {weight} Los{'e' if weight > 1 else ''} (also {percent(weight / total_weight)})" for name, weight in weight_tuples)
+
+
 def compute_random(game, argument, sender_firstname, sender_username):
     why_not = game.check_can_choose_player(sender_firstname, sender_username)
     if why_not:
@@ -193,7 +209,7 @@ def compute_random(game, argument, sender_firstname, sender_username):
     chosen_username = game.rng.choices(*zip(*weight_tuples))[0]
     chosen_firstname = game.joined_users[chosen_username]  # This is unfortunate
 
-    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, f'random{weight_tuples}')
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, "random:\n" + nicely_format_random(weight_tuples))
     return ('random_chosen', chosen_username)
 
 

@@ -442,19 +442,19 @@ class TestSequences(unittest.TestCase):
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 18), ('usna2', 18)]")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),  # Relies on seeded RNG
             (('do_w', '', 'fina3', 'usna3'), ('dox_w', 'fina3', 'usna1')),
-            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18), ('usna3', 18)]")),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 18 Lose (also 50%)\n- usna3: 18 Lose (also 50%)")),
             (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 32), ('usna3', 0)]")),
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 25), ('usna3', 9)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 25), ('usna2', 25)]")),  # <- The important one
             (('random', '', 'fina3', 'usna3'), ('random_chosen', 'usna2')),  # Relies on seeded RNG
             (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna3')),
-            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random[('usna1', 25), ('usna2', 25)]")),
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random:\n- usna1: 25 Lose (also 50%)\n- usna2: 25 Lose (also 50%)")),
             (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 16), ('usna3', 1)]")),
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 34), ('usna3', 10)]")),  # <- The important one
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 41), ('usna2', 0)]")),
             (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),  # Relies on seeded RNG
             (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
-            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random[('usna3', 10), ('usna1', 34)]")),
+            (('whytho', '', 'fina2', 'usna2'), ('debug1', "random:\n- usna3: 10 Lose (also 23%)\n- usna1: 34 Lose (also 77%)")),
             (('show_random', '', 'fina1', 'usna1'), ('debug1', "[('usna2', 17), ('usna3', 4)]")),  # <- The important one
             (('show_random', '', 'fina2', 'usna2'), ('debug1', "[('usna1', 0), ('usna3', 20)]")),
             (('show_random', '', 'fina3', 'usna3'), ('debug1', "[('usna1', 16), ('usna2', 1)]")),
@@ -800,12 +800,215 @@ class TestSequences(unittest.TestCase):
             (('whytho', '', 'fina2', 'usna2'), ('debug1', "dunno")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
-            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18)]")),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 18 Lose (also 100%)")),
             (('true_random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
             (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
             (('whytho', '', 'fina1', 'usna1'), ('debug1', "true_random['fina1']")),
             (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
             (('whytho', '', 'fina1', 'usna1'), ('debug1', "choose")),
+        ])
+
+    def test_whytho_lowprob_1choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna1: 25 Lose (also 50%)\n- usna3: 25 Lose (also 50%)")),  # 50%
+        ])
+
+    def test_whytho_lowprob_2choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 1 Los (also 2.4%)\n- usna3: 41 Lose (also 98%)")),  # 2.38%
+        ])
+
+    def test_whytho_lowprob_3choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna1: 1 Los (also 1.9%)\n- usna3: 52 Lose (also 98%)")),  # 1.887%
+        ])
+
+    def test_whytho_lowprob_4choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 1 Los (also 1.3%)\n- usna3: 74 Lose (also 99%)")),  # 1.333%
+        ])
+
+    def test_whytho_lowprob_5choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna1: 1 Los (also 1.1%)\n- usna3: 89 Lose (also 99%)")),  # 1.111%
+        ])
+
+    def test_whytho_lowprob_6choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 1 Los (also 0.85%)\n- usna3: 117 Lose (also 99%)")),  # 0.8475%
+        ])
+
+    def test_whytho_lowprob_7choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna1: 1 Los (also 0.73%)\n- usna3: 136 Lose (also 99%)")),  # 0.72993%
+        ])
+
+    def test_whytho_lowprob_8choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 1 Los (also 0.58%)\n- usna3: 170 Lose (also 99%)")),  # 0.5848%
+        ])
+
+    def test_whytho_lowprob_9choose(self):
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+            (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+            (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+            (('random', '', 'fina2', 'usna2'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna1: 1 Los (also 0.52%)\n- usna3: 193 Lose (also 99%)")),  # 0.51546%
+        ])
+
+    def test_whytho_lowprob_60choose(self):
+        # In order to get close to 0.1%, have to repeat a surprisingly high number of iterations:
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            *(
+                (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+                (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+                (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+                (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            ) * 30,
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 1 Los (also 0.02%)\n- usna3: 5058 Lose (also 100%)")),  # 0.019767%
+        ])
+
+    def test_whytho_lowprob_86choose(self):
+        # In order to go below 0.01%, have to repeat a surprisingly high number of iterations:
+        self.check_sequence([
+            (('join', '', 'fina1', 'usna1'), ('welcome', 'fina1')),
+            (('join', '', 'fina2', 'usna2'), ('welcome', 'fina2')),
+            (('join', '', 'fina3', 'usna3'), ('welcome', 'fina3')),
+            *(
+                (('choose', 'usna2', 'fina1', 'usna1'), ('chosen_chosen', 'usna2', 'fina1')),
+                (('do_w', '', 'fina2', 'usna2'), ('dox_w', 'fina2', 'usna1')),
+                (('choose', 'usna1', 'fina2', 'usna2'), ('chosen_chosen', 'usna1', 'fina2')),
+                (('do_w', '', 'fina1', 'usna1'), ('dox_w', 'fina1', 'usna2')),
+            ) * 43,
+            (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna3')),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 1 Los (also <0.01%, holy shit!)\n- usna3: 10037 Lose (also 100%)")),  # 0.0099621%
         ])
 
     def test_idc_whytho(self):
@@ -817,7 +1020,7 @@ class TestSequences(unittest.TestCase):
             (('whytho', '', 'fina2', 'usna2'), ('debug1', "dunno")),
             (('random', '', 'fina1', 'usna1'), ('random_chosen', 'usna2')),
             (('do_idc', '', 'fina2', 'usna2'), ('do_idc_p', 'fina2', 'usna1')),  # Relies on seeded RNG
-            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random[('usna2', 18)]")),
+            (('whytho', '', 'fina1', 'usna1'), ('debug1', "random:\n- usna2: 18 Lose (also 100%)")),
             (('true_random', '', 'fina2', 'usna2'), ('random_chosen', 'usna1')),
             (('do_idc', '', 'fina1', 'usna1'), ('do_idc_p', 'fina1', 'usna2')),  # Relies on seeded RNG
             (('whytho', '', 'fina1', 'usna1'), ('debug1', "true_random['fina1']")),
