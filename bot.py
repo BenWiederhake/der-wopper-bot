@@ -65,7 +65,7 @@ async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
-    update.effective_message.reply_text(str(ONGOING_GAMES))
+    await update.effective_message.reply_text(str(ONGOING_GAMES))
 
 
 async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
