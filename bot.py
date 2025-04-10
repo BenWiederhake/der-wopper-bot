@@ -8,8 +8,8 @@ import os
 import secret  # See secret_template.py
 import secrets
 import sys
-from telegram import Chat, ChatMember, ChatMemberUpdated, Update
-from telegram.ext import CallbackContext, ChatMemberHandler, CommandHandler, Updater
+from telegram import Chat, Update
+from telegram.ext import Application, CallbackContext, CommandHandler
 
 import logic
 import msg
@@ -205,58 +205,50 @@ def cmd_for(command):
 def run():
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # OPTIONAL: set higher logging level for httpx to avoid all GET and POST requests being logged
+    # logging.getLogger("httpx").setLevel(logging.WARNING)
     logger.info("Alive")
 
     load_ongoing_games()
 
-    # Create the Updater and pass it your bot's token.
-    updater = Updater(secret.TOKEN)
+    # Create the Application and pass it your bot's token.
+    application = Application.builder().token(secret.TOKEN).build()
 
-    # Get the dispatcher to register handlers
-    dispatcher = updater.dispatcher
+    application.add_handler(CommandHandler("admin", cmd_admin))
+    application.add_handler(CommandHandler("show_state", cmd_show_state))
+    application.add_handler(CommandHandler("resetall", cmd_resetall))
+    application.add_handler(CommandHandler("resethere", cmd_resethere))
+    application.add_handler(CommandHandler("permit", cmd_permit))
+    application.add_handler(CommandHandler("deny", cmd_deny))
+    application.add_handler(CommandHandler("denyall", cmd_denyall))
 
-    dispatcher.add_handler(CommandHandler("admin", cmd_admin))
-    dispatcher.add_handler(CommandHandler("show_state", cmd_show_state))
-    dispatcher.add_handler(CommandHandler("resetall", cmd_resetall))
-    dispatcher.add_handler(CommandHandler("resethere", cmd_resethere))
-    dispatcher.add_handler(CommandHandler("permit", cmd_permit))
-    dispatcher.add_handler(CommandHandler("deny", cmd_deny))
-    dispatcher.add_handler(CommandHandler("denyall", cmd_denyall))
-
-    dispatcher.add_handler(CommandHandler("start", cmd_start))
-    dispatcher.add_handler(CommandHandler("help", cmd_start))
-    dispatcher.add_handler(CommandHandler("join", cmd_for('join')))
-    dispatcher.add_handler(CommandHandler("leave", cmd_for('leave')))
-    dispatcher.add_handler(CommandHandler("show_random", cmd_for('show_random')))
-    dispatcher.add_handler(CommandHandler("random", cmd_for('random')))
-    dispatcher.add_handler(CommandHandler("true_random", cmd_for('true_random')))
-    dispatcher.add_handler(CommandHandler("wop", cmd_for('wop')))
-    dispatcher.add_handler(CommandHandler("who", cmd_for('who')))
-    dispatcher.add_handler(CommandHandler("kick", cmd_for('kick')))
-    dispatcher.add_handler(CommandHandler("do_w", cmd_for('do_w')))
-    dispatcher.add_handler(CommandHandler("do_p", cmd_for('do_p')))
-    dispatcher.add_handler(CommandHandler("do_idc", cmd_for('do_idc')))
-    dispatcher.add_handler(CommandHandler("chicken", cmd_for('chicken')))
-    dispatcher.add_handler(CommandHandler("nope", cmd_for('chicken')))
-    dispatcher.add_handler(CommandHandler("choose", cmd_for('choose')))
-    dispatcher.add_handler(CommandHandler("whytho", cmd_for('whytho')))
-    dispatcher.add_handler(CommandHandler("uptime", cmd_for('uptime')))
-    dispatcher.add_handler(CommandHandler("players", cmd_for('players')))
-    dispatcher.add_handler(CommandHandler("unknown_command", cmd_for('unknown_command')))  # By popular opinion
+    application.add_handler(CommandHandler("start", cmd_start))
+    application.add_handler(CommandHandler("help", cmd_start))
+    application.add_handler(CommandHandler("join", cmd_for('join')))
+    application.add_handler(CommandHandler("leave", cmd_for('leave')))
+    application.add_handler(CommandHandler("show_random", cmd_for('show_random')))
+    application.add_handler(CommandHandler("random", cmd_for('random')))
+    application.add_handler(CommandHandler("true_random", cmd_for('true_random')))
+    application.add_handler(CommandHandler("wop", cmd_for('wop')))
+    application.add_handler(CommandHandler("who", cmd_for('who')))
+    application.add_handler(CommandHandler("kick", cmd_for('kick')))
+    application.add_handler(CommandHandler("do_w", cmd_for('do_w')))
+    application.add_handler(CommandHandler("do_p", cmd_for('do_p')))
+    application.add_handler(CommandHandler("do_idc", cmd_for('do_idc')))
+    application.add_handler(CommandHandler("chicken", cmd_for('chicken')))
+    application.add_handler(CommandHandler("nope", cmd_for('chicken')))
+    application.add_handler(CommandHandler("choose", cmd_for('choose')))
+    application.add_handler(CommandHandler("whytho", cmd_for('whytho')))
+    application.add_handler(CommandHandler("uptime", cmd_for('uptime')))
+    application.add_handler(CommandHandler("players", cmd_for('players')))
+    application.add_handler(CommandHandler("unknown_command", cmd_for('unknown_command')))  # By popular opinion
 
     for cmd_name in msg.RANDOM_REPLY:
-        dispatcher.add_handler(CommandHandler(cmd_name, cmd_random_reply(cmd_name)))
+        application.add_handler(CommandHandler(cmd_name, cmd_random_reply(cmd_name)))
 
-    # Start the Bot
-    # We pass 'allowed_updates' handle *all* updates including `chat_member` updates
-    # To reset this, simply pass `allowed_updates=[]`
-    updater.start_polling(allowed_updates=Update.ALL_TYPES)
-
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
+    # Run the bot until the user presses Ctrl-C
     logger.info("Begin idle loop")
-    updater.idle()
+    application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
 if __name__ == '__main__':
