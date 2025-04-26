@@ -45,15 +45,18 @@ def save_ongoing_games():
 
 
 def message(msg_id, chat_id):
-    global MESSAGE_INDICES
-    cache_key = (msg_id, chat_id)
     phrasebook = msg.MESSAGES[msg_id]
-    old_index = MESSAGE_INDICES.get(cache_key, None)
-    if old_index is None:
-        old_index = secrets.randbelow(len(phrasebook))
-    index = old_index + 1 + (0 == secrets.randbelow(4))
-    index %= len(phrasebook)
-    MESSAGE_INDICES[cache_key] = index
+    if len(phrasebook) == 1:
+        index = 0
+    else:
+        global MESSAGE_INDICES
+        cache_key = (msg_id, chat_id)
+        old_index = MESSAGE_INDICES.get(cache_key, None)
+        if old_index is None:
+            old_index = secrets.randbelow(len(phrasebook))
+        index = old_index + 1 + (0 == secrets.randbelow(4))
+        index %= len(phrasebook)
+        MESSAGE_INDICES[cache_key] = index
     return phrasebook[index]
 
 
