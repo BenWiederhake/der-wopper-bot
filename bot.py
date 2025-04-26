@@ -81,7 +81,11 @@ async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
         displayable_indices[k_str][k_id] = v
     displayable_games = {k: v.to_dict() for k, v in ONGOING_GAMES.items()}
     state_json_bytes = json.dumps([displayable_indices, displayable_games], separators=",:").encode()
-    await update.effective_message.reply_document(state_json_bytes, caption=f"{len(displayable_games)} games, {len(MESSAGE_INDICES)} counters")
+    await update.effective_message.reply_document(
+        state_json_bytes,
+        filename="state_wopperbot.json",
+        caption=f"{len(displayable_games)} games, {len(MESSAGE_INDICES)} counters",
+    )
 
 
 async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
