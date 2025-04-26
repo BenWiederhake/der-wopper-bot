@@ -189,7 +189,7 @@ def percent(fraction):
     elif fraction >= 0.0001:
         return f"{fraction:.2%}"
     else:
-        return f"<0.01%, holy shit!"
+        return "<0.01%, holy shit!"
 
 
 def nicely_format_random(weight_tuples):
@@ -325,7 +325,7 @@ def compute_choose(game, argument, sender_firstname, sender_username):
     if chosen_username == sender_username:
         return ('chosen_self', sender_firstname)
 
-    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, f'choose')
+    game.notify_chosen(sender_username, sender_firstname, chosen_username, chosen_firstname, "choose")
     return ('chosen_chosen', chosen_username, sender_firstname)
 
 

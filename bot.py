@@ -8,7 +8,7 @@ import os
 import secret  # See secret_template.py
 import secrets
 import sys
-from telegram import Chat, Update
+from telegram import Update
 from telegram.ext import Application, CallbackContext, CommandHandler
 
 import logic
@@ -88,7 +88,7 @@ async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
     for key in ONGOING_GAMES.keys():
         ONGOING_GAMES[key] = logic.OngoingGame()
     save_ongoing_games()
-    await update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(ONGOING_GAMES.keys())} erlaubte Räume blieben erhalten.)')
+    await update.effective_message.reply_text(f'Alle Spiele zurückgesetzt. ({len(ONGOING_GAMES)} erlaubte Räume blieben erhalten.)')
 
 
 async def cmd_resethere(update: Update, _context: CallbackContext) -> None:
