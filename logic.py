@@ -14,6 +14,8 @@ WOP_TO_WOP = {
 
 DATETIME_FORMAT = '%Y-%m-%d %T'
 
+REBOOT_TIME = datetime.datetime.now()
+
 
 class OngoingGame:
     def __init__(self, seed=None):
@@ -295,7 +297,7 @@ def compute_players(game, argument, sender_firstname, sender_username):
 
 
 def compute_uptime(game, argument, sender_firstname, sender_username):
-    return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.now().strftime(DATETIME_FORMAT))
+    return ('uptime', game.init_datetime.strftime(DATETIME_FORMAT), datetime.datetime.now().strftime(DATETIME_FORMAT), REBOOT_TIME.strftime(DATETIME_FORMAT))
 
 
 def compute_choose(game, argument, sender_firstname, sender_username):

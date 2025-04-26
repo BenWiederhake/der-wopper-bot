@@ -212,7 +212,7 @@ MESSAGES = {
         'Ich werde dich vermissen @{1}! Jetzt bist du nicht mehr dabei. :\'( Du kannst gerne wieder /join-en!',
     ],
     'uptime': [
-        'Der Bot war hier das erste Mal {0} aktiv. Jetzt ist es {1}.',
+        'Der Bot war hier das erste Mal {0} aktiv, und wurde zuletzt {2} neu gestartet. Jetzt ist es {1}.',
     ],
     'chosen_empty': [
         'Und wen, {0}? Der /choose-Befehl braucht ein Argument, z.B. @{1} (nur halt … jemand Anderes).',
