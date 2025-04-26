@@ -1,1 +1,16 @@
+# This is not a script
+exit 42
+
+# Run
 ./bot.py 2>&1 | tee the_wopper_$(date +%s).log
+
+# Testing and linting
+./bot.py --dry-run
+pyflakes3 *.py
+
+# import messages
+# Note, this reads from msg.py during start-up, so you can't just '> msg.py'
+xclip -selection clipboard -o | ./msg_import.py > foo.py && mv foo.py msg.py
+# Compare 'chicken' messages:
+diff -su msg.py secret.py
+# Don't forget to remove duplicate 'chicken' sections from msg.py before uploading!

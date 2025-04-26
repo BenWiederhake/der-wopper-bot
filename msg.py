@@ -48,6 +48,7 @@ MESSAGES = {
         'Es war mir eine Ehre!',
         'Bis zum nächsten Mal :D',
         'Komm gerne wieder <3',
+        '{0} macht einen strategischen Rückzug.',
     ],
     'leave_COMMENT': '{0} ist der Vorname der angesprochenen Person',
     'leave_chooser_dunno': [
@@ -179,16 +180,16 @@ MESSAGES = {
         'Satte {2} Spieler:innen: {1}.',
     ],
     'players_many_other_COMMENT': '{0} ist der Name des Fragenden, {1} ist die Komma-verbundene Liste der Vornamen der Spieler, {2} ist die Anzahl Spieler:innen.',
-    'kick_argument_no_chosen_COMMENT': '{0} ist der Name des Fragenden, {1} ist das gegebene (und abgelehnte) Argument',
     'kick_argument_no_chosen': [
         'Sorry {0}, aber mit dem Kommando kann man nur die aktuelle Person kicken, darum werde ich {1} nicht rauswerfen. Im Moment ist niemand dran, darum ist /kick garnicht nötig. Mach einfach mit /random oder so weiter.',
         'Nee, {1} hat es nicht verdient zu fliegen, {0}! Da gerade niemand dran ist, kannst du einfach mit /random weitermachen.',
     ],
-    'kick_argument_COMMENT': '{0} ist der Name des Fragenden, {1} ist das gegebene (und abgelehnte) Argument, {2} ist der Spieler der fliegen würde.',
+    'kick_argument_no_chosen_COMMENT': '{0} ist der Name des Fragenden, {1} ist das gegebene (und abgelehnte) Argument',
     'kick_argument': [
         'Sorry {0}, aber mit dem Kommando kann man nur die aktuelle Person kicken, darum werde ich {1} nicht rauswerfen. Im Moment ist {2} dran; wenn diese Person übersprungen werden soll, scheib einfach nur /kick.',
         'Nee, {1} hat es nicht verdient zu fliegen, {0}! {2} ist gerade dran; wenn diese:r Spieler:in übersprungen werden soll, mach /kick ohne Argumente.',
     ],
+    'kick_argument_COMMENT': '{0} ist der Name des Fragenden, {1} ist das gegebene (und abgelehnte) Argument, {2} ist der Spieler der fliegen würde.',
     'kick_nonplayer': [
         'Sorry {0}, aber du spielst nicht mit, also darfst du nicht Andere rauswerfen. Probier doch mal /join.',
         'Nur Menschen die mitspielen dürfen andere Mitspielende hier treten. Mit /join kannst du mitspielen!',
@@ -257,6 +258,7 @@ MESSAGES = {
         '{0} ist es scheißegal. @{1}, du hast die Wahl der Qual! Wie wär\'s mit einer "Wahrheit"-Frage? (Oder doch lieber eine Pflicht stellen?)',
         'Wenn es {0} egal ist, dann schlage ich "Wahrheit" vor. @{1}, was ist deine Frage? (Oder vielleicht doch eine Pflicht?)',
         'Tja, wenn\'s {0} egal ist, dann sage ich mal: Wahrheit! Also los @{1}, stell eine Frage :)',
+        '{0} ist wagemutig, nutze die Gelegenheit! Entweder mit einer schweren Frage oder Aufgabe.',
     ],
     'do_idc_w_COMMENT': '{0} ist der Vorname der Person die eine Aufgabe erledigen muss, {1} der @username der Person die eine Frage stellt oder Pflicht vergibt.',
     'do_idc_p': [
