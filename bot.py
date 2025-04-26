@@ -21,6 +21,8 @@ PERMANENCE_FILENAME = 'wopper_data.json'
 
 ONGOING_GAMES = dict()
 
+MESSAGE_INDICES = dict()
+
 
 def load_ongoing_games():
     global ONGOING_GAMES
@@ -41,8 +43,17 @@ def save_ongoing_games():
     logger.info(f'Wrote {len(ONGOING_GAMES)} to {PERMANENCE_FILENAME}.')
 
 
-def message(msg_id):
-    return secrets.choice(msg.MESSAGES[msg_id])
+def message(msg_id, chat_id):
+    global MESSAGE_INDICES
+    cache_key = (msg_id, chat_id)
+    phrasebook = msg.MESSAGES[msg_id]
+    old_index = MESSAGE_INDICES.get(cache_key, None)
+    if old_index is None:
+        old_index = secrets.randbelow(len(phrasebook))
+    index = old_index + 1 + (0 == secrets.randbelow(4))
+    index %= len(phrasebook)
+    MESSAGE_INDICES[cache_key] = index
+    return phrasebook[index]
 
 
 async def cmd_admin(update: Update, _context: CallbackContext) -> None:
@@ -65,7 +76,7 @@ async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
 
-    await update.effective_message.reply_text(str(ONGOING_GAMES))
+    await update.effective_message.reply_text(json.dumps([MESSAGE_INDICES, ONGOING_GAMES], separators=",:"))
 
 
 async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
@@ -177,7 +188,7 @@ def cmd_random_reply(command):
         if ongoing_game is None:
             return  # No interactions permitted
         await update.effective_message.reply_text(
-            message(command).format(update.effective_user.first_name, update.effective_user.username, secret.MESSAGES_SHEET)
+            message(command, update.effective_chat.id).format(update.effective_user.first_name, update.effective_user.username, secret.MESSAGES_SHEET)
         )
     return cmd_handler
 
@@ -197,7 +208,7 @@ def cmd_for(command):
         if maybe_response is None:
             return  # Don't respond at all
         await update.effective_message.reply_text(
-            message(maybe_response[0]).format(*maybe_response[1:])
+            message(maybe_response[0], update.effective_chat.id).format(*maybe_response[1:])
         )
     return cmd_handler
 
