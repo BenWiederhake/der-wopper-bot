@@ -2,6 +2,7 @@
 # Heavily inspired by chatmemberbot.py in the examples folder.
 
 from atomicwrites import atomic_write
+from collections import defaultdict
 import json
 import logging
 import os
@@ -75,8 +76,11 @@ async def cmd_admin(update: Update, _context: CallbackContext) -> None:
 async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
+    displayable_indices = defaultdict(dict)
+    for ((k_str, k_id), v) in MESSAGE_INDICES.items():
+        displayable_indices[k_str][k_id] = v
     displayable_games = {k: v.to_dict() for k, v in ONGOING_GAMES.items()}
-    await update.effective_message.reply_text(json.dumps([MESSAGE_INDICES, displayable_games], separators=",:"))
+    await update.effective_message.reply_text(json.dumps([displayable_indices, displayable_games], separators=",:"))
 
 
 async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
