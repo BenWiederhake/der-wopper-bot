@@ -75,8 +75,8 @@ async def cmd_admin(update: Update, _context: CallbackContext) -> None:
 async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     if update.effective_user.username != secret.OWNER:
         return
-
-    await update.effective_message.reply_text(json.dumps([MESSAGE_INDICES, ONGOING_GAMES], separators=",:"))
+    displayable_games = {k: v.to_dict() for k, v in ONGOING_GAMES.items()}
+    await update.effective_message.reply_text(json.dumps([MESSAGE_INDICES, displayable_games], separators=",:"))
 
 
 async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
