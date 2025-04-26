@@ -3,6 +3,7 @@
 
 from atomicwrites import atomic_write
 from collections import defaultdict
+import brotli
 import json
 import logging
 import os
@@ -80,7 +81,10 @@ async def cmd_show_state(update: Update, _context: CallbackContext) -> None:
     for ((k_str, k_id), v) in MESSAGE_INDICES.items():
         displayable_indices[k_str][k_id] = v
     displayable_games = {k: v.to_dict() for k, v in ONGOING_GAMES.items()}
-    await update.effective_message.reply_text(json.dumps([displayable_indices, displayable_games], separators=",:"))
+    state_str = json.dumps([displayable_indices, displayable_games], separators=",:")
+    # Even though b64 makes it longer by 33%, the endresult is usually still 50% shorter than without compression+encoding.
+    state_short_str = base64.b64encode(brotli.compress(state_str))
+    await update.effective_message.reply_text(state_short_str)
 
 
 async def cmd_resetall(update: Update, _context: CallbackContext) -> None:
