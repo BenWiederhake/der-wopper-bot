@@ -14,3 +14,7 @@ xclip -selection clipboard -o | ./msg_import.py > foo.py && mv foo.py msg.py
 # Compare 'chicken' messages:
 diff -su msg.py secret.py
 # Don't forget to remove duplicate 'chicken' sections from msg.py before uploading!
+
+# Display current round counter per-group.
+# This helps to identify groups with surprising (low or high) usage.
+jq -c 'to_entries | .[] | [.key, .value.track_overall.g]' < wopper_data.json
