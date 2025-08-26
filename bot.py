@@ -226,7 +226,7 @@ def cmd_for(command):
 
 
 def run():
-    logging.basicConfig(level=logging.DEBUG,
+    logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     # OPTIONAL: set higher logging level for httpx to avoid all GET and POST requests being logged
     # logging.getLogger("httpx").setLevel(logging.WARNING)
