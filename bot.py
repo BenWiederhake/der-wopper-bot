@@ -226,9 +226,10 @@ def cmd_for(command):
 
 
 def run():
-    logging.basicConfig(level=logging.INFO,
+    # Can't reduce logging level, need some info for health checks!
+    logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # OPTIONAL: set higher logging level for httpx to avoid all GET and POST requests being logged
+    # TODO: set higher logging level for httpx to avoid all GET and POST requests being logged?
     # logging.getLogger("httpx").setLevel(logging.WARNING)
     logger.info("Alive")
 
