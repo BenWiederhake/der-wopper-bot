@@ -3,3 +3,4 @@ secret.py
 wopper_data.json
 .venv/
 the_wopper_*.log
+the_wopper_*.log.lz4
